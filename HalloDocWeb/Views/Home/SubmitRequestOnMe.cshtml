@@ -1,0 +1,236 @@
+﻿@model Userdata
+@{
+    ViewData["Title"] = "SubmitRequestOnMe Page";
+}
+<header id="hearder" class="shadow bg-white w-100 top-0">
+    <div class="row mx-0">
+        <div class="col mx-0">
+            <img src="~/OneDrive_2024-01-17/SRS Screen Shorts/backremovelogo.png" alt="" height="100px" width="180">
+        </div>
+    </div>
+    <div class="col setmoon">
+        <div class="row">
+            <div class="col text-end  ">
+                <button class="moonbtn backtra">
+                    <i class="fa-solid fa-moon  "></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container text-end mt-3">
+    <a class="text-start text-info text-decoration-none " asp-controller="Home" asp-action="patientdashboard">
+        <button class="btn btn-white  text-info border-info rounded ">
+            <i class="fa-solid  fa-less-than"></i> Back
+        </button>
+    </a>
+</div>
+
+<!--Location Modal -->
+  
+<div class="modal" id="myModal1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <section>
+                <div class="mapouter">
+                    <div class="gmap_canvas">
+                        <iframe width="600" height="500" id="gmap_canvas" src="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+                            <!-- </iframe><a href="https://123movies-to.org">123 movies</a><br> -->
+                            <style>
+                                .mapouter {
+                                    position: relative;
+                                    text-align: right;
+                                    height: 500px;
+                                    width: 600px;
+                                }</style>
+                            <!-- <a href="https://www.embedgooglemap.net">embedgooglemap.net</a> -->
+                            <style>
+                                .gmap_canvas {
+                                    overflow: hidden;
+                                    background: none !important;
+                                    height: 500px;
+                                    width: 600px;
+                                }
+                            </style>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<form method="post" asp-action="SubmitRequestOnMe" asp-controller="Aspnetusers" method="post" enctype="multipart/form-data">
+    <div class="container bg-white rounded mt-3">
+        <div class="row">
+            <div class="col-12 h3 mb-3 mt-3">
+                Patient Information
+            </div>
+            <div class="form-floating mb-3 text-muted">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                <label for="floatingTextarea2" class="ps-4">Enter Brief Details Of Symptoms</label>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                <input asp-for=first_name name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">First name</label>
+                <span asp-validation-for="first_name" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                <input asp-for=last_name name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">last name </label>
+                <span asp-validation-for="last_name" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                <input asp-for=dob type="date" name="dob" class="form-control" id="exampleFormControlInput1" placeholder="Date Of Birth">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Date Of Birth</label>
+                <span asp-validation-for="dob" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 h3 mb-3">
+                Patient Contact Information
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                <input name="email" type="email" class="form-control" id="email" onblur="emailExists()" placeholder="Firstname">
+                <label for="email" class="form-label ps-4">Email</label>
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+            @* <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+            <input asp-for="Mobile" id="phone" class="form-control inp2" type="tel" placeholder="Phone Number">
+            </div> *@
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                <input asp-for=phonenumber name="phonenumber" type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Phone Number</label>
+                <span asp-validation-for="phonenumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 h3 mb-3">
+                Patient Location
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted " id="street">
+                <input asp-for=street type="text" name="street" class="form-control" id="exampleFormControlInput1" placeholder="Street">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Street</label>
+                <span asp-validation-for="street" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted" id="city">
+                <input asp-for=city type="text" name="city" class="form-control" id="exampleFormControlInput1" placeholder="City">
+                <label for="exampleFormControlInput1" class="form-label ps-4">City</label>
+                <span asp-validation-for="city" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted" id="state">
+                <input asp-for=state type="text" name="state" class="form-control" id="exampleFormControlInput1" placeholder="State">
+                <label for="exampleFormControlInput1" class="form-label ps-4">State</label>
+                <span asp-validation-for="state" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted" id="zipcode">
+                <input asp-for=zipcode type="text" name="zipcode" class="form-control" id="exampleFormControlInput1" placeholder="Zip Code">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Zip Code</label>
+                <span asp-validation-for="zipcode" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+                <input asp-for=room type="text" name="room" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Room # / (Suite Optional)</label>
+                <span asp-validation-for="room" class="text-danger"></span>
+            </div>
+            <a class="form-floating col-sm-1 ms-3" style="cursor:pointer;display: flex; align-items: center;height: 59px;width: 86px;justify-content: center;border: 1px solid #00ccff;border-radius:7px;text-decoration: none; " id="openBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff"
+                     class="bi bi-geo-alt" viewBox="0 0 16 16">
+                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                </svg>
+                <span style="color: #00ccff;margin-left: 4px;">Map</span>
+            </a>
+            @* <div class="col-sm-12 col-md-6 col-xl-6 mb-3">
+                <button class="btn btn-white border-info text-info " id="inp2"><i class="fa-solid fa-location-dot me-1"></i>Map</button>
+            </div> *@
+        </div>
+        <div class="row">
+            <div class="col h3 mb-3">
+                (Optional) Upload Photo or Document
+            </div>
+        </div>
+        <fieldset id="upload">
+            <div class="input-group mb-3">
+                <input asp-for="File" type="file" class="form-control" id="inputGroupFile02">
+                <label class="input-group-text text-muted p-0" for="inputGroupFile02">
+                    <label class="btn btn-info mx-0">
+                        <i class="fa-solid fa-cloud-arrow-up" style="color: #ffffff;"></i>
+                        Upload
+                    </label>
+                </label>
+            </div>
+        </fieldset>
+        <div class="text-end pb-3">
+            <button class="btn btn-info me-2 text-white" type="submit">Submit</button>
+            <button class="btn btn-white text-info border-info" type="reset">reset</button>
+        </div>
+    </div>
+</form>
+<footer class="text-center justify-content-center bg-black mt-2 ">
+    <div class=" text-white">Terms Of Conditions <div class="vr "></div> Privacy Policy</div>
+</footer>
+<script>
+    $(document).ready(function () {
+        $("#openBtn").click(function () {
+            $("#myModal1").modal("show");
+            var Street = $("#street").val();
+            var City = $("#city").val();
+            var State = $("#state").val();
+            var ZipCode = $("#zipcode").val();
+            var address = "https://maps.google.com/maps?q=" + Street + City + State + ZipCode + "&t=&z=13&ie=UTF8&iwloc=&output=embed";
+            $("#gmap_canvas").attr("src", address);
+        });
+    });
+    $(document).ready(function () {
+        $("#closeBtn1").click(function () {
+            $("#myModal1").modal("hide");
+        });
+    });
+
+
+    window.addEventListener('DOMContentLoaded', () => {
+        // var btn = document.querySelector('.hello');
+        // btn.click();
+
+        var modal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+        modal.show();
+    })
+    const input = document.querySelector("#phone");
+    const button = document.querySelector("#btn");
+    const errorMsg = document.querySelector("#error-msg");
+    const validMsg = document.querySelector("#valid-msg");
+
+    // here, the index maps to the error code returned from getValidationError - see readme
+    const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+    // initialise plugin
+    const iti = window.intlTelInput(input, {
+        initialCountry: "us",
+        utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
+    });
+
+    const reset = () => {
+        input.classList.remove("error");
+        errorMsg.innerHTML = "";
+        errorMsg.classList.add("hide");
+        validMsg.classList.add("hide");
+    };
+
+    // on click button: validate
+    button.addEventListener('click', () => {
+        reset();
+        if (input.value.trim()) {
+            if (iti.isValidNumber()) {
+                validMsg.classList.remove("hide");
+            } else {
+                input.classList.add("error");
+                const errorCode = iti.getValidationError();
+                errorMsg.innerHTML = errorMap[errorCode] || "Invalid number";
+                errorMsg.classList.remove("hide");
+            }
+        }
+    });
+
+    // on keyup / change flag: reset
+    input.addEventListener('change', reset);
+    input.addEventListener('keyup', reset)
+</script>

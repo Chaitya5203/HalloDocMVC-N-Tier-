@@ -1,0 +1,175 @@
+﻿
+<table class="table table-responsive caption-top mt-4 hideonmobile">
+    <thead>
+        <tr class="text-muted">
+            <th scope="col">Name</th>
+            <th scope="col">Date Of Birth</th>
+            <th scope="col">Requestor</th>
+            <th scope="col">Requested Date</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Address</th>
+            <th scope="col">Notes</th>
+            <th scope="col">Chat With</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string str = "";
+
+            @if (item.Requesttypeid == 1)
+            {
+                str = "patient text-white";
+
+            }
+            @if (item.Requesttypeid == 2)
+            {
+                str = "family text-white";
+            }
+            @if (item.Requesttypeid == 3)
+            {
+                str = "concierge text-white";
+
+            }
+            @if (item.Requesttypeid == 4)
+            {
+                str = "business text-white";
+            }
+            <tr class="@str">
+
+                <td class="font">
+                    @item.Firstname @item.Lastname
+                </td>
+
+                <td class="font">
+                    @item.Intdate / @item.Strmonth /@item.Intyear
+                </td>
+                <td class="font">
+                    Patient @item.Firstname,@item.Lastname
+                </td>
+                <td class="font">
+                    @item.Createddate
+                </td>
+                <td class="font">
+
+                    <button class="btn btn-outline-light"> @item.Phonenumber</button>
+
+                </td>
+                <td class="font">
+                    @item.Street,@item.City
+                </td>
+                <td class="font">
+                    @item.Notes
+                </td>
+                <td>
+                    <button class="btn btn-outline-light" type="button"><i class="fa-solid fa-user-doctor me-1"></i>Provider</button>
+                </td>
+                <td>
+                    <button class="btn btn-outline-light" type="button">Actions</button>
+                </td>
+
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="accordion showonmobile mt-3" id="accordionExample" style="display:none">
+    <div class="accordion-item">
+        <div class="accordion-header">
+            <div class="container-fluid accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <div class="row w-100">
+                    <div class="col-6 mb-3">
+                        Patient Name
+                    </div>
+                    <div class="col-6 mb-3">
+                        <i class="fa-solid fa-circle fa-xs me-2" style="color: #3ecc4e;"></i>patient
+                    </div>
+                    <div class="col-6">
+                        Address
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-white border-info text-info rounded-pill 2px">
+                            <small>Map Location</small>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body container-fluid">
+                <p>Date of Birth:</p>
+                <p>Email:</p>
+                <p>Patient:</p>
+                <p>Transfer</p>
+                <p>Date of Service:</p>
+                <p>Physician:</p>
+                <p>Requestor:</p>
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
+                            <small>View Notes</small>
+                        </button>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #145545;">
+                            <small>Doctors Note</small>
+                        </button>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
+                            <small>View Uploads</small>
+                        </button>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
+                            <small>Encounter</small>
+                        </button>
+                    </div>
+                    <div class="col-6 mb-3 ">
+                        <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #FFD43B;">
+                            <small>Orders</small>
+                        </button>
+
+                    </div>
+                    <div class="col-6 mb-3">
+                        <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
+                            <small>Email</small>
+                        </button>
+                    </div>
+                </div>
+                <div class="text-end d-md-flex justify-content-md-end">
+                    <span>Chat With:</span>
+                    <button class="btn btn-info  text-white me-md-2" type="button"><i class="fa-regular fa-user me-1"></i>Patient</button>
+                    <button class="btn btn-info  text-white" type="button"><i class="fa-solid fa-user-doctor me-1"></i>Provider</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Accordion Item #2
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Accordion Item #3
+            </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            </div>
+        </div>
+    </div>
+</div>

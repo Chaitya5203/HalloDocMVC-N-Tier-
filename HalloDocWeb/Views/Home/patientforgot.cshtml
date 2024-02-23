@@ -1,0 +1,67 @@
+@model forgot
+@{
+    ViewData["Title"] = "patientforgot Page";
+}
+
+<div class="min-vh-100 min-vw-100 bg1" id="light-theme"></div>
+<div class="container d-flex align-items-center backimage justify-content-center min-vh-100">
+    <div class="row justify-content-center text-center ">
+        <div class="col setmoon">
+            <div class="row">
+                <div class="col text-end ">
+                    <button class="moonbtn backtra"><i class="fa-solid fa-moon  "></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="row setlogo">
+            <div class="col">
+                <img src="~/OneDrive_2024-01-17/SRS Screen Shorts/backremovelogo.png" class="img-fluid mb-4"
+                     alt="logo">
+            </div>
+        </div>
+        <div class="d-flex flex-column align-items-center">
+            <div class="row w-50 mt-4 text-muted mb-5 d-flex">
+                <a class="col text-start text-info text-decoration-none " asp-controller="Home" asp-action="patientlogin">
+                    <i class="fa-solid fa-less-than"></i> Back
+                </a>
+            </div>
+            <div class="row h2 w-50">
+                <div class="col mb-3">
+                    Reset Your Password
+                </div>
+            </div>
+        </div>
+        <form class="w-50 text-center" asp-controller="Aspnetusers" asp-action="patientforgot" method="POST">
+            <div class=" form-floating mb-3  ">
+                <input asp-for="email" name="email" type="text" class="form-control text-muted backtra border-info " id="floatingInput"
+                       placeholder="Username">
+                <label class=" " for="floatingInput">
+                    Username
+                </label>
+                <i class="far fa-user-circle text-secondary faicon"></i>
+            </div>
+            <!-- <div class="form-floating mb-3">
+                <input type="password" class="form-control backtra border-info text-muted" id="floatingPassword"
+                    placeholder="Password">
+                <label class="  " for="floatingPassword">Password</label>
+                <i class="far fa-eye text-secondary faicon"></i>
+            </div> -->
+            <div class="row justify-content-between mt-4">
+                <div class="col">
+                    <button type="submit" class="btn  btn-info w-100 ">
+                        <a class="text-decoration-none text-white"
+                          >Reset Password</a>
+                    </button>
+                </div>
+            </div>
+            <div class="row-sm-10 mt-4 text-muted mb-5">
+                <a class="col text-center text-info text-decoration-none " asp-controller="Home" asp-action="patientlogin">
+                    <i class="fa-solid fa-less-than"></i> Back To Login
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+<footer class="footerset text-lg-center text-center justify-content-center">
+    <div class="">Terms Of Conditions <div class="vr "></div> Privacy Policy</div>
+</footer>

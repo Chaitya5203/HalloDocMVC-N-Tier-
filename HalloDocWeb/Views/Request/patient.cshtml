@@ -1,0 +1,254 @@
+﻿@model Userdata
+@{
+    ViewData["Title"] = "patient Page";
+    Layout = "_RequestHeader";
+}
+<style>
+    .iti{
+        width: 100%;
+    }
+    #phone{
+        height: 58px;
+    }
+</style>
+
+<div class="container text-end mt-5 pt-4">
+    <a class="text-start text-info text-decoration-none" asp-controller="Home" asp-action="submit_request_screen">
+        <button class="btn btn-white  text-info border-info rounded mt-5 ">
+            <i class="fa-solid  fa-less-than"></i> Back
+        </button>
+    </a>
+</div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary hello visually-hidden" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-center justify-content-center">
+                <div class="rounded-circle border border-3 p-1 border-warning shadow ">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#e0bd34"
+                         class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                        <path fill="#e0bd34" d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                        <path fill="#e0bd34" d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                    </svg>
+                </div>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+            </div>
+            <div class="modal-body " style="text-align: center;">
+                <div>
+                    <h5 class="modal-title " id="staticBackdropLabel">Information</h5>
+                </div>
+                When Submiting a request,you must provide the correct contact information for the patient or the
+                responsibly party.Failure to provide correct email and phone number will delay service or be
+                declined.
+            </div>
+            <div class="modal-footer d-flex justify-content-center ">
+                <button type="button" class="btn btn-info text-white " data-bs-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<form asp-action="SubmitRequestByPatient" asp-controller="Request" method="post" enctype="multipart/form-data">
+    <div class="container bg-white rounded mt-3">
+        <div class="row">
+            <div class="col-12 h3 mb-3 mt-3">
+                Patient Information
+            </div>
+            <div class="form-floating mb-3 text-muted">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                <label for="floatingTextarea2" class="ps-4">Enter Brief Details Of Symptoms</label>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                <input asp-for=first_name name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="First name">
+                <label for="exampleFormControlInput1" class="form-label ps-4">First name</label>
+                <span asp-validation-for="first_name" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                <input asp-for=last_name name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Last name">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Last name</label>
+                <span asp-validation-for="last_name" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                <input asp-for=dob type="date" name="dob" class="form-control" id="dob" placeholder="Date Of Birth">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Date Of Birth</label>
+                <span asp-validation-for="dob" class="text-danger"></span>  
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 h3 mb-3">
+                Patient Contact Information
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted" >
+                <input asp-for="email" name="email" type="email" class="form-control" id="email" onblur="emailExists()" placeholder="Email">
+                <label for="email" class="form-label ps-4">Email</label>
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                <input asp-for="phonenumber" id="phone" class="form-control inp2" type="tel" placeholder="Phone Number">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted" style="display:none;" id="pwd_div">
+                <input asp-for=password name="password" type="password" class="form-control" id="example1FormControlInput1" placeholder="password">
+                <label for="example1FormControlInput1" class="form-label ps-4">Password</label>
+                <span asp-validation-for="password" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted" style="display:none;" id="con_pwd_div">
+                <input asp-for=cpassword type="password" class="form-control" id="example2FormControlInput1" placeholder="confirm password" onblur="check()">
+                <label for="example2FormControlInput1" class="form-label ps-4">confirm password</label>
+                <span asp-validation-for="cpassword" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 h3 mb-3">
+                Patient Location
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
+                <input asp-for=street type="text" name="street" class="form-control" id="exampleFormControlInput1"placeholder="Street">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Street</label>
+                <span asp-validation-for="street" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+                <input asp-for=city type="text" name="city" class="form-control" id="exampleFormControlInput1" placeholder="City">
+                <label for="exampleFormControlInput1" class="form-label ps-4">City</label>
+                <span asp-validation-for="city" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+                <input asp-for=state type="text" name="state" class="form-control" id="exampleFormControlInput1" placeholder="State">
+                <label for="exampleFormControlInput1" class="form-label ps-4">State</label>
+                <span asp-validation-for="state" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+                <input asp-for=zipcode type="text" name="zipcode" class="form-control" id="exampleFormControlInput1" placeholder="Zip Code">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Zip Code</label>
+                <span asp-validation-for="zipcode" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+                <input asp-for=room type="text" name="room" class="form-control" id="exampleFormControlInput1" placeholder="Room # / (Suite Optional)">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Room # / (Suite Optional)</label>
+                <span asp-validation-for="room" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col h3 mb-3">
+                (Optional) Upload Photo or Document
+            </div>
+        </div>
+        <fieldset id="upload">
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" id="inputGroupFile02" name="File" asp-for=File>
+                <label class="input-group-text text-muted p-0" for="inputGroupFile02">
+                    <label class="btn btn-info mx-0">
+                        <i class="fa-solid fa-cloud-arrow-up" style="color: #ffffff;"></i>
+                        Upload
+                    </label>
+                    @* <i class="btn btn-info fa-solid fa-cloud-arrow-up" style="color: #ffffff;"> Upload</i> *@
+                </label>
+            </div>
+        </fieldset>
+        @* <div class="row">
+            <div class="col mb-3">
+                <input class="form-control visually-hidden" type="file" id="formFile">
+                <label for="formFile" class="bg-light rounded d-flex w-100  justify-content-between border"
+                       style="width: inherit;">
+                    <p class="m-3 text-muted">
+                        Select file
+                    </p>
+                    <p class="btn btn-info m-2">
+                        <i class="fa-solid fa-cloud-arrow-up" style="color: #ffffff;"></i>
+                        Upload
+                    </p>
+                </label>
+            </div>
+        </div> *@
+        @* <i class="fa-solid fa-cloud-arrow-up" style="color: #ffffff;"></i> *@
+        <div class="text-end pb-5">
+            <button class="btn btn-info me-2 text-white" type="submit">Submit</button>
+            <button class="btn btn-white text-info border-info" type="reset">reset</button>
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+<script>
+    const inputDate = document.getElementById('dob');
+    const today = new Date().toISOString().split('T')[0];
+    inputDate.setAttribute('max', today);
+    function emailExists() {
+        var email = document.getElementById("email").value;
+        fetch('/Home/patient/' + email)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                console.log("hello");
+                if (!data.exists) {
+                    document.getElementById('pwd_div').style.display = 'block';
+                    document.getElementById('con_pwd_div').style.display = 'block';
+                }
+                else {
+                    document.getElementById('pwd_div').style.display = 'none';
+                    document.getElementById('con_pwd_div').style.display = 'none';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+    function check() {
+        console.log("called");
+        var x = document.getElementById('example1FormControlInput1').value;
+        var y = document.getElementById('example2FormControlInput1').value;
+        if (x != y) {
+            alert("Your password and confirmation password do not match.");
+            // example2FormControlInput1.focus();
+            return false; 
+        }
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+        // var btn = document.querySelector('.hello');
+        // btn.click();
+        var modal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+        modal.show();
+    })
+    const input = document.querySelector("#phone");
+    const button = document.querySelector("#btn");
+    const errorMsg = document.querySelector("#error-msg");
+    const validMsg = document.querySelector("#valid-msg");
+    // here, the index maps to the error code returned from getValidationError - see readme
+    const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+    // initialise plugin
+    const iti = window.intlTelInput(input, {
+        initialCountry: "us",
+        utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
+    });
+    const reset = () => {
+        input.classList.remove("error");
+        errorMsg.innerHTML = "";
+        errorMsg.classList.add("hide");
+        validMsg.classList.add("hide");
+    };
+    // on click button: validate
+    button.addEventListener('click', () => {
+        reset();
+        if (input.value.trim()) {
+            if (iti.isValidNumber()) {
+                validMsg.classList.remove("hide");
+            } else {
+                input.classList.add("error");
+                const errorCode = iti.getValidationError();
+                errorMsg.innerHTML = errorMap[errorCode] || "Invalid number";
+                errorMsg.classList.remove("hide");
+            }
+        }
+    });
+    // on keyup / change flag: reset
+    input.addEventListener('change', reset);
+    input.addEventListener('keyup', reset)
+</script>

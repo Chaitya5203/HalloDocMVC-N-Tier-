@@ -1,0 +1,35 @@
+﻿using HalloDocWebRepository.Data;
+using HalloDocWebRepository.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HalloDocWebRepository.Interfaces
+{
+    public interface IPatient_Repository
+    {
+        void addAspuserTable(Aspnetuser aspuser);
+        void addconciergetable(Concierge c);
+        void addrequestclientdata(Requestclient requestclient);
+        void addrequesttable(Request request);
+        void addrequestwisefiletable(Requestwisefile addrequestfile);
+        void addUsertable(User user);
+        public Aspnetuser getAspnetusername(string usarname);
+        public bool getAspuserByEmail(string email);
+        public List<Request> getRequest(string username);
+        public bool getUser(login aspnetuser);
+        public User getUser(string? email);
+        public Aspnetuser ProfileAspdata(string email);
+        public User  ProfileUserdata(string email);
+        public int requestWiseFile(int requestid);
+        public void SaveDbChanges();
+        public Aspnetuser setpatientdata(Userdata info);
+        public Aspnetuser setpatientdatabybusiness(BusinessPatientRequest info);
+        public Aspnetuser setpatientdatabyconcierge(ConciergePatientRequest info);
+        public Aspnetuser setpatientdatabyfamilyfriend(FamilyFriendPatientRequest info);
+        public void UpdateAspnetuser(Aspnetuser upadateAsp);
+        public void UpdateUser(User upadateUser);
+    }
+}

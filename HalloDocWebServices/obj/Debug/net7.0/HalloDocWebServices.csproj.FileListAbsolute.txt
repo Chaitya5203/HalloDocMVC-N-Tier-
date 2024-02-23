@@ -1,0 +1,17 @@
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\bin\Debug\net7.0\HalloDocWebServices.deps.json
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\bin\Debug\net7.0\HalloDocWebServices.runtimeconfig.json
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\bin\Debug\net7.0\HalloDocWebServices.dll
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\bin\Debug\net7.0\HalloDocWebServices.pdb
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\bin\Debug\net7.0\HalloDocWebRepository.dll
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\bin\Debug\net7.0\HalloDocWebRepository.pdb
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.csproj.AssemblyReference.cache
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.GeneratedMSBuildEditorConfig.editorconfig
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.AssemblyInfoInputs.cache
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.AssemblyInfo.cs
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.csproj.CoreCompileInputs.cache
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.csproj.CopyComplete
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.dll
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\refint\HalloDocWebServices.dll
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.pdb
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.genruntimeconfig.cache
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\ref\HalloDocWebServices.dll

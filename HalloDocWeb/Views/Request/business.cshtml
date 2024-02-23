@@ -1,0 +1,181 @@
+@model BusinessPatientRequest
+@{
+    ViewData["Title"] = "business Page";
+    Layout = "_RequestHeader";
+}
+
+<style>
+    .iti {
+        width: 100%;
+    }
+
+    #phone,#phone1 {
+        height: 58px;
+    }
+</style>
+<div class="container text-end mt-5 pt-4">
+    <a class="text-start text-info text-decoration-none " asp-controller="Home" asp-action="submit_request_screen">
+        <button class="btn btn-white  text-info border-info mt-5 rounded ">
+            <i class="fa-solid  fa-less-than"></i> Back
+        </button>
+    </a>
+</div>
+<form asp-action="CreatePatientByBusiness" asp-controller="Request">
+    <div class="container bg-white rounded shadow mt-3">
+        <!-- <div class="row text-end position-relative ">
+            <div class="col d-md-flex justify-content-md-end">
+                <button class="btn btn-white  text-white border-info rounded ">
+                    <a class="col text-start text-info text-decoration-none " href="./submitrequestScreen.html">
+                        <i class="fa-solid  fa-less-than"></i> Back
+                    </a>
+                </button>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-12 h3 mb-3 mt-3">
+                Business Information
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+            <input asp-for=first_name name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Your First name</label>
+                <span asp-validation-for="first_name" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+            <input asp-for=last_name name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Your last name </label>
+                <span asp-validation-for="last_name" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                <input asp-for="phone" id="phone" class="form-control inp2" type="tel" placeholder="Phone Number">
+                <span asp-validation-for="phone" class="text-danger"></span>
+            </div>
+            @* <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+            <input asp-for=phone name="phone" type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Phone Number</label>
+                <span asp-validation-for="phone" class="text-danger"></span>
+            </div> *@
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                <input asp-for=email name="email" type="email" class="form-control" onchange="emailExists()" id="exampleFormControlInput1" placeholder="Firstname">
+                <label for="exampleFormControlInput1" class="form-label ps-4"> Your Email</label>
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+            <input asp-for=business_name name="business_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Business/Property Name</label>
+                <span asp-validation-for="business_name" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+            <input asp-for=case_no name="case_no" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Case Number(Optional) </label>
+                <span asp-validation-for="case_no" class="text-danger"></span>
+            </div>
+            <div class="col-12 h3 mb-3 mt-3">
+                Patient Information
+            </div>
+            <div class="col-sm-12 col-md-12 col-xl-12 form-floating mb-3 text-muted">
+                <!-- <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label> -->
+            <textarea name="symptoms" class="form-control " id="exampleFormControlTextarea1" rows="6"
+                          placeholder="Enter Brief Details Of Symptoms"></textarea>
+                <label for="exampleFormControlInput1" class="form-label ps-4">Enter Brief Details Of Symptoms</label>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+            <input asp-for=p_first_name name="p_first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">First name</label>
+                <span asp-validation-for="p_first_name" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+            <input asp-for=p_last_name name="p_last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">last name </label>
+                <span asp-validation-for="p_last_name" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+            <input asp-for=dob name="dob" type="date" class="form-control" id="dob" placeholder="Date Of Birth">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Date Of Birth</label>
+                <span asp-validation-for="dob" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 h3 mb-3">
+                Patient Contact Information
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted" id="p_email">
+                <input asp-for=p_email name="p_email" type="email" class="form-control" id="exampleFormControlInput1" onchange="emailExists()" placeholder="Firstname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Email</label>
+                <span asp-validation-for="p_email" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                <input asp-for="p_phone" id="phone1" class="form-control inp2" type="tel" placeholder="Phone Number">
+                <span asp-validation-for="p_phone" class="text-danger"></span>
+            </div>
+            @* <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+            <input asp-for=p_phone name="p_phone" type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Phone Number</label>
+                <span asp-validation-for="p_phone" class="text-danger"></span>
+            </div> *@
+        </div>
+        <div class="row">
+            <div class="col-12 h3 mb-3">
+                Patient Location
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
+            <input asp-for=p_street name="p_street" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Street</label>
+                <span asp-validation-for="p_street" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+            <input asp-for=p_city name="p_city" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">City</label>
+                <span asp-validation-for="p_city" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+            <input asp-for=p_state name="p_state" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">State</label>
+                <span asp-validation-for="p_state" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+            <input asp-for=p_zip_code name="p_zip_code" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Zip Code</label>
+                <span asp-validation-for="p_zip_code" class="text-danger"></span>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                <label for="exampleFormControlInput1" class="form-label ps-4">Room # / (Suite Optional)</label>
+            </div>
+        </div>
+        <div class="text-end d-md-flex justify-content-md-end pb-5">
+            <button class="btn btn-info me-2 text-white" type="submit">Submit</button>
+            <button class="btn btn-white text-info border-info" type="reset">cancel</button>
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+<script>
+
+    const input = document.querySelector("#phone");
+    const input2 = document.querySelector("#phone1");
+    const button = document.querySelector("#btn");
+    const errorMsg = document.querySelector("#error-msg");
+    const validMsg = document.querySelector("#valid-msg");
+
+    // here, the index maps to the error code returned from getValidationError - see readme
+    const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+    // initialise plugin
+    const iti = window.intlTelInput(input, {
+        initialCountry: "us",
+        utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
+    });
+    const iti1 = window.intlTelInput(input2, {
+        initialCountry: "us",
+        utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
+    });
+
+
+    const inputDate = document.getElementById('dob');
+    const today = new Date().toISOString().split('T')[0];
+    inputDate.setAttribute('max', today);
+</script>
