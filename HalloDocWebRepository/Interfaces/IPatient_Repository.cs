@@ -11,8 +11,11 @@ namespace HalloDocWebRepository.Interfaces
     public interface IPatient_Repository
     {
         void addAspuserTable(Aspnetuser aspuser);
+        void addbusinesstable(Business business);
         void addconciergetable(Concierge c);
+        void addrequestbusinesstable(Requestbusiness requestbusiness);
         void addrequestclientdata(Requestclient requestclient);
+        void addrequestconciergetable(Requestconcierge requestconcierge);
         void addrequesttable(Request request);
         void addrequestwisefiletable(Requestwisefile addrequestfile);
         void addUsertable(User user);

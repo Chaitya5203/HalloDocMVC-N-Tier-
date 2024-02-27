@@ -24,10 +24,22 @@ namespace HalloDocWebRepository.Implementation
             _context.SaveChanges();
         }
 
+        public void addbusinesstable(Business business)
+        {
+            _context.Businesses.Add(business);
+            _context.SaveChanges();
+        }
+
         public void addconciergetable(Concierge c)
         {
             _context.Concierges.Add(c);
             _context.SaveChanges();
+        }
+
+        public void addrequestbusinesstable(Requestbusiness requestbusiness)
+        {
+            _context.Requestbusinesses.Add(requestbusiness);    
+            _context.SaveChanges(); 
         }
 
         public void addrequestclientdata(Requestclient requestclient)
@@ -35,6 +47,13 @@ namespace HalloDocWebRepository.Implementation
             _context.Requestclients.Add(requestclient);
             _context.SaveChanges(); 
         }
+
+        public void addrequestconciergetable(Requestconcierge requestconcierge)
+        {
+            _context.Requestconcierges.Add(requestconcierge);
+            _context.SaveChanges();
+        }
+
         public void addrequesttable(Request request)
         {
             _context.Requests.Add(request);

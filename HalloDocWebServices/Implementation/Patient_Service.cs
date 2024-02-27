@@ -97,6 +97,18 @@ namespace HalloDocWebServices.Implementation
             _repository.addUsertable(user);
             //_context.Users.Add(user);
             //_context.SaveChanges();
+
+            Business business = new Business()
+            {
+                Name = info.first_name + ' ' + info.last_name,
+                Phonenumber = info.phone,
+                Createdby = info.Createddate.ToShortDateString(),
+                Createddate = info.Createddate,
+            };
+            _repository.addbusinesstable(business);
+            //_context.Businesses.Add(business);
+            //_context.SaveChanges();
+
             Request request = new Request
             {
                 Requesttypeid = 1,
@@ -130,6 +142,15 @@ namespace HalloDocWebServices.Implementation
             _repository.addrequestclientdata(requestclient);
             //_context.Requestclients.Add(requestclient);
             //await _context.SaveChangesAsync();
+
+            Requestbusiness requestbusiness = new Requestbusiness
+            {
+                Requestid = request.Requestid,
+                Businessid = business.Businessid,
+            };
+            _repository.addrequestbusinesstable(requestbusiness);
+            //_context.Requestbusinesses.Add(requestbusiness);
+            //_context.SaveChanges();
         }
 
         public void insertbyconcierge(ConciergePatientRequest info)
@@ -169,8 +190,6 @@ namespace HalloDocWebServices.Implementation
                 //_context.Aspnetusers.Add(aspuser);
                 //await _context.SaveChangesAsync();
             }
-
-
             Concierge c = new Concierge
             {
                 Conciergename = info.cname,
@@ -238,7 +257,16 @@ namespace HalloDocWebServices.Implementation
             };
             _repository.addrequestclientdata(requestclient);
             //_context.Requestclients.Add(requestclient);
-            //await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();    
+
+            Requestconcierge requestconcierge = new Requestconcierge
+            {
+                Requestid = request.Requestid,
+                Conciergeid = c.Conciergeid
+            };
+            _repository.addrequestconciergetable(requestconcierge);
+            //_context.Requestconcierges.Add(requestconcierge);
+            //_context.SaveChanges();
         }
 
         public void insertbyfamilyfriend(FamilyFriendPatientRequest info)
@@ -347,7 +375,6 @@ namespace HalloDocWebServices.Implementation
             //_context.Requestwisefiles.Add(addrequestfile);
             //_context.SaveChanges();
         }
-
         public void insertpatient(Userdata info)
         {
             var userobj = _repository.setpatientdata(info);
@@ -356,8 +383,6 @@ namespace HalloDocWebServices.Implementation
             int Date = info.dob.Day;
             System.Globalization.DateTimeFormatInfo dateformat = new System.Globalization.DateTimeFormatInfo();
             var Month = dateformat.GetMonthName(info.dob.Month).ToString();
-
-
             if (userobj == null)
             {
                 Aspnetuser aspuser = new Aspnetuser
