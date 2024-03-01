@@ -2,16 +2,19 @@
 using HalloDocWebRepository.Interfaces;
 using HalloDocWebRepository.ViewModel;
 using HalloDocWebServices.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using WebApplication2.Models;
 
 namespace HalloDocWebServices.Implementation
 {
@@ -22,11 +25,26 @@ namespace HalloDocWebServices.Implementation
         {
                _repository = repository;
         }
+        public void addfilerequestwise(int id, IFormFile fileToUpload)
+        {
+            
+            var uploads = Path.Combine("wwwroot", "uploads");
+            var FileNameOnServer = Path.Combine(uploads, fileToUpload.FileName);
+            using var stream = System.IO.File.Create(FileNameOnServer);
+            fileToUpload.CopyTo(stream);
+            Requestwisefile reqclient = new Requestwisefile
+            {
+                Requestid = id,
+                Filename = fileToUpload.FileName,
+                Createddate = DateTime.Now,
+            };
+            _repository.addrequestwisefiletable(reqclient);
+        }
+
         public bool CheckEmail(string email)
         {
             return _repository.getAspuserByEmail(email);
         }
-
         public profile Dashboarddata(string? email, string username)
         {
             var userData = _repository.getUser(email);
@@ -39,6 +57,36 @@ namespace HalloDocWebServices.Implementation
             profile.User = userData;
             profile.DOB = date;
             return profile;
+        }
+        public MemoryStream DownloadAllService(int id)
+        {
+            var filesRow = _repository.getReqWiseFileById(id);
+            MemoryStream ms = new MemoryStream();
+            using (ZipArchive zip = new ZipArchive(ms, ZipArchiveMode.Create, true))
+                filesRow.ForEach(file =>
+                {
+                    var path = "C:\\Users\\pce96\\source\\repos\\WebApplication2 - Copy\\WebApplication2\\wwwroot\\uploads\\" + Path.GetFileName(file.Filename);
+                    ZipArchiveEntry zipEntry = zip.CreateEntry(file.Filename);
+                    using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+                    using (Stream zipEntryStream = zipEntry.Open())
+                    {
+                        fs.CopyTo(zipEntryStream);
+                    }
+                });
+            return ms;
+        }
+
+        public byte[] DownloadSingleFile(int id)
+        {
+            var file = _repository.RequestwisefilesRepo(id);
+            var filepath = "C:\\Users\\pce96\\source\\repos\\WebApplication2 - Copy\\WebApplication2\\wwwroot\\uploads\\" + Path.GetFileName(file.Filename);
+            var bytes = System.IO.File.ReadAllBytes(filepath);
+            return bytes;
+        }
+
+        public List<Requestwisefile> getdownloadfilerequestwise(int id)
+        {
+            return _repository.getReqWiseFileById(id);
         }
 
         public void insertbybusiness(BusinessPatientRequest info)
@@ -472,6 +520,98 @@ namespace HalloDocWebServices.Implementation
             _repository.addrequestwisefiletable(addrequestfile);
             //_context.Requestwisefiles.Add(addrequestfile);
             //_context.SaveChanges();
+        }
+
+        public void RequestMe(Userdata info,string email)
+        {
+            //var user = _context.Users.FirstOrDefault(u => u.Email == HttpContext.Session.GetString("UsarEmail"));
+            var user = _repository.getUser(email);
+            Request request = new Request
+            {
+                Requesttypeid = 2,
+                Userid = user.Userid,
+                Isurgentemailsent = new BitArray(1, false),
+                Status = 1,
+                Firstname = info.first_name,
+                Lastname = info.last_name,
+                Email = info.email,
+                Phonenumber = info.phonenumber,
+                Createddate = info.Createddate,
+            };
+            _repository.addrequesttable(request);
+            //_context.Requests.Add(request);
+            //await _context.SaveChangesAsync();
+
+            Requestclient requestclient = new Requestclient
+            {
+                Requestid = request.Requestid,
+                Firstname = info.first_name,
+                Lastname = info.last_name,
+                Email = info.email,
+                Phonenumber = info.phonenumber,
+                Regionid = 1,
+                Street = info.street,
+                City = info.city,
+                Zipcode = info.zipcode
+            };
+            _repository.addrequestclientdata(requestclient);
+            //_context.Requestclients.Add(requestclient);
+            //await _context.SaveChangesAsync();
+
+            var file = info.File;
+            var uniqueFileName = Path.GetFileName(file.FileName);
+            var uploads = Path.Combine("wwwroot", "uploads");
+            var filePath = Path.Combine(uploads, uniqueFileName);
+            file.CopyTo(new FileStream(filePath, FileMode.Create));
+            var addrequestfile = new Requestwisefile
+            {
+                Createddate = DateTime.Now,
+                Filename = uniqueFileName,
+                Requestid = request.Requestid
+            };
+            _repository.addrequestwisefiletable(addrequestfile);
+            //_context.Requestwisefiles.Add(addrequestfile);
+            //_context.SaveChanges();
+        }
+
+        public void Requestsomeoneelse(someoneelse info, string email)
+        {
+            var user = _repository.getUser(email);
+            Request request = new Request
+            {
+                Requesttypeid = 3,
+                Userid = user.Userid,
+                Firstname = user.Firstname,
+                Lastname = user.Lastname,
+                Phonenumber = user.Mobile,
+                Email = user.Email,
+                Status = 1,
+                Relationname = info.relation,
+                Createddate = DateTime.Now,
+                Isurgentemailsent = new BitArray(1, false)
+            };
+            _repository.addrequesttable(request);
+            //_context.Requests.Add(request);
+            //_context.SaveChanges();
+            Requestclient reqclient = new Requestclient
+            {
+                Requestid = request.Requestid,
+                Firstname = info.p_first_name,
+                Lastname = info.p_last_name,
+                Phonenumber = info.p_phonenumber,
+                Email = info.p_email,
+                Location = info.p_street + "," + info.p_city + "," + info.p_state + " ," + info.p_zip,
+                Regionid = 1
+            };
+            _repository.addrequestclientdata(reqclient);
+            //_context.Requestclients.Add(reqclient);
+            //_context.SaveChanges();
+        }
+
+        public Requestwisefile RequestwisefilesSer(int id)
+        {
+            return _repository.RequestwisefilesRepo(id);
+                
         }
 
         public void updateProfile(Userdata info,string email)

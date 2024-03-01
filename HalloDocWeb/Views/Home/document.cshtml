@@ -1,5 +1,5 @@
 ﻿@* @model WebApplication2.Data.Requestwisefile *@
-@model IEnumerable<Requestwisefile>
+@model IEnumerable<HalloDocWebRepository.Data.Requestwisefile>
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor Accessor
 @{
@@ -70,7 +70,7 @@
                             <div class="row">
                                 <div class="row">
                                     <div class="col">
-                                        <form method="post" asp-action="UploadFile"  asp-controller="Aspnetusers" asp-route-id="@ViewBag.Id" enctype="multipart/form-data">
+                                    <form method="post" asp-action="UploadFile" asp-controller="Home" asp-route-id="@ViewBag.Id" enctype="multipart/form-data">
                                             <div class="form-group row">
                                                 <fieldset id="upload">
                                                     <div class="input-group mb-3">
@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <h4 class="mt-3">Documents</h4>
-                                <a asp-action="DownloadAll" asp-controller="Aspnetusers" asp-route-id="@ViewBag.Id"><button class="btn btn-white text-info border-info rounded mt-3 mb-3 " style="height: 40px; width : 150px; color: #54B4D3;">Download All</button></a>
+                                <a asp-action="DownloadAll" asp-controller="Home" asp-route-id="@ViewBag.Id"><button class="btn btn-white text-info border-info rounded mt-3 mb-3 " style="height: 40px; width : 150px; color: #54B4D3;">Download All</button></a>
                                 </div>
                                 <table class="table hideOnMobile ">
                                     <thead class="bg-light justify-content-center ">
@@ -108,7 +108,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var item in Model)
+                                        @foreach (var item in  Model)
                                         {
                                             <tr>
                                                 <td><input type="checkbox" class="ms-3" /></td>
@@ -121,7 +121,7 @@
                                                 </td>
                                                 <td class="text-center">
                                                     @*@Html.ActionLink("Click here to download", "DownloadFile", new { })*@
-                                                <a asp-action="DownloadFile" asp-controller="Aspnetusers" asp-route-id="@item.Requestwisefileid"><button class="btn btn-white border-1 border-info px-1 "><i class="fa-solid fa-cloud-arrow-down" style="color: #54B4D3;"></i></button></a>
+                                                <a asp-action="DownloadFile" asp-controller="Home" asp-route-id="@item.Requestwisefileid"><button class="btn btn-white border-1 border-info px-1 "><i class="fa-solid fa-cloud-arrow-down" style="color: #54B4D3;"></i></button></a>
                                                 </td>
                                             </tr>
                                         }

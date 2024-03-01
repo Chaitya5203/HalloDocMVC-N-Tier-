@@ -12,3 +12,4 @@ D:\ProjectMvc\HalloDocWeb\HalloDocWebRepository\obj\Debug\net7.0\refint\HalloDoc
 D:\ProjectMvc\HalloDocWeb\HalloDocWebRepository\obj\Debug\net7.0\HalloDocWebRepository.pdb
 D:\ProjectMvc\HalloDocWeb\HalloDocWebRepository\obj\Debug\net7.0\HalloDocWebRepository.genruntimeconfig.cache
 D:\ProjectMvc\HalloDocWeb\HalloDocWebRepository\obj\Debug\net7.0\ref\HalloDocWebRepository.dll
+D:\ProjectMvc\HalloDocWeb\HalloDocWebRepository\obj\Debug\net7.0\HalloDocWebRepository.sourcelink.json

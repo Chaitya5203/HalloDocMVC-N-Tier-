@@ -235,3 +235,4 @@ D:\ProjectMvc\HalloDocWeb\HalloDocWeb\obj\Debug\net7.0\refint\HalloDocWeb.dll
 D:\ProjectMvc\HalloDocWeb\HalloDocWeb\obj\Debug\net7.0\HalloDocWeb.pdb
 D:\ProjectMvc\HalloDocWeb\HalloDocWeb\obj\Debug\net7.0\HalloDocWeb.genruntimeconfig.cache
 D:\ProjectMvc\HalloDocWeb\HalloDocWeb\obj\Debug\net7.0\ref\HalloDocWeb.dll
+D:\ProjectMvc\HalloDocWeb\HalloDocWeb\obj\Debug\net7.0\HalloDocWeb.sourcelink.json

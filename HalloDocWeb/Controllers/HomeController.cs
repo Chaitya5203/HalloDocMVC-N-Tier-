@@ -5,6 +5,10 @@ using HalloDocWebRepository.ViewModel;
 using NuGet.Versioning;
 using HalloDocWebServices.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using HalloDocWebRepository.Data;
+using System.Collections;
+using WebApplication2.Models;
+using System.IO.Compression;
 
 namespace HalloDocWeb.Controllers
 {
@@ -28,6 +32,53 @@ namespace HalloDocWeb.Controllers
         {
             return View();
         }
+        public async Task<IActionResult> document(int id)
+        {
+
+            //HttpContext.Session.SetInt32("req_id", id);
+
+            ViewBag.Id = id;
+
+            //HttpContext.Session.SetString("req_id", id.ToString());
+            return View( _service.getdownloadfilerequestwise(id));
+
+            //return _context.Requestwisefiles != null ? View(_context.Requestwisefiles.Where(m => m.Requestid == id).ToList()) : Problem("vchgvytfvtv");
+        }
+        public IActionResult SubmitRequestOnMe()
+        {
+            return View();
+        }
+        public IActionResult SubmitRequestSomeone()
+        {
+            return View();
+        }
+        // Request on me page When Dashboard Is Open and request is Created 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SubmitRequestOnMe(Userdata info)
+        {
+            
+            if (!ModelState.IsValid)
+            {
+                return View("../Home/SubmitRequestOnMe", info);
+            }
+            _service.RequestMe(info, HttpContext.Session.GetString("UsarEmail"));
+            return RedirectToAction(nameof(patientdashboard), "Home");
+        }
+        // Request on someoneelse page When Dashboard Is Open and request is Created 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SubmitRequestSomeone(someoneelse info)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("../Home/SubmitRequestSomeone", info);
+            }
+            _service.Requestsomeoneelse(info, HttpContext.Session.GetString("UsarEmail"));
+            return RedirectToAction(nameof(patientdashboard), "Home");
+        }   
+
 
         [Route("/Home/patient/{email}")]
         [Route("/Home/business/{email}")]
@@ -81,10 +132,37 @@ namespace HalloDocWeb.Controllers
         {
             return View();
         }
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error()
-        //{
-        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        //}
+        [HttpPost]
+        public IActionResult UploadFile(int id, IFormFile fileToUpload)
+        {
+            if (fileToUpload != null && fileToUpload.Length > 0)
+            {
+                _service.addfilerequestwise(id,fileToUpload);
+                //_context.Requestwisefiles.Add(reqclient);
+                //_context.SaveChanges();
+
+                return RedirectToAction(nameof(patientdashboard), "Home");
+            }
+            else
+            {
+                // User did not select a file
+                return RedirectToAction(nameof(patientdashboard), "Home");
+            }
+        }
+        
+        //download File 
+        public async Task<IActionResult> DownloadFile(int id)
+        {
+            var bytes = _service.DownloadSingleFile(id);
+            var file = _service.RequestwisefilesSer(id);
+            //var filepath = "C:\\Users\\pce96\\source\\repos\\WebApplication2 - Copy\\WebApplication2\\wwwroot\\uploads\\" + Path.GetFileName(file.Filename);
+            //var bytes = System.IO.File.ReadAllBytes(filepath);
+            return File(bytes, "application/octet-stream", file.Filename);
+        }
+        public IActionResult DownloadAll(int id)
+        {
+            MemoryStream ms =  _service.DownloadAllService(id);
+            return File(ms.ToArray(), "application/zip", "download.zip");
+        }
     }
 }

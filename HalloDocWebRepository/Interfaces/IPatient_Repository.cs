@@ -19,14 +19,17 @@ namespace HalloDocWebRepository.Interfaces
         void addrequesttable(Request request);
         void addrequestwisefiletable(Requestwisefile addrequestfile);
         void addUsertable(User user);
+        public Requestwisefile downloadRequesrWiseFile(int id);
         public Aspnetuser getAspnetusername(string usarname);
         public bool getAspuserByEmail(string email);
         public List<Request> getRequest(string username);
+        public List<Requestwisefile> getReqWiseFileById(int id);
         public bool getUser(login aspnetuser);
         public User getUser(string? email);
         public Aspnetuser ProfileAspdata(string email);
         public User  ProfileUserdata(string email);
         public int requestWiseFile(int requestid);
+        public Requestwisefile RequestwisefilesRepo(int id);
         public void SaveDbChanges();
         public Aspnetuser setpatientdata(Userdata info);
         public Aspnetuser setpatientdatabybusiness(BusinessPatientRequest info);

@@ -15,3 +15,4 @@ D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\refint\HalloDocWe
 D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.pdb
 D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.genruntimeconfig.cache
 D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\ref\HalloDocWebServices.dll
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.sourcelink.json

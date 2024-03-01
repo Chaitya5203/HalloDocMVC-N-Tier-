@@ -69,6 +69,12 @@ namespace HalloDocWebRepository.Implementation
             _context.Users.Add(user);   
             _context.SaveChanges();
         }
+
+        public Requestwisefile downloadRequesrWiseFile(int id)
+        {
+            return _context.Requestwisefiles.Find(id);
+        }
+
         public bool getAspuserByEmail(string email)
         {
             return _context.Aspnetusers.Any(u => u.Email == email);
@@ -78,6 +84,12 @@ namespace HalloDocWebRepository.Implementation
             var user = _context.Users.FirstOrDefault(u=> u.Firstname == username);  
            return _context.Requests.Where(m => m.Userid == user.Userid).ToList();
         }
+
+        public List<Requestwisefile> getReqWiseFileById(int id)
+        {
+            return _context.Requestwisefiles.Where(m => m.Requestid == id).ToList() ;
+        }
+
         public bool getUser(login aspnetuser)
         {
             return _context.Aspnetusers.Any( u=> u.Email == aspnetuser.Email && u.Passwordhash == aspnetuser.Passwordhash );
@@ -90,6 +102,12 @@ namespace HalloDocWebRepository.Implementation
         {
             return _context.Users.FirstOrDefault(u => u.Email == email);
         }
+
+        public Requestwisefile RequestwisefilesRepo(int id)
+        {
+            return _context.Requestwisefiles.Find(id);
+        }
+
         public Aspnetuser setpatientdata(Userdata info)
         {
             return _context.Aspnetusers.FirstOrDefault(m => m.Usarname == info.first_name);

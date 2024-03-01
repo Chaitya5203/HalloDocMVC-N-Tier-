@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FU0lhIp85gXly8MStHTD2xJXCrnVhCYMdESx6BqhH7M=",
+  "Hash": "9paeH1VdeySJ+h/zpoc/yoyWgIBGC48J83wbOhTfKBg=",
   "Source": "HalloDocWeb",
   "BasePath": "_content/HalloDocWeb",
   "Mode": "Default",
@@ -5164,6 +5164,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\SRS-23-24-Trainees-14Feb24.pdf"
+    },
+    {
+      "Identity": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWeb\\wwwroot\\uploads\\SRS-23-24-Trainees-21Feb24.pdf",
+      "SourceId": "HalloDocWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWeb\\wwwroot\\",
+      "BasePath": "_content/HalloDocWeb",
+      "RelativePath": "uploads/SRS-23-24-Trainees-21Feb24.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\SRS-23-24-Trainees-21Feb24.pdf"
     },
     {
       "Identity": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWeb\\wwwroot\\uploads\\SRS-23-24-Trainees-2Feb24.pdf",
