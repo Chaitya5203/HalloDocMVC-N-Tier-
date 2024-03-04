@@ -1,0 +1,109 @@
+﻿@model HalloDocWebRepository.ViewModel.CaseModels
+<!-- Modal Assign Case To Patient-->
+<script>
+    $(document).ready(function () {
+        var myModalAssign = new bootstrap.Modal(document.getElementById('AssignCase'));
+
+        myModalAssign.show();
+    });
+    $('#cancelbtn').click(function (e) {
+        
+        $("#modalpopup").remove();
+        $(".modal-backdrop").remove();
+        location.reload();
+    });
+
+    $('#Allregion').change(function (e) {
+        e.preventDefault();
+        var regions = $('#Allregion').val();
+        var reqid = '@TempData["reqid"]';
+        $.ajax({
+            url: "/Admin/Modalofassign",
+            data: { 'id': reqid, 'regionid': regions },
+            type: "GET",
+            dataType: "html",
+            success: function (data) {
+                $("#modalpopup").html(data);
+            },
+            error: function () {
+                alert("No Projects Found");
+                $("#tableContent").html('An error has occurred');
+            }
+        });
+    });
+
+
+
+    $('#assignform').submit(function (e) {
+        e.preventDefault();
+        var physician = $('#Allregion').val();
+        var regions = $('#Allphysician').val();
+        var notes = $('#notes').val();
+        var reqid = '@TempData["reqid"]'
+        $.ajax({
+            url: "/Admin/AssignConfirm",
+            data: { physician: physician, regions: regions, notes: notes, id: reqid },
+            type: "POST",
+            success: function (data) {
+                $("#modalpopup").remove();
+                $(".modal-backdrop").remove();
+                alert('Request cancelled successfully');
+                location.reload();
+                //window.onload(getLocation());
+            },
+            error: function () {
+                alert("No Projects Found");
+            }
+        });
+    });
+</script>
+<div class="modal fade" id="AssignCase" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Assign Request</h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col text-muted">
+                        To Assign this request,search and select another Physician.
+                    </div>
+                </div>
+                <form id="assignform" method="post">
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="Allregion">
+                            <option value="0">select</option>
+                            @foreach (var item in Model.regions)
+                            {
+                                <option value="@item.Regionid">@item.Name</option>
+                            }
+                        </select>
+                        <label for="floatingSelect">Select Region</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="Allphysician" aria-label="Floating label select example">
+                            @foreach (var item in Model.physics)
+                            {
+                                <option value="@item.Physicianid">@item.Firstname</option>
+                            }
+                        </select>
+                        <label for="floatingSelect">Select physician</label>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="notes" style="height: 100px"></textarea>
+                                <label for="floatingTextarea2">Description</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info text-white">Submit</button>
+                        <button type="button" id="cancelbtn" class="btn btn-white border-info text-info" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

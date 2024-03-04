@@ -7,7 +7,6 @@ using HalloDocWebServices.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using HalloDocWebRepository.Data;
 using System.Collections;
-using WebApplication2.Models;
 using System.IO.Compression;
 
 namespace HalloDocWeb.Controllers

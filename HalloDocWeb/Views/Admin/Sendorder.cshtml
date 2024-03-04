@@ -1,0 +1,69 @@
+﻿<div class="container ">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between mt-3">
+                <h4 class="mt-3">Send Order</h4>
+                @* <a asp-action="PatientDashboard" asp-controller="Home"><button class="theme-btn-header px-1 mt-3 mb-3 " style="height: 40px; width : 80px; color: #54B4D3;">< Back</button></a> *@
+                <a class="text-start text-info text-decoration-none " asp-action="Admindashboard" asp-controller="Admin">
+                    <button class="btn btn-white  text-info border-info rounded ">
+                        <i class="fa-solid  fa-less-than"></i> Back
+                    </button>
+                </a>
+            </div>
+            <form>
+                <div class="container rounded bg-white shadow py-3">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                <option selected>Maryland</option>
+                                <option value="1">Surat</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                            <label for="floatingSelect">Narrow Search By Region</label>
+                        </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <input name="business" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Business">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Business</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <input name="businesscontact" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Business contact">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Business contact</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <input name="email" type="email" class="form-control" id="email" placeholder="Email">
+                            <label for="email" class="form-label ps-4">Email</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <input name="Fax Number" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Fax Number">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Fax Number</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-floating mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2" class="ps-4">Patient Notes</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                    <option selected>Maryland</option>
+                                    <option value="1">Surat</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                                <label for="floatingSelect">Narrow Search By Region</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-end pb-3">
+                        <button class="btn btn-info me-2 text-white" type="submit">Submit</button>
+                        <button class="btn btn-white text-info border-info" type="reset">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

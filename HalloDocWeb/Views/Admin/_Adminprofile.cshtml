@@ -1,0 +1,130 @@
+﻿<div class="tab-pane container active" id="dashboard">
+    <div class="container mx-0">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between mt-3">
+                    <h4 class="mt-3">My Profile</h4>
+                    @* <a asp-action="PatientDashboard" asp-controller="Home"><button class="theme-btn-header px-1 mt-3 mb-3 " style="height: 40px; width : 80px; color: #54B4D3;">< Back</button></a> *@
+                    <a class="text-start text-info text-decoration-none ">
+                        <button class="btn btn-white  text-info border-info rounded ">
+                            <i class="fa-solid  fa-less-than"></i> Back
+                        </button>
+                    </a>
+                </div>
+                <form method="post" id="enable">
+                    <div class="container rounded bg-white shadow py-3">
+                        <h5 class="mb-3">Account Information</h5>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">User Name</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">Password </label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6">
+                                <div class="mb-3 border border-light rounded-5">
+                                    <select class="form-select p-3 pla1" aria-label=".form-select-lg example">
+                                        <option selected value="1">Mobile</option>
+                                        <option value="2">Email</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6">
+                                <div class="mb-3 border border-light rounded-5">
+                                    <select class="form-select p-3 pla1" aria-label=".form-select-lg example">
+                                        <option selected value="1">Mobile</option>
+                                        <option value="2">Email</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-end pb-3">
+                            <button class="btn btn-white text-info border-info" type="button">Reset password</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 h5 mb-3">
+                                Administrator Information
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">Firstname</label>
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">Lastname</label>
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input name="email" type="email" class="form-control" id="email" placeholder="Email">
+                                <label for="email" class="form-label ps-4">Email</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input name="cemail" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Confirm Email">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">Confirm Email</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input id="phone" class="form-control inp2" type="tel" placeholder="Phone Number">
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                    <label class="form-check-label" for="inlineCheckbox1">District Of Columbia</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                    <label class="form-check-label" for="inlineCheckbox2">New York</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                                    <label class="form-check-label" for="inlineCheckbox3">Virginia</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
+                                    <label class="form-check-label" for="inlineCheckbox4">Maryland</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-end pb-3">
+                            <button class="btn btn-info text-white" onclick="enbledata()" type="button">Edit</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 h5 mb-3">
+                                Mailing & Billing Information
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input type="text" name="Address-1" class="form-control" id="Address-1" placeholder="Address 1">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">Address 1</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input type="text" name="Address-2" class="form-control" id="Address-2" placeholder="Address 2">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">Address 2</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+                                <input type="text" name="city" class="form-control" id="city" placeholder="City">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">City</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+                                <input type="text" name="state" class="form-control" id="state" placeholder="State">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">State</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+                                <input type="text" name="zipcode" class="form-control" id="zipcode" placeholder="Zip Code">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">Zip Code</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input id="phone1" class="form-control inp2" type="tel" placeholder="Phone Number">
+                            </div>
+                        </div>
+                        <div class="text-end pb-3">
+                            <button class="btn btn-info text-white" onclick="enbledata()" type="button">Edit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane container fade" id="profile">this is Profile tab</div>
+</div>

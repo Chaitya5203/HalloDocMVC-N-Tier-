@@ -1,0 +1,325 @@
+﻿<div class="row mt-3 d-flex flex-row">
+    <div class="text-end d-md-flex hideonmobile justify-content-md-end ">
+        <h5 class="ms-2" style="position:absolute !important; left:10px !important;">Patients <span style="color:#063982">(Unpaid)</span></h5>
+        <button class="btn btn-info ms-1 text-white" type="button"><i class="fa-regular fa-paper-plane me-1"></i><small>Send Link</small></button>
+        <a class="text-decoration-none" asp-action="Patientrequestadmin" asp-controller="Admin">
+            <button class="btn btn-info text-white ms-1 border-info" type="button" ><i class="fa-regular fa-note-sticky me-1"></i><small> Requests</small></button>
+        </a>
+        <button class="btn btn-info ms-1 text-white" type="button"><i class="fa fa-share-square me-1" aria-hidden="true"></i><small>Export</small></button>
+        <button class="btn btn-info text-white ms-1 border-info" type="button"><i class="fa fa-share-square me-1" aria-hidden="true"></i><small>Export All</small></button>
+        <button class="btn btn-info text-white ms-1" type="button"><i class="fa-regular fa-user me-1"></i><small>Request DTY Support</small></button>
+    </div>
+    <div class="text-end d-md-flex showonmobile hide justify-content-md-end ">
+        <h6 class="ms-2" style="position:absolute !important; left:10px !important;">Patients <span style="color:#063982">(New)</span></h6>
+        <button class="btn btn-info ms-1 p-1 text-white" type="button"><i class="fa-regular fa-paper-plane"></i></button>
+        <a class="text-decoration-none" asp-action="Patientrequestadmin" asp-controller="Admin"><button class="btn btn-info p-1 text-white ms-1 border-info" type="button"><i class="fa-regular fa-note-sticky"></i> </button> </a>
+        <button class="btn btn-info p-1 ms-1 text-white" type="button"><i class="fa fa-share-square" aria-hidden="true"></i></button>
+        <button class="btn btn-info p-1 text-white ms-1 border-info" type="button"><i class="fa fa-share-square" aria-hidden="true"></i></button>
+        <button class="btn btn-info p-1 text-white ms-1" type="button"><i class="fa-regular fa-user"></i></button>
+    </div>
+</div>
+
+<div class="row g-2 mt-2 pt-2 pb-3 bg-white shadow rounded-1">
+    <div class="col-lg-2 col-md-6 col-sm-12">
+        <i class="fa fa-search text-muted position-absolute" style="padding-top:10px; padding-left:10px;"></i>
+        <input type="search" class="form-control floatingInputGrid" style="padding-left:35px;" id="my-search-input" placeholder="Search Patients">
+    </div>
+    <div class="col-lg-2 col-md-6 col-sm-12">
+        <select class="form-select" id="floatingSelectGrid">
+            <option selected>All Regions</option>
+            <option value="1">Surat</option>
+            <option value="2">Ahmedabad</option>
+            <option value="3">Anand</option>
+        </select>
+    </div>
+    <div class="col-lg-8 col-md-12 col-sm-12">
+        <div class="text-end d-md-flex justify-content-md-end ">
+            <button class="hideonmobile btn btn-white" style="border-color:gainsboro;" type="button" id="all">All</button>
+            <span class="p-2 border-info" type="button" id="patientdata"><i class="fa-solid fa-circle fa-xs me-2" style="color: #3ecc4e;"></i>Patient</span>
+            <span class="p-2" type="button" id="familydata"><i class="fa-solid fa-circle fa-xs me-2" style="color: #FFD43B;"></i>Family/Freind</span>
+            <span class="p-2 border-info" id="businessdata" type="button"><i class="fa-solid fa-circle fa-xs me-2" style="color: #DA6679;"></i>Business</span>
+            <span class=" p-2 " id="conciergedata" type="button"><i class="fa-solid fa-circle fa-xs me-2" style="color: #3c5bd7;"></i>Concierge</span>
+            @* <span class="p-2 " type="button"><i class="fa-solid fa-circle fa-xs me-2" style="color: #6d4bd2;"></i>VIP</span> *@
+        </div>
+    </div>
+</div>
+<table class="table table-responsive caption-top mt-4 hideonmobile" id="adminTable">
+    <thead>
+        <tr class="text-muted">
+            <th scope="col">Name</th>
+            <th></th>
+            <th scope="col">Physician Name</th>
+            <th scope="col">Date Of Birth</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Address</th>
+            <th scope="col">Chat With</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string str = "";
+            @if (item.Requesttypeid == 1)
+            {
+                str = "background-color :#DA6679 ;color:white;";
+            }
+            @if (item.Requesttypeid == 2)
+            {
+                str = "background-color : #3ecc4e ;color:white;";
+            }
+            @if (item.Requesttypeid == 3)
+            {
+                str = "background-color : #FFD43B ;color:white;";
+            }
+            @if (item.Requesttypeid == 4)
+            {
+                str = "background-color : #3c5bd7 ;color:white;";
+            }
+            <tr style="@str">
+                <td class="font">
+                    @item.Requestor
+                </td>
+                <td>
+                    <span><i class="fa-regular fa-envelope fa-lg"></i></span>
+                </td>
+                <td class="font">
+                    Dr. Agola
+                </td>
+                <td class="font">
+                    @item.Dateofservice
+                </td>
+                <td class="font">
+                    <button class="btn btn-outline-light"> <i class="fa-solid fa-phone"></i> @item.Phonenumber</button>
+                </td>
+                <td class="font">
+                    @item.Address
+                </td>
+                <td>
+                    <button class="btn btn-outline-light" type="button"><i class="fa-solid fa-user-doctor me-1"></i>patient</button>
+                    <button class="btn btn-outline-light" type="button"><i class="fa-solid fa-user-doctor me-1"></i>Provider</button>
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Action
+                        </button>
+                        <ul class="dropdown-menu position-fixed" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" asp-action="View_Case" asp-controller="Admin" asp-route-id="@item.Requestid"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/keyword.png" style="height:15px;" class="me-1" />View Case</a></li>
+                            <li><a class="dropdown-item" asp-action="ViewUploadAdmin" asp-controller="Admin" asp-route-id="@item.Requestid"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/keyword.png" style="height:15px;" class="me-1" />View Uploads</a></li>
+
+                            <li><a class="dropdown-item" asp-action="View_Note" asp-controller="Admin"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/notebook.png" style="height:15px;" class="me-1" />View Notes</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="accordion showonmobile mt-3" id="accordionExample" style="display:none">
+     @if (1 == 1)
+    {
+        var i = 0;
+        @foreach (var item in Model)
+        {
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="container-fluid accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <div class="row w-100">
+                            <div class="col-6 mb-3">
+                                @item.Requestor
+                            </div>
+                            <div class="col-6 mb-3">
+                                @if (item.Requesttypeid == 1)
+                                {
+                                    <i class="fa-solid fa-circle fa-xs me-2" style="color: #DF657A;"></i>
+
+                                    <span>Business</span>
+                                }
+                                @if (item.Requesttypeid == 2)
+                                {
+                                    <i class="fa-solid fa-circle fa-xs me-2" style="color: #5FBC61;"></i> <span>Patient</span>
+                                }
+                                @if (item.Requesttypeid == 3)
+                                {
+                                    <i class="fa-solid fa-circle fa-xs me-2" style="color: #DE943D;"></i>
+                                    <span>Friend/Family</span>
+                                }
+                                @if (item.Requesttypeid == 4)
+                                {
+                                    <i class="fa-solid fa-circle fa-xs me-2" style="color: #007FC6;"></i>
+                                    <span>Concierge</span>
+                                }
+                            </div>
+                            <div class="col-6">
+                                @item.Address
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-white border-info text-info rounded-pill 2px">
+                                    <small>Map Location</small>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div class="accordion-body container-fluid">
+                        <p>
+                            <i class="fa-regular fa-calendar-days me-1 circlefa"></i>Date of Birth:
+                        </p>
+                        <p><i class="fa-regular fa-envelope me-1 circlefa"></i>Email</p>
+                        <p><i class="fa-solid fa-phone me-1 circlefa"></i>Patient</p>
+                        <p><i class="fa-solid fa-book me-1 circlefa"></i>Transfer Notes</p>
+                        <p><i class="fa-regular fa-calendar-days me-1 circlefa"></i>Date of Service</p>
+                        <p><i class="fa-solid fa-user-doctor me-1 circlefa"></i>Physician</p>
+                        <p><i class="fa-regular fa-user me-1 circlefa"></i>Requestor</p>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
+                                    <small>View Notes</small>
+                                </button>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #145545;">
+                                    <small>Doctors Note</small>
+                                </button>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
+                                    <small>View Uploads</small>
+                                </button>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
+                                    <small>Encounter</small>
+                                </button>
+                            </div>
+                            <div class="col-6 mb-3 ">
+                                <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #FFD43B;">
+                                    <small>Orders</small>
+                                </button>
+
+                            </div>
+                            <div class="col-6 mb-3">
+                                <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
+                                    <small>Email</small>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="text-end d-md-flex justify-content-md-end pb-3">
+                            <span>Chat With:</span>
+                            <button class="btn btn-info text-white me-md-2" type="button"><i class="fa-regular fa-user me-1"></i><small>Patient</small></button>
+                            <button class="btn btn-info  text-white" type="button"><i class="fa-solid fa-user-doctor me-1"></i><small>Provider</small></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+</div>
+<script>
+
+    $(document).ready(function () {
+
+        $('#adminTable').DataTable({
+            "initComplete": function (settings, json) {
+
+                $('#my-search-input').val(settings.oPreviousSearch.sSearch);
+
+                $('#my-search-input').on('keyup', function () {
+                    var searchValue = $(this).val();
+                    settings.oPreviousSearch.sSearch = searchValue;
+                    settings.oApi._fnReDraw(settings);
+                });
+            },
+            "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
+            "pageLength": 5,
+            language: {
+                oPaginate: {
+                    sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
+                    sPrevious: '<i class="bi bi-caret-left-fill text-info"></i>'
+
+                }
+            }
+        });
+        $('.dataTables_length').hide();
+        $('.dataTables_filter').hide();
+    });
+    $('#patientdata').click(function () {
+        $.ajax({
+            url: "/Admin/New",
+            type: "POST",
+            data: { 'id': 6, 'check': 2 },
+            dataType: "html",
+            success: function (data) {
+                $("#tableContent").html(data);
+            },
+            error: function () {
+                alert("No Projects Found");
+                $("#tableContent").html('An error has occurred');
+            }
+        });
+    });
+    $('#familydata').click(function () {
+        $.ajax({
+            url: "/Admin/New",
+            type: "POST",
+            data: { 'id': 6, 'check': 3 },
+            dataType: "html",
+            success: function (data) {
+                $("#tableContent").html(data);
+            },
+            error: function () {
+                alert("No Projects Found");
+                $("#tableContent").html('An error has occurred');
+            }
+        });
+    });
+    $('#businessdata').click(function () {
+        $.ajax({
+            url: "/Admin/New",
+            data: { 'id': 6, 'check': 1 },
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                $("#tableContent").html(data);
+            },
+            error: function () {
+                alert("No Projects Found");
+                $("#tableContent").html('An error has occurred');
+            }
+        });
+    });
+    $('#conciergedata').click(function () {
+        $.ajax({
+            url: "/Admin/New",
+            type: "POST",
+            data: { 'id': 6, 'check': 4 },
+            dataType: "html",
+            success: function (data) {
+                $("#tableContent").html(data);
+            },
+            error: function () {
+                alert("No Projects Found");
+                $("#tableContent").html('An error has occurred');
+            }
+        });
+    });
+    $('#all').click(function () {
+        $.ajax({
+            url: "/Admin/New",
+            data: { 'id': 6, 'check': 0 },
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                $("#tableContent").html(data);
+            },
+            error: function () {
+                alert("No Projects Found");
+                $("#tableContent").html('An error has occurred');
+            }
+        });
+    });
+
+</script>

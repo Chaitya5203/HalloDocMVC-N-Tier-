@@ -18,8 +18,76 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\ProjectMvc\HalloDocWeb\HalloDocWeb
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/Admindashboard.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5kYXNoYm9hcmQuY3NodG1s
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/admindashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cYWRtaW5kYXNoYm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/Adminforgot.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5mb3Jnb3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/Adminlogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5sb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/Patientrequestadmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGF0aWVudHJlcXVlc3RhZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/Sendorder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2VuZG9yZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/ViewUploadAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVmlld1VwbG9hZEFkbWluLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/View_Case.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVmlld19DYXNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/View_Note.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVmlld19Ob3RlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/_Active.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX0FjdGl2ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/_Adminprofile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX0FkbWlucHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/_Conclude.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX0NvbmNsdWRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/_Modalofassign.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX01vZGFsb2Zhc3NpZ24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/_Modalofblock.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX01vZGFsb2ZibG9jay5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/_Modalsofnew.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX01vZGFsc29mbmV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/_New.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX05ldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/_Pending.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX1BlbmRpbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/_Toclose.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX1RvY2xvc2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Admin/_Unpaid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX1VucGFpZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ProjectMvc/HalloDocWeb/HalloDocWeb/Views/Home/document.cshtml]

@@ -1,4 +1,4 @@
-﻿namespace WebApplication2.Models
+﻿namespace HalloDocWebRepository.ViewModel
 {
     public class someoneelse
     {

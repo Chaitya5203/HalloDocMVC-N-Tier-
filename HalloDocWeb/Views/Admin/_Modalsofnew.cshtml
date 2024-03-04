@@ -1,0 +1,63 @@
+﻿<!-- Modal For Cancel Case For Patient-->
+@model HalloDocWebRepository.Data.Requestclient
+<script>
+    $(document).ready(function () {
+        var myModalCancel = new bootstrap.Modal(document.getElementById('cancelCase'));
+        myModalCancel.show();
+    });
+    $('#cancelform').submit(function (e) {
+        e.preventDefault();
+        var reasonid = $('#ReasonDropdown').val();
+        var notes = $('#notes').val();
+        var reqid = '@TempData["reqid"]';
+        $.ajax({
+            url: "/Admin/CancelConfirm",
+            data: { reasonid: reasonid, notes: notes, id: reqid },
+            type: "POST",
+            success: function (data) {
+                $("#modalpopup").remove();
+                $(".modal-backdrop").remove();
+                // alert('Request cancelled successfully');
+                location.reload();
+                //window.onload(getLocation());
+            },
+            error: function () {
+                alert("No Projects Found");
+            }
+        });
+    });
+</script>
+<div class="modal fade" id="cancelCase" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmcancel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#4dd2ff; color:white;">
+                <h1 class="modal-title fs-3" id="confirmcancel">Confirm Cancellation</h1>
+                <button type="button" class=" text-white border-0 bg-transparent fs-5" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-inline-flex my-3 fs-5">
+                    Patient Name : <span style="color:#4dd2ff">@Model.Firstname @Model.Lastname</span>
+                </div>
+                <form id="cancelform"   >
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="ReasonDropdown">
+                            <option selected value="0"> Reasons for Cancellation</option>
+                            <option value="1">No Respone to call or text, left message</option>
+                            <option value="2">Cost Issue</option>
+                            <option value="3">Insurance Issue</option>
+                            <option value="4">Out of Service Area</option>
+                            <option value="5">Not appropriate for service</option>
+                            <option value="6">Referral to Clinic or Hospital</option>
+                        </select>
+                        <label for="floatingSelect">Reasons for Cancellation</label>
+                    </div>
+                    <textarea id="notes" class="my-3 w-100" placeholder="Provide Additional Notes" style="height:100px;"></textarea>
+                    <div class="d-inline-flex justify-content-end w-100 mb-4">
+                        <button type="submit" class="btn me-2" style="background-color:#4dd2ff; color:white; width:fit-content">Confirm</button>
+                        <button type="button" class="btn bg-transparent me-4" data-bs-dismiss="modal" style="border: 1px solid #4dd2ff; color:#4dd2ff; width:fit-content">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

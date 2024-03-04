@@ -22,8 +22,8 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddScoped<IPatient_Repository, Patient_Repository>();
 builder.Services.AddScoped<IPatient_Service, Patient_Service>();
-//builder.Services.AddScoped<IAdmin_Repository, Admin_Repository>();
-//builder.Services.AddScoped<IAdmin_Service, Admin_Service>();
+builder.Services.AddScoped<IAdmin_Repository, Admin_Repository>();
+builder.Services.AddScoped<IAdmin_Service, Admin_Service>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

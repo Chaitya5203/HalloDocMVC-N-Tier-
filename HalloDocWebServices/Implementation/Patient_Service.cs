@@ -14,7 +14,6 @@ using System.Net.Http;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
-using WebApplication2.Models;
 
 namespace HalloDocWebServices.Implementation
 {

@@ -1,113 +1,23 @@
-
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
 @{
     ViewData["Title"] = "Admin Dashboard Page";
+    // if (@Accessor.HttpContext.Session.GetString("Isheader") == "true")
+    // {
+    //     Layout = "_AdminHeader";
+    // }
+    // else Layout = "_AdminHeader";
+    // Layout = "_AdminHeader";
+    
 }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"> </script>
 <style>
     .iti {
         width: 100%;
     }
-    #phone,#phone1 {
+    #phone, #phone1 {
         height: 58px;
     }
-    $(document).ready(function () {
-            $.ajax({
-                url: "/Admin/New",
-                type: "POST",
-                dataType: "html",
-                success: function (data) {
-                    $("#tableContent").html(data);
-                },
-                error: function () {
-                    alert("No Projects Found");
-                    $("#tableContent").html('An error has occurred');
-                }
-            });
-            $('#new-box').click(function () {
-                $.ajax({
-                    url: "/Admin/New",
-                    type: "POST",
-                    dataType: "html",
-                    success: function (data) {
-                        $("#tableContent").html(data);
-                    },
-                    error: function () {
-                        alert("No Projects Found");
-                        $("#tableContent").html('An error has occurred');
-                    }
-                });
-            });
-            $('#pending-box').click(function () {
-                $.ajax({
-                    url: "/Admin/Pending",
-                    type: "POST",
-                    dataType: "html",
-                    success: function (data) {
-                        $("#tableContent").html(data);
-                    },
-                    error: function () {
-                        alert("No Projects Found");
-                        $("#tableContent").html('An error has occurred');
-                    }
-                });
-            });
-            $('#active-box').click(function () {
-                $.ajax({
-                    url: "/Admin/Active",
-                    type: "POST",
-                    dataType: "html",
-                    success: function (data) {
-                        $("#tableContent").html(data);
-                    },
-                    error: function () {
-                        alert("No Projects Found");
-                        $("#tableContent").html('An error has occurred');
-                    }
-                });
-            });
-            $('#conclude-box').click(function () {
-                $.ajax({
-                    url: "/Admin/Conclude",
-                    type: "POST",
-                    dataType: "html",
-                    success: function (data) {
-                        $("#tableContent").html(data);
-                    },
-                    error: function () {
-                        alert("No Projects Found");
-                        $("#tableContent").html('An error has occurred');
-                    }
-                });
-            });
-              $('#close-box').click(function () {
-                  $.ajax({
-                      url: "/Admin/Close",
-                      type: "POST",
-                      dataType: "html",
-                      success: function (data) {
-                          $("#tableContent").html(data);
-                      },
-                      error: function () {
-                          alert("No Projects Found");
-                          $("#tableContent").html('An error has occurred');
-                      }
-                  });
-              });
-              $('#unpaid-box').click(function () {
-                  $.ajax({
-                      url: "/Admin/Unpaid",
-                      type: "POST",
-                      dataType: "html",
-                      success: function (data) {
-                          $("#tableContent").html(data);
-                      },
-                      error: function () {
-                          alert("No Projects Found");
-                          $("#tableContent").html('An error has occurred');
-                      }
-                  });
-              });
-            });
 </style>
 <nav class="bg-white">
     <div class="container-fluid  shadow p-0" style="z-index:1060; padding-left :0px !important;">
@@ -122,16 +32,17 @@
             <li>
                 <a>
                     <button class="btn hideonmobile me-2"
-                        style="border:2px solid #54d4d3; color: #54d4d3;">Logout
+                            style="border:2px solid #54d4d3; color: #54d4d3;">
+                        Logout
                     </button>
                 </a>
             </li>
             <li>
                 <a>
                     <button class="btn showonmobile hide me-2"
-                        style="border:2px solid #54d4d3;">
+                            style="border:2px solid #54d4d3;">
                         <i class="fa-solid fa-arrow-right-from-bracket"
-                            style="color: #54d4d3;">
+                           style="color: #54d4d3;">
                         </i>
                     </button>
                 </a>
@@ -142,45 +53,49 @@
         </ul>
         <hr>
         <ul class="nav nav-tabs hideonmobile" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
+            <li class="nav-item purpletri triangle-down" role="presentation">
                 <button class="nav-link active border-0 text-muted" id="home-tab" data-bs-toggle="tab"
-                    data-bs-target="#home" type="button" role="tab" aria-controls="home"
-                    aria-selected="true"><b>Dashboard</b></button>
+                        data-bs-target="#home" type="button" role="tab" aria-controls="home"
+                        aria-selected="true">
+                    <b>Dashboard</b>
+                </button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item purpletri triangle-down" role="presentation">
                 <button class="nav-link text-muted border-0 " id="provider-location-tab" data-bs-toggle="tab"
                         data-bs-target="#providerlocation" type="button" role="tab" aria-controls="providerlocation"
-                    aria-selected="false"><b>Provider Location</b></button>
+                        aria-selected="false">
+                    <b>Provider Location</b>
+                </button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item purpletri triangle-down" role="presentation">
                 <button class="nav-link text-muted border-0 " id="profile-tab" data-bs-toggle="tab"
                         data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
                         aria-selected="false">
                     <b>My Profile</b>
                 </button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item purpletri triangle-down" role="presentation">
                 <button class="nav-link text-muted border-0 " id="providers-tab" data-bs-toggle="tab"
                         data-bs-target="#providers" type="button" role="tab" aria-controls="providers"
                         aria-selected="false">
                     <b>Providers</b>
                 </button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item purpletri triangle-down" role="presentation">
                 <button class="nav-link text-muted border-0 " id="partners-tab" data-bs-toggle="tab"
                         data-bs-target="#partners" type="button" role="tab" aria-controls="partners"
                         aria-selected="false">
                     <b>Partners</b>
                 </button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item purpletri triangle-down" role="presentation">
                 <button class="nav-link text-muted border-0 " id="Accedss-tab" data-bs-toggle="tab"
                         data-bs-target="#access" type="button" role="tab" aria-controls="access"
                         aria-selected="false">
                     <b>Access</b>
                 </button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item purpletri triangle-down" role="presentation">
                 <button class="nav-link text-muted border-0 " id="Records-tab" data-bs-toggle="tab"
                         data-bs-target="#records" type="button" role="tab" aria-controls="records"
                         aria-selected="false">
@@ -190,207 +105,104 @@
         </ul>
     </div>
 </nav>
-<div class="offcanvas offcanvas-start w-50 showonmobile hide bg-light" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel" >
+<div class="offcanvas offcanvas-start w-50 showonmobile hide bg-light" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Welcome <strong>Test Tests</strong></h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <div class="offcanvasmenu p-2"><a href="" class="text-muted text-decoration-none">Dashboard</a></div>
-        <div class="offcanvasmenu p-2"><a href="" class="text-muted text-decoration-none">ProviderLocation</a></div>
-        <div class="offcanvasmenu p-2"><a href="" class="text-muted text-decoration-none">My Profile</a></div>
-        <div class="offcanvasmenu p-2"><a href="" class="text-muted text-decoration-none">Providers</a></div>
-        <div class="offcanvasmenu p-2"><a href="" class="text-muted text-decoration-none">Partners</a></div>
-        <div class="offcanvasmenu p-2"><a href="" class="text-muted text-decoration-none">Access</a></div>
-        <div class="offcanvasmenu p-2"><a href="" class="text-muted text-decoration-none">Records</a></div>
+        <div class="offcanvasmenu p-2"><a id="dashboardnav" class="text-muted text-decoration-none">Dashboard</a></div>
+        <div class="offcanvasmenu p-2"><a id="providerlocationnav" class="text-muted text-decoration-none">ProviderLocation</a></div>
+        <div class="offcanvasmenu p-2"><a id="myprofilenav" class="text-muted text-decoration-none">My Profile</a></div>
+        <div class="offcanvasmenu p-2"><a id="providernav" class="text-muted text-decoration-none">Providers</a></div>
+        <div class="offcanvasmenu p-2"><a id="partnerdnav" class="text-muted text-decoration-none">Partners</a></div>
+        <div class="offcanvasmenu p-2"><a id="accessnav" class="text-muted text-decoration-none">Access</a></div>
+        <div class="offcanvasmenu p-2"><a id="recordnav" class="text-muted text-decoration-none">Records</a></div>
     </div>
 </div>
-<div class="tab-content" id="nav-tabContent">
+<div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="container-fluid bg-light mt-3">
-        <div class="row d-flex justify-content-xl-center">
+            <div class="row d-flex justify-content-xl-center">
 
-            <div class="col-sm-4 col-md-4 col-lg-2 col-4 mb-3" style="padding-left:1px !important;">
-                    <a href="#" style="text-decoration: none;" id="new-box">
-                    <div class="p-1 rounded" style="border: solid thin #063982; color:#063982; background-color:#CFE2FF">
-                        <div class="d-flex flex-column">
-                            <span>
+                <div class="col-sm-4 col-md-4 col-lg-2 col-4 mb-3" style="padding-left:1px !important;">
+                    <button id="new-box" class="w-100 border-0 text-start">
+                        <div class="p-1 rounded" style="border: solid thin #063982; color:#063982; background-color:#CFE2FF">
+                            <div class="d-flex flex-column">
+                                <span>
                                     <small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/new.png" class="hideonmobile" style="height:30px;" />NEW</small>
                                 </span>
-                            <span class="h3 fw-bold">12345</span>
+                                <span class="h3 fw-bold">@ViewBag.NewCount</span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
-                    <a href="#" style="text-decoration: none;" id="#pending-box">
-                <div class="p-1 rounded" style="border: solid thin #0AA2C0; color:#0AA2C0; background-color:#D1F7FF">
-                    <div class="d-flex flex-column">
+                    </button>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
+                    <button id="pending-box" class="w-100 border-0 text-start">
+                        <div class="p-1 rounded" style="border: solid thin #0AA2C0; color:#0AA2C0; background-color:#D1F7FF">
+                            <div class="d-flex flex-column">
                                 <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/pending.png" class="hideonmobile" style="height:30px;" />PENDING</small></span>
-                        <span class="h3 fw-bold">12345</span>
-                    </div>
+                                <span class="h3 fw-bold"> @ViewBag.PendingCount</span>
+                            </div>
+                        </div>
+                    </button>
                 </div>
-               </a>
-            </div>
-            <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
-                    <a href="#" style="text-decoration: none;" id="#active-box">
+                <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
+                    <button id="active-box" class="w-100 border-0 text-start">
                         <div class="p-1 rounded" style="border: solid thin #198754; color:#198754; background-color:#E0F7ED">
-                    <div class="d-flex flex-column">
+                            <div class="d-flex flex-column">
                                 <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/active.png" class="hideonmobile" style="height:30px;" />ACTIVE</small></span>
-                        <span class="h3 fw-bold">12345</span>
-
-                    </div>
-
+                                <span class="h3 fw-bold">@ViewBag.ActiveCount</span>
+                            </div>
+                        </div>
+                    </button>
                 </div>
-                    </a>
-            </div>
-            <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
-                    <a href="#" style="text-decoration: none;" id="conclude-box">
-                <div class="p-1 rounded" style="border: solid thin #AB296A; color:#AB296A; background-color:#FFDDED">
-                    <div class="d-flex flex-column">
+                <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
+                    <button id="conclude-box" class="w-100 border-0 text-start">
+                        <div class="p-1 rounded" style="border: solid thin #AB296A; color:#AB296A; background-color:#FFDDED">
+                            <div class="d-flex flex-column">
                                 <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/conclude.png" class="hideonmobile" style="height:30px;" />CONCLUDE</small></span>
-                        <span class="h3 fw-bold">12345</span>
-
-                    </div>
-
+                                <span class="h3 fw-bold"> @ViewBag.ConcludeCount </span>
+                            </div>
+                        </div>
+                    </button>
                 </div>
-                    </a>
-            </div>
-            <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
-                    <a href="#" style="text-decoration: none;" id="#close-box">
-                <div class="p-1 rounded" style="border: solid thin #0A58CA; color:#0A58CA; background-color:#CFE2FF">
-                    <div class="d-flex flex-column">
+                <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
+                    <button id="close-box" class="w-100 border-0 text-start">
+                        <div class="p-1 rounded" style="border: solid thin #0A58CA; color:#0A58CA; background-color:#CFE2FF">
+                            <div class="d-flex flex-column">
                                 <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/toclose.png" class="hideonmobile" style="height:30px;" />TO CLOSE</small></span>
-                        <span class="h3 fw-bold">12345</span>
-
-                    </div>
-
+                                <span class="h3 fw-bold">@ViewBag.TocloseCount</span>
+                            </div>
+                        </div>
+                    </button>
                 </div>
-                    </a>
-            </div>
-
-            <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:0px !important;">
-                    <a href="#" style="text-decoration: none;" id="#unpaid-box">
-                <div class="p-1 rounded" style="border: solid thin #8C68CD; color:#8C68CD; background-color:#E2D9F3">
-                    <div class="d-flex flex-column">
+                <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:0px !important;">
+                    <button id="unpaid-box" class="w-100 border-0 text-start">
+                        <div class="p-1 rounded" style="border: solid thin #8C68CD; color:#8C68CD; background-color:#E2D9F3">
+                            <div class="d-flex flex-column">
                                 <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/unpaid.png" class="hideonmobile" style="height:30px;" />UNPAID</small></span>
-                        <span class="h3 fw-bold">12345</span>
-
-                    </div>
-
-                </div>
-                    </a>
-            </div>
-        </div>
-            <div class="row mt-3 d-flex flex-row">
-                <div class="text-end d-md-flex hideonmobile justify-content-md-end ">
-                    <h5 class="ms-2" style="position:absolute !important; left:10px !important;">Patients <span style="color:#063982">(New)</span></h5>
-                    <button class="btn btn-info ms-1 text-white" type="button"><i class="fa-regular fa-paper-plane me-1"></i><small>Send Link</small></button>
-                    <button class="btn btn-info text-white ms-1 border-info" type="button"><i class="fa-regular fa-note-sticky me-1"></i><small> Requests</small></button>
-                    <button class="btn btn-info ms-1 text-white" type="button"><i class="fa fa-share-square me-1" aria-hidden="true"></i><small>Export</small></button>
-                    <button class="btn btn-info text-white ms-1 border-info" type="button"><i class="fa fa-share-square me-1" aria-hidden="true"></i><small>Export All</small></button>
-                    <button class="btn btn-info text-white ms-1" type="button"><i class="fa-regular fa-user me-1"></i><small>Request DTY Support</small></button>
-                </div>
-                <div class="text-end d-md-flex showonmobile hide justify-content-md-end " >
-                    <h6 class="ms-2" style="position:absolute !important; left:10px !important;">Patients <span style="color:#063982">(New)</span></h6>
-                    <button class="btn btn-info ms-1 p-1 text-white" type="button"><i class="fa-regular fa-paper-plane"></i></button>
-                    <button class="btn btn-info p-1 text-white ms-1 border-info" type="button"><i class="fa-regular fa-note-sticky"></i> </button>
-                    <button class="btn btn-info p-1 ms-1 text-white" type="button"><i class="fa fa-share-square" aria-hidden="true"></i></button>
-                    <button class="btn btn-info p-1 text-white ms-1 border-info" type="button"><i class="fa fa-share-square" aria-hidden="true"></i></button>
-                    <button class="btn btn-info p-1 text-white ms-1" type="button"><i class="fa-regular fa-user"></i></button>
+                                <span class="h3 fw-bold">@ViewBag.UnpaidCount</span>
+                            </div>
+                        </div>
+                    </button>
                 </div>
             </div>
-            <div class="w-100 d-flex flex-column">
+            <div class="">
+                <div id="tableContent" class="table-responsive">
 
-            <div class="row g-2 mt-2 pt-2 pb-3 bg-white shadow rounded-1">
-                <div class="col-lg-2 col-md-6 col-sm-12">
-                        <i class="fa fa-search text-muted position-absolute" style="padding-top:10px; padding-left:10px;"></i>
-                    <input type="search" class="form-control" style="padding-left:35px;" id="floatingInputGrid" placeholder="Search Patients">
                 </div>
-                <div class="col-lg-2 col-md-6 col-sm-12">
-                     <select class="form-select" id="floatingSelectGrid">
-                        <option selected>All Regions</option>
-                            <option value="1">Surat</option>
-                            <option value="2">Ahmedabad</option>
-                            <option value="3">Anand</option>
-                     </select>
-                </div>
-                <div class="col-lg-8 col-md-12 col-sm-12">
-                    <div class="text-end d-md-flex justify-content-md-end ">
-                        <button class="hideonmobile btn btn-white" style="border-color:gainsboro;" type="button">All</button>
-                        <span class="p-2 border-info" type="button"><i class="fa-solid fa-circle fa-xs me-2" style="color: #3ecc4e;"></i>Patient</span>
-                        <span class="p-2" type="button"><i class="fa-solid fa-circle fa-xs me-2" style="color: #FFD43B;"></i>Family/Freind</span>
-                        <span class="p-2 border-info" type="button"><i class="fa-solid fa-circle fa-xs me-2" style="color: #d049b7;"></i>Business</span>
-                        <span class=" p-2 " type="button"><i class="fa-solid fa-circle fa-xs me-2" style="color: #3c5bd7;"></i>Concierge</span>
-                        <span class="p-2 " type="button"><i class="fa-solid fa-circle fa-xs me-2" style="color: #6d4bd2;"></i>VIP</span>
-                    </div>
-                </div>
-            </div>
-            <div class="table-responsive hideonmobile">
-                <table class="table caption-top">
-                    <thead class="mt-2 pt-5">
-                        <tr class="text-muted ">
-                            <th class="pb-3 pt-3" scope="col">Name</th>
-                            <th class="pb-3 pt-3" scope="col">Date Of Birth</th>
-                            <th class="pb-3 pt-3" scope="col">Requestor</th>
-                            <th scope="col" class="pb-3 pt-3">Requested Date</th>
-                            <th scope="col" class="pb-3 pt-3">Phone</th>
-                            <th class="pb-3 pt-3" scope="col">Address</th>
-                            <th class="pb-3 pt-3" scope="col">Notes</th>
-                            <th class="pb-3 pt-3" scope="col">Chat With</th>
-                            <th class="pb-3 pt-3" scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>fat</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
-                            <td>mdo</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-            <div class="accordion showonmobile hide mt-3" id="accordionExample">
-                <div class="accordion-item">
-                    <div class="accordion-header">
-                        <div class="container-fluid accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <div class="row w-100">
-                                <div class="col-6 mb-3">
-                                     Patient Name   
-                                </div>
-                                <div class="col-6 mb-3">
+               @* <div class="accordion showonmobile hide mt-3" id="accordionExample">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div class="container-fluid accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <div class="row w-100">
+                                    <div class="col-6 mb-3">
+                                        Patient Name
+                                    </div>
+                                    <div class="col-6 mb-3">
                                         <i class="fa-solid fa-circle fa-xs me-2" style="color: #3ecc4e;"></i>patient
-                                </div>
+                                    </div>
                                     <div class="col-6">
                                         Address
                                     </div>
@@ -400,227 +212,197 @@
                                         </button>
                                     </div>
                                 </div>
+                            </div>
                         </div>
-                    </div>
                     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                         <div class="accordion-body container-fluid">
-                                <p>
-                                    <i class="fa-regular fa-calendar-days me-1 circlefa"></i>Date of Birth:
-                                </p>
-                                <p><i class="fa-regular fa-envelope me-1 circlefa"></i>Email</p>
-                                <p><i class="fa-solid fa-phone me-1 circlefa"></i>Patient</p>
-                                <p><i class="fa-solid fa-book me-1 circlefa"></i>Transfer Notes</p>
-                                <p><i class="fa-regular fa-calendar-days me-1 circlefa"></i>Date of Service</p>
-                                <p><i class="fa-solid fa-user-doctor me-1 circlefa"></i>Physician</p>
-                                <p><i class="fa-regular fa-user me-1 circlefa"></i>Requestor</p>
-                            <div class="row">
-                                <div class="col-6 mb-3">
-                                        <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
-                                            <small>View Notes</small>
-                                        </button>
-                                    </div>
-                                    <div class="col-6 mb-3">
-                                        <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #145545;">
-                                            <small>Doctors Note</small>
-                                        </button>
-                                    </div>
-                                    <div class="col-6 mb-3">
-                                        <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
-                                            <small>View Uploads</small>
-                                        </button>
-                                    </div>
-                                    <div class="col-6 mb-3">
-                                        <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
-                                            <small>Encounter</small>
-                                        </button>
-                                </div>
-                                <div class="col-6 mb-3 ">
-                                        <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #FFD43B;">
-                                            <small>Orders</small>
-                                        </button>
-
-                                </div>
-                                <div class="col-6 mb-3">
-                                     <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
-                                          <small>Email</small>
-                                     </button>
-                                </div>
-                            </div>
-                                <div class="text-end d-md-flex justify-content-md-end">
-                                    <span>Chat With:</span>
-                                    <button class="btn btn-white border-info text-info me-md-2" type="button"><i class="fa-regular fa-user me-1"></i>Patient</button>
-                                    <button class="btn btn-white border-info text-info" type="button"><i class="fa-solid fa-user-doctor me-1"></i>Provider</button>
-                                </div>
+                            <p>
+                                <i class="fa-regular fa-calendar-days me-1 circlefa"></i>Date of Birth:
+                            </p>
+                            <p><i class="fa-regular fa-envelope me-1 circlefa"></i>Email</p>
+                            <p><i class="fa-solid fa-phone me-1 circlefa"></i>Patient</p>
+                            <p><i class="fa-solid fa-book me-1 circlefa"></i>Transfer Notes</p>
+                            <p><i class="fa-regular fa-calendar-days me-1 circlefa"></i>Date of Service</p>
+                            <p><i class="fa-solid fa-user-doctor me-1 circlefa"></i>Physician</p>
+                            <p><i class="fa-regular fa-user me-1 circlefa"></i>Requestor</p>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
+                                <small>View Notes</small>
+                            </button>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #145545;">
+                                <small>Doctors Note</small>
+                            </button>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
+                                <small>View Uploads</small>
+                            </button>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
+                                <small>Encounter</small>
+                            </button>
+                        </div>
+                        <div class="col-6 mb-3 ">
+                            <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #FFD43B;">
+                                <small>Orders</small>
+                            </button>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
+                                <small>Email</small>
+                            </button>
                         </div>
                     </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Accordion Item #2
-                        </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Accordion Item #3
-                        </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
+                    <div class="text-end d-md-flex justify-content-md-end">
+                        <span>Chat With:</span>
+                        <button class="btn btn-white border-info text-info me-md-2" type="button"><i class="fa-regular fa-user me-1"></i>Patient</button>
+                        <button class="btn btn-white border-info text-info" type="button"><i class="fa-solid fa-user-doctor me-1"></i>Provider</button>
                     </div>
                 </div>
             </div>
+        </div>
+               </div> *@
+</div>
+</div>
+</div>
+<div class="tab-pane fade" id="providerlocation" role="tabpanel" aria-labelledby="provider-location-tab">fsdf</div>
+<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between mt-3">
+                    <h4 class="mt-3">My Profile</h4>
+                    @* <a asp-action="PatientDashboard" asp-controller="Home"><button class="theme-btn-header px-1 mt-3 mb-3 " style="height: 40px; width : 80px; color: #54B4D3;">< Back</button></a> *@
+                    <a class="text-start text-info text-decoration-none ">
+                        <button class="btn btn-white  text-info border-info rounded ">
+                            <i class="fa-solid  fa-less-than"></i> Back
+                        </button>
+                    </a>
+                </div>
+                <form method="post" id="enable">
+                    <div class="container rounded bg-white shadow py-3">
+                        <h5 class="mb-3">Account Information</h5>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">User Name</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">Password </label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6">
+                                <div class="mb-3 border border-light rounded-5">
+                                    <select class="form-select p-3 pla1" aria-label=".form-select-lg example">
+                                        <option selected value="1">Mobile</option>
+                                        <option value="2">Email</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6">
+                                <div class="mb-3 border border-light rounded-5">
+                                    <select class="form-select p-3 pla1" aria-label=".form-select-lg example">
+                                        <option selected value="1">Mobile</option>
+                                        <option value="2">Email</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-end pb-3">
+                            <button class="btn btn-white text-info border-info" type="button">Reset password</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 h5 mb-3">
+                                Administrator Information
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">Firstname</label>
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">Lastname</label>
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input name="email" type="email" class="form-control" id="email" placeholder="Email">
+                                <label for="email" class="form-label ps-4">Email</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input name="cemail" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Confirm Email">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">Confirm Email</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input id="phone" class="form-control inp2" type="tel" placeholder="Phone Number">
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                    <label class="form-check-label" for="inlineCheckbox1">District Of Columbia</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                    <label class="form-check-label" for="inlineCheckbox2">New York</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                                    <label class="form-check-label" for="inlineCheckbox3">Virginia</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
+                                    <label class="form-check-label" for="inlineCheckbox4">Maryland</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-end pb-3">
+                            <button class="btn btn-info text-white" onclick="enbledata()" type="button">Edit</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 h5 mb-3">
+                                Mailing & Billing Information
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input type="text" name="Address-1" class="form-control" id="Address-1" placeholder="Address 1">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">Address 1</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input type="text" name="Address-2" class="form-control" id="Address-2" placeholder="Address 2">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">Address 2</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+                                <input type="text" name="city" class="form-control" id="city" placeholder="City">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">City</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+                                <input type="text" name="state" class="form-control" id="state" placeholder="State">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">State</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+                                <input type="text" name="zipcode" class="form-control" id="zipcode" placeholder="Zip Code">
+                                <label for="exampleFormControlInput1" class="form-label ps-4">Zip Code</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input id="phone1" class="form-control inp2" type="tel" placeholder="Phone Number">
+                            </div>
+                        </div>
+                        <div class="text-end pb-3">
+                            <button class="btn btn-info text-white" onclick="enbledata()" type="button">Edit</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <div class="tab-pane fade" id="providerlocation" role="tabpanel" aria-labelledby="provider-location-tab">
-        jvnfsjvbuj
-    </div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <div class="tab-pane container active" id="dashboard">
-            <div class="container mx-0">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="d-flex justify-content-between mt-3">
-                            <h4 class="mt-3">My Profile</h4>
-                            @* <a asp-action="PatientDashboard" asp-controller="Home"><button class="theme-btn-header px-1 mt-3 mb-3 " style="height: 40px; width : 80px; color: #54B4D3;">< Back</button></a> *@
-                            <a class="text-start text-info text-decoration-none ">
-                                <button class="btn btn-white  text-info border-info rounded ">
-                                    <i class="fa-solid  fa-less-than"></i> Back
-                                </button>
-                            </a>
-                        </div>
-                        <form method="post" id="enable">
-                            <div class="container rounded bg-white shadow py-3">
-                                <h5 class="mb-3">Account Information</h5>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                        <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
-                                        <label for="exampleFormControlInput1" class="form-label ps-4">User Name</label>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                        <input name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
-                                        <label for="exampleFormControlInput1" class="form-label ps-4">Password </label>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-6">
-                                        <div class="mb-3 border border-light rounded-5">
-                                            <select class="form-select p-3 pla1" aria-label=".form-select-lg example">
-                                                <option selected value="1">Mobile</option>
-                                                <option value="2">Email</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-6">
-                                        <div class="mb-3 border border-light rounded-5">
-                                            <select class="form-select p-3 pla1" aria-label=".form-select-lg example">
-                                                <option selected value="1">Mobile</option>
-                                                <option value="2">Email</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="text-end pb-3">
-                                    <button class="btn btn-white text-info border-info" type="button">Reset password</button>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 h5 mb-3">
-                                        Administrator Information
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                        <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
-                                        <label for="exampleFormControlInput1" class="form-label ps-4">Firstname</label>
-                                        <span class="text-danger"></span>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                        <input name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
-                                        <label for="exampleFormControlInput1" class="form-label ps-4">Lastname</label>
-                                        <span class="text-danger"></span>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                        <input name="email" type="email" class="form-control" id="email" placeholder="Email">
-                                        <label for="email" class="form-label ps-4">Email</label>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                        <input name="cemail" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Confirm Email">
-                                        <label for="exampleFormControlInput1" class="form-label ps-4">Confirm Email</label>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                        <input id="phone" class="form-control inp2" type="tel" placeholder="Phone Number">
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-6">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                            <label class="form-check-label" for="inlineCheckbox1">District Of Columbia</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                            <label class="form-check-label" for="inlineCheckbox2">New York</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-                                            <label class="form-check-label" for="inlineCheckbox3">Virginia</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
-                                            <label class="form-check-label" for="inlineCheckbox4">Maryland</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="text-end pb-3">
-                                    <button class="btn btn-info text-white" onclick="enbledata()" type="button">Edit</button>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 h5 mb-3">
-                                        Mailing & Billing Information
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                        <input type="text" name="Address-1" class="form-control" id="Address-1" placeholder="Address 1">
-                                        <label for="exampleFormControlInput1" class="form-label ps-4">Address 1</label>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                        <input type="text" name="Address-2" class="form-control" id="Address-2" placeholder="Address 2">
-                                        <label for="exampleFormControlInput1" class="form-label ps-4">Address 2</label>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
-                                        <input type="text" name="city" class="form-control" id="city" placeholder="City">
-                                        <label for="exampleFormControlInput1" class="form-label ps-4">City</label>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
-                                        <input type="text" name="state" class="form-control" id="state" placeholder="State">
-                                        <label for="exampleFormControlInput1" class="form-label ps-4">State</label>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
-                                        <input type="text" name="zipcode" class="form-control" id="zipcode" placeholder="Zip Code">
-                                        <label for="exampleFormControlInput1" class="form-label ps-4">Zip Code</label>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                        <input id="phone1" class="form-control inp2" type="tel" placeholder="Phone Number">
-                                    </div>
-                                </div>
-                                <div class="text-end pb-3">
-                                    <button class="btn btn-info text-white" onclick="enbledata()" type="button">Edit</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane container fade" id="profile">this is Profile tab</div>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="providers" role="tabpanel" aria-labelledby="providers-tab">.fdfgg..</div>
-    <div class="tab-pane fade" id="partners" role="tabpanel" aria-labelledby="partners-tab">..fff.</div>
-    <div class="tab-pane fade" id="access" role="tabpanel" aria-labelledby="Accedss-tab">.ddd..</div>
-    <div class="tab-pane fade" id="records" role="tabpanel" aria-labelledby="Records-tab">..ddf.</div>
+</div>
+<div class="tab-pane fade" id="providers" role="tabpanel" aria-labelledby="providers-tab">.fdfgg..</div>
+<div class="tab-pane fade" id="partners" role="tabpanel" aria-labelledby="partners-tab">..fff.</div>
+<div class="tab-pane fade" id="access" role="tabpanel" aria-labelledby="Accedss-tab">.ddd..</div>
+<div class="tab-pane fade" id="records" role="tabpanel" aria-labelledby="Records-tab">..ddf.</div>
 </div>
 <footer class="text-center justify-content-center bg-secondary position-fixed w-100 bottom-0">
     <div class="">Terms Of Conditions <div class="vr "></div> Privacy Policy</div>
@@ -643,5 +425,124 @@
     const iti1 = window.intlTelInput(input2, {
         initialCountry: "us",
         utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Admin/New",
+            type: "POST",
+            data: { 'id': 1 , 'check' : 0},
+            dataType: "html",
+            success: function (data) {
+                $("#tableContent").html(data);
+            },
+            error: function () {
+                alert("No Projects Found");
+                $("#tableContent").html('An error has occurred');
+            }
+        });
+        $('#new-box').click(function () {
+            $.ajax({
+                url: "/Admin/New",
+                type: "POST",
+                data: { 'id': 1 , 'check' : 0},
+                dataType: "html",
+                success: function (data) {
+                    $("#tableContent").html(data);
+                },
+                error: function () {
+                    alert("No Projects Found");
+                    $("#tableContent").html('An error has occurred');
+                }
+            });
+        });
+        $('#pending-box').click(function () {
+            $.ajax({
+                url: "/Admin/New",
+                type: "POST",
+                data: { 'id': 2 , 'check' : 0},
+                dataType: "html",
+                success: function (data) {
+                    $("#tableContent").html(data);
+                },
+                error: function () {
+                    alert("No Projects Found");
+                    $("#tableContent").html('An error has occurred');
+                }
+            });
+        });
+        $('#active-box').click(function () {
+            $.ajax({
+                url: "/Admin/New",
+                data: { 'id': 3 , 'check' : 0},
+                type: "POST",
+                dataType: "html",
+                success: function (data) {
+                    $("#tableContent").html(data);
+                },
+                error: function () {
+                    alert("No Projects Found");
+                    $("#tableContent").html('An error has occurred');
+                }
+            });
+        });
+        $('#conclude-box').click(function () {
+            $.ajax({
+                url: "/Admin/New",
+                type: "POST",
+                data: { 'id': 4 , 'check' : 0},
+                dataType: "html",
+                success: function (data) {
+                    $("#tableContent").html(data);
+                },
+                error: function () {
+                    alert("No Projects Found");
+                    $("#tableContent").html('An error has occurred');
+                }
+            });
+        });
+        $('#close-box').click(function () {
+            $.ajax({
+                url: "/Admin/New",
+                data: { 'id': 5 , 'check' : 0},
+                type: "POST",
+                dataType: "html",
+                success: function (data) {
+                    $("#tableContent").html(data);
+                },
+                error: function () {
+                    alert("No Projects Found");
+                    $("#tableContent").html('An error has occurred');
+                }
+            });
+        });
+        $('#unpaid-box').click(function () {
+            $.ajax({
+                url: "/Admin/New",
+                type: "POST",
+                data: { 'id': 6 , 'check' : 0},
+                dataType: "html",
+                success: function (data) {
+                    $("#tableContent").html(data);
+                },
+                error: function () {
+                    alert("No Projects Found");
+                    $("#tableContent").html('An error has occurred');
+                }
+            });
+        });
+    });
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.statustablinks').click(function () {
+            $('.statustablinks').removeClass('active');
+            $(this).addClass('active');
+            $('.triangle-down').hide();
+            $(this).parent().find('.triangle-down').show();
+        });
     });
 </script>
