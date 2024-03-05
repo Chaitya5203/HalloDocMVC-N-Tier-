@@ -133,6 +133,9 @@ nav ul:first-child li:first-child{
     }
 
     .showonmobile {
+        display: block !important;
+    }
+    .showonviewupload {
         display: flex !important;
     }
 }

@@ -128,9 +128,13 @@ namespace HalloDocWebRepository.Implementation
             _context.Requestnotes.Add(addreq);
             _context.SaveChanges ();
         }
+        public Requestwisefile getRequestWiseFileList(int id,string filename)
+        {
+            return _context.Requestwisefiles.FirstOrDefault(m => m.Requestid == id && m.Isdeleted == null && m.Filename == filename);
+        }
         public List<Requestwisefile> getRequestWiseFileList(int id)
         {
-            return _context.Requestwisefiles.Where(m => m.Requestid == id && m.Isdeleted==null).ToList();
+            return _context.Requestwisefiles.Where(m => m.Requestid == id && m.Isdeleted == null ).ToList();
         }
         public Requestwisefile getRequestWiseFile(int id)
         {
@@ -140,6 +144,22 @@ namespace HalloDocWebRepository.Implementation
         {
             _context.Requestwisefiles.Update(file);
             _context.SaveChanges ();    
+        }
+
+        public void addrequestwisefiletablebyadmin(Requestwisefile reqclient)
+        {
+            _context.Requestwisefiles.Add(reqclient);
+            _context.SaveChanges();
+        }
+
+        public Requestwisefile RequestwisefilesRepobyadmin(int id)
+        {
+            return _context.Requestwisefiles.Find(id);
+        }
+
+        public Requestwisefile getRequestWiseFileListByFileName(string fl,int id)
+        {
+            return _context.Requestwisefiles.FirstOrDefault(m => m.Filename == fl && m.Requestid == id && m.Isdeleted == null);
         }
     }
 }

@@ -148,7 +148,6 @@ namespace HalloDocWeb.Controllers
                 return RedirectToAction(nameof(patientdashboard), "Home");
             }
         }
-        
         //download File 
         public async Task<IActionResult> DownloadFile(int id)
         {

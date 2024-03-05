@@ -5,7 +5,7 @@
     <div class="text-end d-md-flex hideonmobile justify-content-md-end ">
         <h5 class="ms-2" style="position:absolute !important; left:10px !important;">Patients <span style="color:#063982">(New)</span></h5>
         <button class="btn btn-info ms-1 text-white" type="button"><i class="fa-regular fa-paper-plane me-1"></i><small>Send Link</small></button>
-        <a class="text-decoration-none" asp-action="Patientrequestadmin" asp-controller="Admin">
+        <a class="text-decoration-none" asp-action="Patientrequestadmin" asp-controller="Admin" >
             <button class="btn btn-info text-white ms-1 border-info" type="button"><i class="fa-regular fa-note-sticky me-1"></i><small> Requests</small></button>
         </a>
         <button class="btn btn-info ms-1 text-white" type="button"><i class="fa fa-share-square me-1" aria-hidden="true"></i><small>Export</small></button>
@@ -229,7 +229,8 @@
     }
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
 <script>
     function blockcase(element) {
         var id = element.value;

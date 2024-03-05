@@ -120,7 +120,7 @@
                             <li><a class="dropdown-item" asp-action="View_Note" asp-controller="Admin"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/notebook.png" style="height:15px;" class="me-1" />View Notes</a></li>
                             <li><a class="dropdown-item" asp-action="Sendorder" asp-controller="Admin"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/keyword.png" style="height:15px;" class="me-1" />Orders</a></li>
                             <li><a class="dropdown-item"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/keyword.png" style="height:15px;" class="me-1" />Doctor Note</a></li>
-                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal1"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/Assign_case.jpg" style="height:15px;" class="me-1" />Encounter</a></li>
+                            <li><a class="dropdown-item" asp-action="Encounterform" asp-controller="Admin" asp-route-id="@item.Requestid"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/Assign_case.jpg" style="height:15px;" class="me-1" />Encounter</a></li>
                         </ul>
                     </div>
                     @* <button class="btn btn-outline-light" type="button">Actions</button> *@
@@ -230,6 +230,9 @@
         }
     }
  </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
 <script>
 
     $(document).ready(function () {

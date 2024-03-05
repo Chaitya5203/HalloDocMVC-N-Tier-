@@ -25,8 +25,12 @@ namespace HalloDocWebRepository.Interfaces
         public Requestnote getrequestnotebyid(int id);
         void Addreqnotetable(Requestnote reqnotes);
         void addreqnotetablewithnewnotw(Requestnote reqnotes);
+        public Requestwisefile getRequestWiseFileList(int id,string filename);
         public List<Requestwisefile> getRequestWiseFileList(int id);
         public Requestwisefile getRequestWiseFile(int id);
         void updateRequestWiseFileTable(Requestwisefile file);
+        void addrequestwisefiletablebyadmin(Requestwisefile reqclient);
+        public Requestwisefile RequestwisefilesRepobyadmin(int id);
+        public Requestwisefile getRequestWiseFileListByFileName(string fl,int id);
     }
 }

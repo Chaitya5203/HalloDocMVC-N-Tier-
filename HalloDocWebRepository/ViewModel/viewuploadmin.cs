@@ -1,4 +1,5 @@
 ﻿using HalloDocWebRepository.Data;
+using Microsoft.AspNetCore.Http;
 namespace HalloDocWebRepository.ViewModel
 {
     public class viewuploadmin
@@ -6,5 +7,6 @@ namespace HalloDocWebRepository.ViewModel
         public List<Requestwisefile> FileList { get; set; }
         public Requestclient patientData { get; set; }
         public Request confirmationDetail { get; set; }
+        public IFormFile fileToUpload { get; set; }
     }
 }

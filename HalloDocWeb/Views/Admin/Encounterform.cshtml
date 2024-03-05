@@ -1,0 +1,192 @@
+﻿@{
+    ViewData["Title"] = "Encounter Page";
+}
+<style>
+    .iti {
+        width: 100%;
+    }
+
+    #phone, #phone1 {
+        height: 58px;
+    }
+</style>
+<div class="container ">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between mt-3">
+                <h4 class="mt-3">Encounter Form</h4>
+                <a class="text-start text-info text-decoration-none " asp-action="Admindashboard" asp-controller="Admin">
+                    <button class="btn btn-white  text-info border-info rounded ">
+                        <i class="fa-solid  fa-less-than"></i> Back
+                    </button>
+                </a>
+            </div>
+            <form method="post" id="enable">
+                <div class="container rounded bg-white shadow py-3">
+                    <h3 class="mb-3 text-center text-info">Medical Report-Confidential</h3>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <input  name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Firstname</label>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <input  name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Lastname</label>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="col-12 form-floating mb-3 text-muted">
+                            <input name="Location" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Location">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Location</label>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <input type="date"  name="DOB" class="form-control" id="dob" placeholder="Date Of Birth">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Date Of Birth</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <input type="date" name="Date" class="form-control" id="Date" placeholder="Date">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Date</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <input id="phone" class="form-control inp2" type="tel" placeholder="Phone Number">
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <input name="email" type="email" class="form-control" id="email" placeholder="Email">
+                            <label for="email" class="form-label ps-4">Email</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2" class="ps-4">History Of present illness or Injury</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2"class="ps-4">Medical History</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2"class="ps-4">Medications</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6 form-floating mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2"class="ps-4">Allergies</label>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-6 form-floating mb-3 text-muted">
+                            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Temp">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Temp</label>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-6 form-floating mb-3 text-muted">
+                            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="HR">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">HR</label>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
+                            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="RR">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">RR</label>
+                            <span class="text-danger"></span>
+                        </div>
+
+                        <div class="col-sm-6 col-md-2 col-xl-2 col-6 form-floating mb-3 text-muted">
+                            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="FirsBlood pressuretname">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Blood pressure</label>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 col-md-2 col-xl-2 col-6 form-floating mb-3 text-muted">
+                            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Blood pressure">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Blood pressure</label>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
+                            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="O2">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">O2</label>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
+                            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Pain">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Pain</label>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2" class="ps-4">Heent</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2"class="ps-4">CV</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2"class="ps-4">Chest</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2"class="ps-4">ABD</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2"class="ps-4">Extr</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2"class="ps-4">Skin</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2"class="ps-4">Neuro</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2"class="ps-4">Other</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2"class="ps-4">Diagnosis</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2"class="ps-4">Treatment Plan</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2"class="ps-4">Medications Dispensed</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2"class="ps-4">Procedures</label>
+                        </div>
+                        <div class="form-floating mb-3 text-muted">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2"class="ps-4">Followup</label>
+                        </div>
+                    </div>
+                    <div class="text-end pb-3">
+                        <button class="btn btn-info text-white px-1" type="submit">Save Change</button>
+                        <button class="btn text-white px-1"style="background-color:blueviolet;" type="button">Finalize</button>
+                        <button class="btn btn-white px-1 text-info border-info" type="button">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const input = document.querySelector("#phone");
+    const input2 = document.querySelector("#phone1");
+    const button = document.querySelector("#btn");
+    const errorMsg = document.querySelector("#error-msg");
+    const validMsg = document.querySelector("#valid-msg");
+
+    // here, the index maps to the error code returned from getValidationError - see readme
+    const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+    // initialise plugin
+    const iti = window.intlTelInput(input, {
+        initialCountry: "us",
+        utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
+    });
+    const iti1 = window.intlTelInput(input2, {
+        initialCountry: "us",
+        utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
+    });
+</script>

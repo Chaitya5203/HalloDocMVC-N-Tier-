@@ -1,6 +1,8 @@
 ﻿using HalloDocWebRepository.Data;
 using HalloDocWebRepository.Interfaces;
 using HalloDocWebRepository.ViewModel;
+using Microsoft.AspNetCore.Http;
+using System.IO.Compression;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections;
@@ -11,6 +13,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using NuGet.Protocol.Core.Types;
+using System.Net.Mail;
+using System.Net;
 
 namespace HalloDocWebServices.Interfaces
 {
@@ -21,6 +26,22 @@ namespace HalloDocWebServices.Interfaces
         {
             _repository = repository;
         }
+
+        public void addrequestwisefilebyadmin(int id, IFormFile fileToUpload)
+        {
+            var uploads = Path.Combine("wwwroot", "uploads");
+            var FileNameOnServer = Path.Combine(uploads, fileToUpload.FileName);
+            using var stream = System.IO.File.Create(FileNameOnServer);
+            fileToUpload.CopyTo(stream);
+            Requestwisefile reqclient = new Requestwisefile
+            {
+                Requestid = id,
+                Filename = fileToUpload.FileName,
+                Createddate = DateTime.Now,
+            };
+            _repository.addrequestwisefiletablebyadmin(reqclient);
+        }
+
         public IQueryable dashboardtabledata(int id, int check)
         {
             IQueryable data;
@@ -35,6 +56,22 @@ namespace HalloDocWebServices.Interfaces
             return data;
         }
 
+        public void deleteallfilesbyadmin(string[] reqids,int id)
+        {
+            List<Requestwisefile> file = new();
+            foreach (var fl in reqids)
+            {
+                file.Add(_repository.getRequestWiseFileListByFileName(fl,id));
+                
+            }
+         
+            foreach(var item in file.ToList())
+            {
+                item.Isdeleted = new BitArray(1, true);
+                _repository.updateRequestWiseFileTable(item);
+            }
+        }
+
         public void deleteFile(int id)
         {
             var file = _repository.getRequestWiseFile(id);
@@ -42,6 +79,36 @@ namespace HalloDocWebServices.Interfaces
             _repository.updateRequestWiseFileTable(file);
         }
 
+        public MemoryStream DownloadAllServicebyadmin(string[] filenames)
+        {
+            string repositoryPath = "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWeb\\wwwroot\\uploads\\";
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (ZipArchive zipArchive = new ZipArchive(ms, ZipArchiveMode.Create, true))
+                {
+                    foreach (string filename in filenames)
+                    {
+                        string filePath = Path.Combine(repositoryPath, filename);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            zipArchive.CreateEntryFromFile(filePath, filename);
+                        }
+                        else
+                        {
+                        }
+                    }
+                }
+                ms.Seek(0, SeekOrigin.Begin);
+                return ms;
+            }
+        }
+        public byte[] DownloadSingleFilebyadmin(int id)
+        {
+            var file = _repository.RequestwisefilesRepobyadmin(id);
+            var filepath = "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWeb\\wwwroot\\uploads\\" + Path.GetFileName(file.Filename);
+            var bytes = System.IO.File.ReadAllBytes(filepath);
+            return bytes;
+        }
         public Casetag getcasetag(int reasonid)
         {
             var reason = _repository.getcasetagdata(reasonid);
@@ -51,7 +118,6 @@ namespace HalloDocWebServices.Interfaces
         {
             return _repository.getcountofeachstate(id);
         }
-
         public void getreqnoteofsavenote(int id,Notes n , string email)
         {
             var reqnotes = _repository.getrequestnotebyid(id);
@@ -62,8 +128,7 @@ namespace HalloDocWebServices.Interfaces
                 reqnotes.Createdby = email;
                 reqnotes.Modifiedby = email;
                 reqnotes.Modifieddate = DateTime.Now;
-                _repository.Addreqnotetable(reqnotes);
-               
+                _repository.Addreqnotetable(reqnotes);  
             }
             else
             {
@@ -75,8 +140,7 @@ namespace HalloDocWebServices.Interfaces
                     Createddate = DateTime.Now,
                 };
                 _repository.addreqnotetablewithnewnotw(addreq);   
-            }
-            
+            }   
         }
         public Request getrequestdata(int id, string name)
         {
@@ -86,13 +150,11 @@ namespace HalloDocWebServices.Interfaces
             _repository.setrequestdata(request);
             return request;
         }
-
         public Request getrequestdataofnotes(int id)
         {
             var request = _repository.getdataofrequest(id);
             return request;
         }
-
         public Request getrequestdatatoassigncase(int id)
         {
             var request = _repository.getdataofrequest(id);
@@ -109,13 +171,10 @@ namespace HalloDocWebServices.Interfaces
             _repository.setrequestdata(request);
             return request;
         }
-
         public Notes getrequestnotes(int id)
         {
             var note = _repository.getrequestnotebyid(id);
             Notes notes = new();
-
-           
             if (note != null)
             {
                 if (note.Physiciannotes == null)
@@ -159,7 +218,6 @@ namespace HalloDocWebServices.Interfaces
 
             return model;
         }
-
         public void insertblockrequesttable(int id, string email, string phonenumber, string notes)
         {
             Blockrequest blockrequest = new Blockrequest
@@ -172,7 +230,6 @@ namespace HalloDocWebServices.Interfaces
             };
             _repository.setblockrequestdata(blockrequest);
         }
-
         public void insertrequeststatuslogtable(int id, string notes, int reasonid)
         {
             Requeststatuslog statuslog = new Requeststatuslog
@@ -187,7 +244,6 @@ namespace HalloDocWebServices.Interfaces
             //_context.Requests.Update(request);
             //_context.SaveChanges();
         }
-
         public void insertrequeststatuslogtablebyassign(int id, string notes)
         {
             Requeststatuslog statuslog = new Requeststatuslog
@@ -199,7 +255,6 @@ namespace HalloDocWebServices.Interfaces
             };
             _repository.setrequeststatuslogdata(statuslog);
         }
-
         public void insertrequeststatuslogtableofblockcase(int id, string notes)
         {
             Requeststatuslog statuslog = new Requeststatuslog
@@ -211,7 +266,6 @@ namespace HalloDocWebServices.Interfaces
             };
             _repository.setrequeststatuslogdata(statuslog);
         }
-
         public CaseModels openassignmodel(int id, int regionid)
         {
             CaseModels model = new();
@@ -236,7 +290,50 @@ namespace HalloDocWebServices.Interfaces
         {
             return _repository.getdataofviewcase(id);
         }
-
+        public Requestwisefile RequestwisefilesSerbyadmin(int id)
+        {
+            return _repository.RequestwisefilesRepobyadmin(id);
+        }
+        public void SendEmail(int id, string[] filenames)
+        {
+            List<Requestwisefile> files = new();
+            foreach(var filename in filenames)
+            {
+                files.Add(_repository.getRequestWiseFileList(id,filename));
+            }
+            Request request = _repository.getdataofrequest(id);
+            var receiver = "binalmalaviya2002@gmail.com";
+            var subject = "Documents of Request " + request.Confirmationnumber?.ToUpper();
+            var message = "Find the Files uploaded for your request in below:";
+            var mailMessage = new MailMessage(from: "chaityamehta522003@gmail.com", to: receiver, subject, message);
+            foreach (var file in files)
+            {
+                var filePath = "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWeb\\wwwroot\\uploads\\" + file.Filename;
+                if (File.Exists(filePath))
+                {
+                    byte[] fileContent;
+                    using (var fileStream = File.OpenRead(filePath))
+                    {
+                        fileContent = new byte[fileStream.Length];
+                        fileStream.Read(fileContent, 0, (int)fileStream.Length);
+                    }
+                    var attachment = new Attachment(new MemoryStream(fileContent), file.Filename);
+                    mailMessage.Attachments.Add(attachment);
+                }
+                else
+                {
+                    Console.WriteLine($"File not found: {filePath}");
+                }
+            }
+            var mail = "chaityamehta522003@gmail.com";
+            var password = "iwbc edlf rgpt oucs";
+            var client = new SmtpClient("smtp.gmail.com", 587)
+            {
+                EnableSsl = true,
+                Credentials = new NetworkCredential(mail, password)
+            };
+            client.SendMailAsync(mailMessage);
+        }
         public viewuploadmin viewUploadAdmin(int id)
         {
             viewuploadmin model = new();
@@ -244,7 +341,6 @@ namespace HalloDocWebServices.Interfaces
             model.confirmationDetail = _repository.getdataofrequest(id);
             model.FileList = _repository.getRequestWiseFileList(id);
             return model;
-
         }
     }
 }

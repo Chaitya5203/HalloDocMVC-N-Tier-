@@ -3,6 +3,9 @@ using HalloDocWebRepository.ViewModel;
 using HalloDocWebServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Core.Types;
+using System.Net.Mail;
+using System.Net;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HalloDocWeb.Controllers
@@ -34,7 +37,7 @@ namespace HalloDocWeb.Controllers
         public ActionResult New(int id, int check)
         {
             IQueryable data;
-            data =_service.dashboardtabledata(id,check);
+            data = _service.dashboardtabledata(id, check);
             if (id == 1)
                 return PartialView("_New", data);
             if (id == 2)
@@ -62,12 +65,48 @@ namespace HalloDocWeb.Controllers
         public IActionResult DeleteFile(int id)
         {
             _service.deleteFile(id);
-            
+
             return RedirectToAction(nameof(Admindashboard));
+        }
+        public IActionResult DeleteAll(int id, [FromBody] string[] reqids)
+        {
+            _service.deleteallfilesbyadmin(reqids, id);
+            return RedirectToAction(nameof(Admindashboard));
+        }
+        public IActionResult UploadFilebyadmin(int id, IFormFile fileToUpload)
+        {
+            if (fileToUpload != null && fileToUpload.Length > 0)
+            {
+                _service.addrequestwisefilebyadmin(id, fileToUpload);
+                //_service.addfilerequestwise(id, fileToUpload);
+                //_context.Requestwisefiles.Add(reqclient);
+                //_context.SaveChanges();
+
+                return RedirectToAction(nameof(Admindashboard));
+            }
+            else
+            {
+                // User did not select a file
+                return RedirectToAction(nameof(Admindashboard));
+            }
+        }
+        //download File 
+        public async Task<IActionResult> DownloadFile(int id)
+        {
+            var bytes = _service.DownloadSingleFilebyadmin(id);
+            var file = _service.RequestwisefilesSerbyadmin(id);
+            //var filepath = "C:\\Users\\pce96\\source\\repos\\WebApplication2 - Copy\\WebApplication2\\wwwroot\\uploads\\" + Path.GetFileName(file.Filename);
+            //var bytes = System.IO.File.ReadAllBytes(filepath);
+            return File(bytes, "application/octet-stream", file.Filename);
+        }
+        public IActionResult DownloadAll([FromBody] string[] filenames)
+        {
+            MemoryStream ms = _service.DownloadAllServicebyadmin(filenames);
+            return File(ms.ToArray(), "application/zip", "download.zip");
         }
         public IActionResult ViewUploadAdmin(int id)
         {
-
+            ViewBag.id = id;
             viewuploadmin model = _service.viewUploadAdmin(id);
             return View(model);
         }
@@ -75,8 +114,15 @@ namespace HalloDocWeb.Controllers
         {
             return View();
         }
-        
+        public IActionResult Patientrequestadmin()
+        {
+            return View();
+        }
         public IActionResult Sendorder()
+        {
+            return View();
+        }
+        public IActionResult Encounterform()
         {
             return View();
         }
@@ -104,8 +150,8 @@ namespace HalloDocWeb.Controllers
         public ActionResult CancelConfirm(int id, int reasonid, string notes)
         {
             _service.insertrequeststatuslogtable(id, notes, reasonid);
-            Casetag reason = _service.getcasetag(reasonid); 
-            Request request = _service.getrequestdata(id,reason.Name);
+            Casetag reason = _service.getcasetag(reasonid);
+            Request request = _service.getrequestdata(id, reason.Name);
             return RedirectToAction(nameof(Admindashboard));
         }
         [HttpPost]
@@ -114,7 +160,7 @@ namespace HalloDocWeb.Controllers
             var data = _service.opencancelmodel(id);
             //var data = _context.Requestclients.FirstOrDefault(r => r.Requestid == id);
             _service.insertrequeststatuslogtableofblockcase(id, notes);
-            _service.insertblockrequesttable(id,data.Email,data.Phonenumber,notes);
+            _service.insertblockrequesttable(id, data.Email, data.Phonenumber, notes);
             Request request = _service.getrequestdatatoblockcase(id);
             //_context.Requests.Update(request);
             return RedirectToAction(nameof(Admindashboard));
@@ -128,17 +174,25 @@ namespace HalloDocWeb.Controllers
         }
         public ActionResult View_Note(int id)
         {
-            var note =  _service.getrequestnotes(id);
+            var note = _service.getrequestnotes(id);
             //var tranfernote =  _service.getrequeststatuslog(id);
             note.req_id = id;
             return View(note);
         }
         [HttpPost]
+        public ActionResult SendMail(int id, string[] filenames)
+        {
+
+            _service.SendEmail(id, filenames);
+            return RedirectToAction(nameof(Admindashboard));
+        }
+        [HttpPost]
         public ActionResult SaveNotes(Notes n, int id)
         {
             var user = _service.getrequestdataofnotes(id);
-            _service.getreqnoteofsavenote(id,n,user.Email);
+            _service.getreqnoteofsavenote(id, n, user.Email);
             return RedirectToAction(nameof(Admindashboard));
         }
+       
     }
-}
+}  

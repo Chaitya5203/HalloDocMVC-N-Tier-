@@ -26,7 +26,6 @@ namespace HalloDocWebServices.Implementation
         }
         public void addfilerequestwise(int id, IFormFile fileToUpload)
         {
-            
             var uploads = Path.Combine("wwwroot", "uploads");
             var FileNameOnServer = Path.Combine(uploads, fileToUpload.FileName);
             using var stream = System.IO.File.Create(FileNameOnServer);
@@ -609,8 +608,7 @@ namespace HalloDocWebServices.Implementation
 
         public Requestwisefile RequestwisefilesSer(int id)
         {
-            return _repository.RequestwisefilesRepo(id);
-                
+            return _repository.RequestwisefilesRepo(id);     
         }
 
         public void updateProfile(Userdata info,string email)
