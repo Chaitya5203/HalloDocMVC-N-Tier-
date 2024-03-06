@@ -7,6 +7,7 @@ using NuGet.Protocol.Core.Types;
 using System.Net.Mail;
 using System.Net;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using HalloDocWebService.Authentication;
 
 namespace HalloDocWeb.Controllers
 {
@@ -17,6 +18,7 @@ namespace HalloDocWeb.Controllers
         {
             _service = service;
         }
+        [CustomAuthorize("Admin")]
         public IActionResult Admindashboard(int id)
         {
             ViewBag.NewCount = _service.getcount(1);
@@ -60,12 +62,10 @@ namespace HalloDocWeb.Controllers
         public IActionResult Adminlogin()
         {
             return View();
-
         }
         public IActionResult DeleteFile(int id)
         {
             _service.deleteFile(id);
-
             return RedirectToAction(nameof(Admindashboard));
         }
         public IActionResult DeleteAll(int id, [FromBody] string[] reqids)
@@ -81,7 +81,6 @@ namespace HalloDocWeb.Controllers
                 //_service.addfilerequestwise(id, fileToUpload);
                 //_context.Requestwisefiles.Add(reqclient);
                 //_context.SaveChanges();
-
                 return RedirectToAction(nameof(Admindashboard));
             }
             else
@@ -182,7 +181,6 @@ namespace HalloDocWeb.Controllers
         [HttpPost]
         public ActionResult SendMail(int id, string[] filenames)
         {
-
             _service.SendEmail(id, filenames);
             return RedirectToAction(nameof(Admindashboard));
         }
@@ -193,6 +191,5 @@ namespace HalloDocWeb.Controllers
             _service.getreqnoteofsavenote(id, n, user.Email);
             return RedirectToAction(nameof(Admindashboard));
         }
-       
     }
 }  

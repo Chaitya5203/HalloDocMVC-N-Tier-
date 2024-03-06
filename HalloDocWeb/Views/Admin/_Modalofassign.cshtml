@@ -3,16 +3,13 @@
 <script>
     $(document).ready(function () {
         var myModalAssign = new bootstrap.Modal(document.getElementById('AssignCase'));
-
         myModalAssign.show();
     });
     $('#cancelbtn').click(function (e) {
-        
         $("#modalpopup").remove();
         $(".modal-backdrop").remove();
         location.reload();
     });
-
     $('#Allregion').change(function (e) {
         e.preventDefault();
         var regions = $('#Allregion').val();
@@ -31,9 +28,6 @@
             }
         });
     });
-
-
-
     $('#assignform').submit(function (e) {
         e.preventDefault();
         var physician = $('#Allregion').val();

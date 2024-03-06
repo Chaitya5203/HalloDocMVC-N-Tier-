@@ -8,16 +8,20 @@ using Microsoft.EntityFrameworkCore;
 using HalloDocWebRepository.Data;
 using System.Collections;
 using System.IO.Compression;
+using System.Runtime.CompilerServices;
+using HalloDocWebService.Authentication;
 
 namespace HalloDocWeb.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IPatient_Service _service;
+        private readonly IJwt_Service _jwt_Service;
 
-        public HomeController(IPatient_Service service)
+        public HomeController(IPatient_Service service,IJwt_Service jwtservice)
         {
               _service = service;
+            _jwt_Service = jwtservice;
         }
         public IActionResult Index()
         {
@@ -99,11 +103,13 @@ namespace HalloDocWeb.Controllers
             {
                 return View("../Home/patientlogin", loginobj);
             }
+            
             bool isReg = _service.ValidateUser(loginobj);
             if (isReg)
             {
                 var user = _service.getUser(loginobj.Email);
-
+                var jwttoken = _jwt_Service.GetJWTToken(user);
+                Response.Cookies.Append("jwt", jwttoken);
                 HttpContext.Session.SetString("Usarname", user.Usarname);
                 HttpContext.Session.SetString("UsarEmail", loginobj.Email);
                 return RedirectToAction(nameof(patientdashboard), "Home");
@@ -120,6 +126,8 @@ namespace HalloDocWeb.Controllers
             _service.updateProfile(info, HttpContext.Session.GetString("UsarEmail"));
             return RedirectToAction(nameof(patientdashboard), "Home");
         }
+
+        [CustomAuthorize("Patient")]
         public async  Task<IActionResult> patientdashboard()
         {
             var dictionary = _service.getDictionary(HttpContext.Session.GetString("Usarname"));
