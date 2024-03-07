@@ -41,10 +41,8 @@ namespace HalloDocWebService.Authentication
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
                 return;
             }
-
             var request = context.HttpContext.Request;
             var token = request.Cookies["jwt"];
-
             if (token == null || !jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
             {
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index" }));

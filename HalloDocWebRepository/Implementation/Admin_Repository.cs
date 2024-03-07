@@ -161,5 +161,31 @@ namespace HalloDocWebRepository.Implementation
         {
             return _context.Requestwisefiles.FirstOrDefault(m => m.Filename == fl && m.Requestid == id && m.Isdeleted == null);
         }
+
+        public List<Healthprofessional> gethealthprofessionaldata()
+        {
+            return _context.Healthprofessionals.ToList();
+        }
+
+        public List<Healthprofessionaltype> gethealthprofessionaltypedata()
+        {
+            return _context.Healthprofessionaltypes.ToList();   
+        }
+
+        public List<Healthprofessional> gethealthprofessionaldatabyid(int hprof)
+        {
+            return _context.Healthprofessionals.Where(m=> m.Profession== hprof).ToList();
+        }
+
+        public Healthprofessional getBusinessDetailById(int hprof)
+        {
+            return _context.Healthprofessionals.FirstOrDefault(m => m.Vendorid == hprof);
+        }
+
+        public void storeordertable(Orderdetail orderdetail1)
+        {
+            _context.Orderdetails.Add(orderdetail1);
+            _context.SaveChanges();
+        }
     }
 }

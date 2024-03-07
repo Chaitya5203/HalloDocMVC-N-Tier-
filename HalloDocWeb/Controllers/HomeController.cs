@@ -112,7 +112,18 @@ namespace HalloDocWeb.Controllers
                 Response.Cookies.Append("jwt", jwttoken);
                 HttpContext.Session.SetString("Usarname", user.Usarname);
                 HttpContext.Session.SetString("UsarEmail", loginobj.Email);
-                return RedirectToAction(nameof(patientdashboard), "Home");
+                if (user.Role=="3")
+                {
+                    return RedirectToAction(nameof(AdminController.Admindashboard), "Admin");
+                }
+                else if(user.Role=="1")
+                {
+                    return RedirectToAction(nameof(patientdashboard), "Home");
+                }
+                else
+                {
+                    return RedirectToAction(nameof(patientlogin), "Home");
+                }
             }
             else
             {

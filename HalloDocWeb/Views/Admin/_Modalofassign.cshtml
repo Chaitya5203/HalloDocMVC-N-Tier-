@@ -30,8 +30,8 @@
     });
     $('#assignform').submit(function (e) {
         e.preventDefault();
-        var physician = $('#Allregion').val();
-        var regions = $('#Allphysician').val();
+        var regions = $('#Allregion').val();
+        var physician = $('#Allphysician').val();
         var notes = $('#notes').val();
         var reqid = '@TempData["reqid"]'
         $.ajax({
@@ -73,16 +73,17 @@
                                 <option value="@item.Regionid">@item.Name</option>
                             }
                         </select>
-                        <label for="floatingSelect">Select Region</label>
+                        <label for="Allregion">Select Region</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <select class="form-select" id="Allphysician" aria-label="Floating label select example">
+                        <select class="form-select" id="Allphysician">
+                            <option value="0">select</option>
                             @foreach (var item in Model.physics)
                             {
                                 <option value="@item.Physicianid">@item.Firstname</option>
                             }
                         </select>
-                        <label for="floatingSelect">Select physician</label>
+                        <label for="Allphysician">Select physician</label>
                     </div>
                     <div class="row">
                         <div class="col">

@@ -23,8 +23,6 @@ public partial class ApplicationContext : DbContext
 
     public virtual DbSet<Aspnetuser> Aspnetusers { get; set; }
 
-    public virtual DbSet<Aspnetuserrole> Aspnetuserroles { get; set; }
-
     public virtual DbSet<Blockrequest> Blockrequests { get; set; }
 
     public virtual DbSet<Business> Businesses { get; set; }
@@ -123,11 +121,8 @@ public partial class ApplicationContext : DbContext
             entity.HasKey(e => e.Id).HasName("pk_aspnetusers");
 
             entity.Property(e => e.Id).UseIdentityAlwaysColumn();
-        });
 
-        modelBuilder.Entity<Aspnetuserrole>(entity =>
-        {
-            entity.HasKey(e => e.Roleid).HasName("pk_aspnetuserrole");
+            entity.HasOne(d => d.RoleNavigation).WithMany(p => p.Aspnetusers).HasConstraintName("abc");
         });
 
         modelBuilder.Entity<Blockrequest>(entity =>

@@ -16,6 +16,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using NuGet.Protocol.Core.Types;
 using System.Net.Mail;
 using System.Net;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace HalloDocWebServices.Interfaces
 {
@@ -118,6 +119,42 @@ namespace HalloDocWebServices.Interfaces
         {
             return _repository.getcountofeachstate(id);
         }
+        public sendorder getdataofsendorder(int id,int hprof,int hporftype)
+        {
+            sendorder sendorder = new();
+            if(hprof == 0)
+            {
+                Healthprofessional pr = new Healthprofessional
+                {
+                    Faxnumber = string.Empty,
+                    Businesscontact = string.Empty,
+                    Email = string.Empty
+                };
+                sendorder.businessDetail = pr;
+            }
+            else
+                sendorder.businessDetail = _repository.getBusinessDetailById(hprof);
+            if (hporftype == 0 && hprof == 0)
+            {
+                var hprofessional = _repository.gethealthprofessionaltypedata();
+                sendorder.healthprofessional = _repository.gethealthprofessionaldata();
+                sendorder.healthprofessionaltype = hprofessional;
+                
+            }
+            else if(hporftype != 0)
+            {
+                
+                sendorder.healthprofessionaltype = _repository.gethealthprofessionaltypedata();
+                sendorder.healthprofessional = _repository.gethealthprofessionaldatabyid(hporftype);
+            }else if(hporftype == 0 && hprof != 0)
+            {
+                
+                sendorder.healthprofessionaltype = _repository.gethealthprofessionaltypedata();
+                sendorder.healthprofessional = _repository.gethealthprofessionaldata();
+            }
+            sendorder.id = id;
+            return sendorder;
+        }
         public void getreqnoteofsavenote(int id,Notes n , string email)
         {
             var reqnotes = _repository.getrequestnotebyid(id);
@@ -155,19 +192,27 @@ namespace HalloDocWebServices.Interfaces
             var request = _repository.getdataofrequest(id);
             return request;
         }
-        public Request getrequestdatatoassigncase(int id)
+        public Request getrequestdatatoassigncase(int id,int physician)
         {
             var request = _repository.getdataofrequest(id);
+            request.Physicianid = physician;
             request.Status = 2;
             _repository.setrequestdata(request);
             return request;
         }
-
         public Request getrequestdatatoblockcase(int id)
         {
             var request = _repository.getdataofrequest(id);
+
             //Request request = _context.Requests.FirstOrDefault(r => r.Requestid == id);
             request.Status = 10;
+            _repository.setrequestdata(request);
+            return request;
+        }
+        public Request getrequestdatatotransfercase(int id, int physician)
+        {
+            var request = _repository.getdataofrequest(id);  
+            request.Physicianid = physician;
             _repository.setrequestdata(request);
             return request;
         }
@@ -193,12 +238,6 @@ namespace HalloDocWebServices.Interfaces
             notes.req_id = id;
             return notes;
         }
-
-        //public Requeststatuslog getrequeststatuslog(int id)
-        //{
-        //    Requeststatuslog requeststatuslog = new();
-        //}
-
         public requestclientvisedata getviewcasedataofpatient(int id)
         {
             var data = _repository.getdataofviewcase(id);
@@ -215,7 +254,6 @@ namespace HalloDocWebServices.Interfaces
             model.Email = data.Email;
             model.RegionName = region.Name;
             model.Address = data.Street + " " + data.City + " " + data.State + " " + data.Zipcode;
-
             return model;
         }
         public void insertblockrequesttable(int id, string email, string phonenumber, string notes)
@@ -230,6 +268,23 @@ namespace HalloDocWebServices.Interfaces
             };
             _repository.setblockrequestdata(blockrequest);
         }
+
+        public void insertordertable(sendorder sendorder)
+        {
+            Orderdetail orderdetail1 = new Orderdetail
+            {
+                Requestid = sendorder.id,
+                Vendorid =sendorder.SelectedVendorId,
+                Prescription = sendorder.Detail,
+                Faxnumber = sendorder.Fax,
+                Email =sendorder.Email,
+                Businesscontact = sendorder.Businesscontact,
+                Createddate= DateTime.Now,
+
+            };
+            _repository.storeordertable(orderdetail1);
+        }
+
         public void insertrequeststatuslogtable(int id, string notes, int reasonid)
         {
             Requeststatuslog statuslog = new Requeststatuslog
@@ -244,14 +299,30 @@ namespace HalloDocWebServices.Interfaces
             //_context.Requests.Update(request);
             //_context.SaveChanges();
         }
-        public void insertrequeststatuslogtablebyassign(int id, string notes)
+        public void insertrequeststatuslogtablebyassign(int id, string notes, int physician)
         {
+            var req = _repository.getdataofrequest(id);
             Requeststatuslog statuslog = new Requeststatuslog
             {
                 Requestid = id,
                 Notes = notes,
                 Status = 2,
                 Createddate = DateTime.Now,
+                Physicianid = physician,
+            };
+            _repository.setrequeststatuslogdata(statuslog);
+        }
+        public void insertrequeststatuslogtablebytransfer(int id, string notes,int physician)
+        {
+            var req = _repository.getdataofrequest(id);
+            Requeststatuslog statuslog = new Requeststatuslog
+            {
+                Requestid = id,
+                Notes = notes,
+                Status = 2,
+                Createddate = DateTime.Now,
+                Physicianid=req.Physicianid,
+                Transtophysicianid=physician,
             };
             _repository.setrequeststatuslogdata(statuslog);
         }

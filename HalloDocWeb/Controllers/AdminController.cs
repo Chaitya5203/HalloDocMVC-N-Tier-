@@ -8,9 +8,11 @@ using System.Net.Mail;
 using System.Net;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using HalloDocWebService.Authentication;
+using System.Drawing;
 
 namespace HalloDocWeb.Controllers
 {
+    [CustomAuthorize("Admin")]
     public class AdminController : Controller
     {
         private readonly IAdmin_Service _service;
@@ -18,7 +20,7 @@ namespace HalloDocWeb.Controllers
         {
             _service = service;
         }
-        [CustomAuthorize("Admin")]
+        
         public IActionResult Admindashboard(int id)
         {
             ViewBag.NewCount = _service.getcount(1);
@@ -63,6 +65,7 @@ namespace HalloDocWeb.Controllers
         {
             return View();
         }
+       
         public IActionResult DeleteFile(int id)
         {
             _service.deleteFile(id);
@@ -117,9 +120,15 @@ namespace HalloDocWeb.Controllers
         {
             return View();
         }
-        public IActionResult Sendorder()
+        public ActionResult Ordersend(sendorder sendorder)
         {
-            return View();
+            _service.insertordertable(sendorder);
+            return RedirectToAction(nameof(Admindashboard));
+        }
+        public ActionResult Sendorder(int id ,int hprof=0,int hproftype= 0)
+        {
+            //var data = _service.getdataofsendorder(id);
+            return View(_service.getdataofsendorder(id,hprof,hproftype));
         }
         public IActionResult Encounterform()
         {
@@ -130,6 +139,13 @@ namespace HalloDocWeb.Controllers
             var data = _service.opencancelmodel(id);
             TempData["reqid"] = id;
             return PartialView("_Modalsofnew", data);
+            //var data = _context.Requestclients.FirstOrDefault(r => r.Requestid == id);
+            //return PartialView("_Modalsofnew", data);
+        }
+        public async Task<IActionResult> Modaloftransfer(int id, int regionid)
+        {
+            TempData["reqid"] = id;
+            return PartialView("_Modaloftransfer", _service.openassignmodel(id, regionid));
             //var data = _context.Requestclients.FirstOrDefault(r => r.Requestid == id);
             //return PartialView("_Modalsofnew", data);
         }
@@ -154,6 +170,13 @@ namespace HalloDocWeb.Controllers
             return RedirectToAction(nameof(Admindashboard));
         }
         [HttpPost]
+        public ActionResult Transferconfirm(int id, string notes, int physician, int regions)
+        {
+            _service.insertrequeststatuslogtablebytransfer(id,notes,physician);
+            Request request = _service.getrequestdatatotransfercase(id, physician);
+            return RedirectToAction(nameof(Admindashboard));
+        }
+        [HttpPost]
         public ActionResult blockConfirm(int id, string notes)
         {
             var data = _service.opencancelmodel(id);
@@ -165,10 +188,10 @@ namespace HalloDocWeb.Controllers
             return RedirectToAction(nameof(Admindashboard));
         }
         [HttpPost]
-        public ActionResult AssignConfirm(int id, string notes, string physician, string region)
+        public ActionResult AssignConfirm(int id, string notes, int physician, string regions)
         {
-            _service.insertrequeststatuslogtablebyassign(id, notes);
-            Request request = _service.getrequestdatatoassigncase(id);
+            _service.insertrequeststatuslogtablebyassign(id, notes,physician);
+            Request request = _service.getrequestdatatoassigncase(id,physician);
             return RedirectToAction(nameof(Admindashboard));
         }
         public ActionResult View_Note(int id)

@@ -32,5 +32,10 @@ namespace HalloDocWebRepository.Interfaces
         void addrequestwisefiletablebyadmin(Requestwisefile reqclient);
         public Requestwisefile RequestwisefilesRepobyadmin(int id);
         public Requestwisefile getRequestWiseFileListByFileName(string fl,int id);
+        public List<Healthprofessional> gethealthprofessionaldata();
+        public List<Healthprofessionaltype> gethealthprofessionaltypedata();
+        public List<Healthprofessional> gethealthprofessionaldatabyid(int hprof);
+        Healthprofessional getBusinessDetailById(int hprof);
+        void storeordertable(Orderdetail orderdetail1);
     }
 }

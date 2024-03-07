@@ -1,0 +1,105 @@
+﻿<!-- Modal Transfer Case To Patient In Pending State-->
+<script>
+    $(document).ready(function () {
+        var myModalAssign = new bootstrap.Modal(document.getElementById('Transfercase'));
+        myModalAssign.show();
+    });
+    $('#cancelbtn').click(function (e) {
+        $("#modalpopup").remove();
+        $(".modal-backdrop").remove();
+        location.reload();
+    });
+    $('#Allregion').change(function (e) {
+        console.log("cghch");
+        var regions = $('#Allregion').val();
+        var reqid = '@TempData["reqid"]';
+        $.ajax({
+            url: "/Admin/Modaloftransfer",
+            data: { 'id': reqid, 'regionid': regions },
+            type: "get",
+            datatype: "html",
+            success: function (data) {
+                $("#modalpopup").html(data);
+            },
+            error: function () {
+                alert("no projects found");
+                $("#tablecontent").html('an error has occurred');
+            }
+        });
+    });
+    debugger;
+    $('#transfercase').submit(function (e) {
+        e.preventDefault();
+        var regions = $('#Allregion').val();
+        var physician = $('#Allphysician').val();
+        var notes = $('#notes').val();
+        var reqid = '@TempData["reqid"]'
+        $.ajax({
+            url: "/Admin/Transferconfirm",
+            data: { physician: physician, regions: regions, notes: notes, id: reqid },
+            type: "POST",
+            success: function (data) {
+                $("#modalpopup").remove();
+                $(".modal-backdrop").remove();
+                location.reload();
+                //window.onload(getLocation());
+            },
+            error: function () {
+                alert("No Projects Found");
+            }
+        });
+    });
+</script>
+<div class="modal fade" id="Transfercase" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Transfer Request</h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col text-muted">
+                        To Transfer this request,search and select another Physician.
+                    </div>
+                </div>
+                <form id="transfercase" method="post">
+                   
+                    
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="Allregion" >
+                            <option value="0">select</option>
+                            @foreach (var item in Model.regions)
+                            {
+                                <option value="@item.Regionid">@item.Name</option>
+                            }
+                        </select>
+                        <label for="Allregion">Select Region</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="Allphysician" >
+                            <option value="0">select</option>
+                            @foreach (var item in Model.physics)
+                            {
+                                <option value="@item.Physicianid">@item.Firstname</option>
+                            }
+                        </select>
+                        <label for="Allphysician">Select physician</label>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="notes" style="height: 100px"></textarea>
+                                <label for="floatingTextarea2">Description</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info text-white">Submit</button>
+                        <button type="button" id="cancelbtn" class="btn btn-white border-info text-info" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

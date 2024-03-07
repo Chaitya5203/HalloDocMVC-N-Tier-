@@ -1,53 +1,5 @@
-﻿<!-- Modal Transfer Case To Patient In Pending State-->
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-info text-white">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Transfer Request</h1>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row mb-3">
-                    <div class="col text-muted">
-                        To Transfer this request,search and select another Physician.
-                    </div>
-                </div>
-                <div class="form-floating mb-3">
-                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                        <option selected>Maryland</option>
-                        <option value="1">Surat</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                    <label for="floatingSelect">Narrow Search By Region</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                        <option selected>Dr Agola</option>
-                        <option value="1">Dr Agola</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                    <label for="floatingSelect">Select physician</label>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2">Description</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info text-white">Submit</button>
-                <button type="button" class="btn btn-white border-info text-info" data-bs-dismiss="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
+﻿<div id="modalpopup">
 </div>
-
-
 <!-- Modal Clear Case To Patient In Pending State-->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -242,7 +194,7 @@
                             <li><a class="dropdown-item" asp-action="View_Case" asp-controller="Admin" asp-route-id="@item.Requestid"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/keyword.png" style="height:15px;" class="me-1" />View Case</a></li>
                             <li><a class="dropdown-item" asp-action="ViewUploadAdmin" asp-controller="Admin" asp-route-id="@item.Requestid"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/keyword.png" style="height:15px;" class="me-1" />View Uploads</a></li>
                             <li><a class="dropdown-item" asp-action="View_Note" asp-controller="Admin"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/notebook.png" style="height:15px;" class="me-1" />View Notes</a></li>
-                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal1"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/keyword.png" style="height:15px;" class="me-1" />Transfer</a></li>
+                            <li><button class="dropdown-item" onclick="transfercase(this)" value="@item.Requestid" id="transfercase"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/keyword.png" style="height:15px;" class="me-1" />Transfer</button></li>
                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/keyword.png" style="height:15px;" class="me-1" />Clear Case</a></li>
 
                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal2"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/Assign_case.jpg" style="height:15px;" class="me-1" />Send Agreement</a></li>
@@ -363,7 +315,23 @@
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
-
+    function transfercase(element) {
+        var id = element.value;
+        console.log(id);
+        $.ajax({
+            url: "/Admin/Modaloftransfer",
+            data: { 'id': id, 'regionid': 0 },
+            type: "GET",
+            dataType: "html",
+            success: function (data) {
+                $("#modalpopup").html(data);
+            },
+            error: function () {
+                alert("No Projects Found");
+                $("#tableContent").html('An error has occurred');
+            }
+        });
+    };
     $(document).ready(function () {
 
         $('#adminTable').DataTable({

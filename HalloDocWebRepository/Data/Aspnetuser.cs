@@ -37,11 +37,18 @@ public partial class Aspnetuser
     [Column("modifieddate", TypeName = "timestamp without time zone")]
     public DateTime Modifieddate { get; set; }
 
+    [Column("role", TypeName = "character varying")]
+    public string? Role { get; set; }
+
     [InverseProperty("Aspnetuser")]
     public virtual ICollection<Admin> Admins { get; set; } = new List<Admin>();
 
     [InverseProperty("Aspnetuser")]
     public virtual ICollection<Physician> Physicians { get; set; } = new List<Physician>();
+
+    [ForeignKey("Role")]
+    [InverseProperty("Aspnetusers")]
+    public virtual Aspnetrole? RoleNavigation { get; set; }
 
     [InverseProperty("Aspnetuser")]
     public virtual ICollection<User> Users { get; set; } = new List<User>();

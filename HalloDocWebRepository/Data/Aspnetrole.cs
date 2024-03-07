@@ -17,4 +17,7 @@ public partial class Aspnetrole
     [Column("name")]
     [StringLength(256)]
     public string Name { get; set; } = null!;
+
+    [InverseProperty("RoleNavigation")]
+    public virtual ICollection<Aspnetuser> Aspnetusers { get; set; } = new List<Aspnetuser>();
 }
