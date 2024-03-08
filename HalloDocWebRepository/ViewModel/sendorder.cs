@@ -9,6 +9,9 @@ namespace HalloDocWebRepository.ViewModel
         public List<Healthprofessional> healthprofessional { get; set; }
         public List<Healthprofessionaltype> healthprofessionaltype { get; set; }
         public Healthprofessional businessDetail { get; set; }
+        
+        public Requestclient requestclient { get; set; }
+        public int RequestType { get; set; }
         public string Detail { get; set; }
         public string Fax { get; set; }
         public string Email { get; set; }

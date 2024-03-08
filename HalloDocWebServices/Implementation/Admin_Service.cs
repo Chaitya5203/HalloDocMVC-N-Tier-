@@ -17,6 +17,7 @@ using NuGet.Protocol.Core.Types;
 using System.Net.Mail;
 using System.Net;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Xml.Linq;
 
 namespace HalloDocWebServices.Interfaces
 {
@@ -43,6 +44,28 @@ namespace HalloDocWebServices.Interfaces
             _repository.addrequestwisefiletablebyadmin(reqclient);
         }
 
+        public void closecasetounpaid(int id , viewuploadmin n)
+        {
+            var request = _repository.getdataofrequest(id);
+            var reqclient = _repository.getdataofviewcase(id);
+            if (n.email != null)
+            {
+                request.Email = n.email;
+                request.Phonenumber = n.phone;
+                reqclient.Email = n.email;
+                reqclient.Phonenumber = n.phone;
+                _repository.setrequestclientdata(reqclient);
+            }
+            request.Status = 9;
+            _repository.setrequestdata(request);
+            Requeststatuslog statuslog = new Requeststatuslog
+            {
+                Requestid = id,
+                Status = 9,
+                Createddate = DateTime.Now,
+            };
+            _repository.setrequeststatuslogdata(statuslog);
+        }
         public IQueryable dashboardtabledata(int id, int check)
         {
             IQueryable data;
@@ -326,6 +349,18 @@ namespace HalloDocWebServices.Interfaces
             };
             _repository.setrequeststatuslogdata(statuslog);
         }
+
+        public void insertrequeststatuslogtableclearcase(int id)
+        {
+            Requeststatuslog statuslog = new Requeststatuslog
+            {
+                Requestid = id,
+                Status = 10,
+                Createddate = DateTime.Now,
+            };
+            _repository.setrequeststatuslogdata(statuslog) ;
+        }
+
         public void insertrequeststatuslogtableofblockcase(int id, string notes)
         {
             Requeststatuslog statuslog = new Requeststatuslog
@@ -364,6 +399,33 @@ namespace HalloDocWebServices.Interfaces
         public Requestwisefile RequestwisefilesSerbyadmin(int id)
         {
             return _repository.RequestwisefilesRepobyadmin(id);
+        }
+        public sendorder sendAgreement(int id)
+        {
+            var req = _repository.getdataofrequest(id);
+            sendorder model = new sendorder
+            {
+                requestclient = _repository.getdataofviewcase(id),
+                RequestType = req.Requesttypeid,
+                id = id,
+            };
+            return model;
+        }
+        public void SendAgreementEmail(int id)
+        {
+            Request request = _repository.getdataofrequest(id);
+            var receiver = "binalmalaviya2002@gmail.com";
+            var subject = "Documents of Request " + request.Confirmationnumber?.ToUpper();
+            var message = "Find the Files uploaded for your request in below:";
+            var mailMessage = new MailMessage(from: "chaityamehta522003@gmail.com", to: receiver, subject, message);
+            var mail = "chaityamehta522003@gmail.com";
+            var password = "iwbc edlf rgpt oucs";
+            var client = new SmtpClient("smtp.gmail.com", 587)
+            {
+                EnableSsl = true,
+                Credentials = new NetworkCredential(mail, password)
+            };
+            client.SendMailAsync(mailMessage);
         }
         public void SendEmail(int id, string[] filenames)
         {
@@ -405,12 +467,22 @@ namespace HalloDocWebServices.Interfaces
             };
             client.SendMailAsync(mailMessage);
         }
+        public Request setclearcase(int id)
+        {
+            var request = _repository.getdataofrequest(id);
+            request.Status = 10;
+            _repository.setrequestdata(request);
+            return request;
+        }
         public viewuploadmin viewUploadAdmin(int id)
         {
+            var patientData = _repository.getdataofviewcase(id);
+            DateOnly date = DateOnly.Parse(DateTime.Parse(patientData.Intdate + patientData.Strmonth + patientData.Intyear).ToString("yyyy-MM-dd"));
             viewuploadmin model = new();
-            model.patientData = _repository.getdataofviewcase(id);
+            model.patientData = patientData;
             model.confirmationDetail = _repository.getdataofrequest(id);
             model.FileList = _repository.getRequestWiseFileList(id);
+            model.DOB = date;
             return model;
         }
     }

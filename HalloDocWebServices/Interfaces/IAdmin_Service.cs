@@ -11,6 +11,7 @@ namespace HalloDocWebServices.Interfaces
     public interface IAdmin_Service
     {
         void addrequestwisefilebyadmin(int id, IFormFile fileToUpload);
+        public void closecasetounpaid(int id, viewuploadmin n);
         public IQueryable dashboardtabledata(int id, int check);
         public void deleteallfilesbyadmin(string[] reqids, int id);
         public void deleteFile(int id);
@@ -33,11 +34,15 @@ namespace HalloDocWebServices.Interfaces
         void insertrequeststatuslogtable(int id, string notes, int reasonid);
         void insertrequeststatuslogtablebyassign(int id, string notes,int physician);
         void insertrequeststatuslogtablebytransfer(int id, string notes,int physician);
+        void insertrequeststatuslogtableclearcase(int id);
         void insertrequeststatuslogtableofblockcase(int id, string notes);
         public CaseModels openassignmodel(int id, int regionid);
         public Requestclient opencancelmodel(int id);
         public Requestwisefile RequestwisefilesSerbyadmin(int id);
+        public sendorder sendAgreement(int id);
+        void SendAgreementEmail(int id);
         void SendEmail(int id, string[] filename);
+        public Request setclearcase(int id);
         public viewuploadmin viewUploadAdmin(int id);
     }
 }

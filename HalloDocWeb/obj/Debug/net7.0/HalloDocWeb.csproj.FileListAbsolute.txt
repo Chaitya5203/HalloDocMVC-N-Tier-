@@ -244,3 +244,4 @@ D:\ProjectMvc\HalloDocWeb\HalloDocWeb\bin\Debug\net7.0\System.IdentityModel.Toke
 D:\ProjectMvc\HalloDocWeb\HalloDocWeb\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\ProjectMvc\HalloDocWeb\HalloDocWeb\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
 D:\ProjectMvc\HalloDocWeb\HalloDocWeb\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\ProjectMvc\HalloDocWeb\HalloDocWeb\obj\Debug\net7.0\HalloDocWeb.MvcApplicationPartsAssemblyInfo.cs

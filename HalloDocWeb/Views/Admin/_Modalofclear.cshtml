@@ -1,0 +1,59 @@
+﻿<!-- Modal Clear Case To Patient In Pending State-->
+<div class="modal fade" id="Clearcase" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="clearcaseform" method="post">
+                <div class="modal-header text-center justify-content-center mb-3">
+                    <div class="rounded-circle border border-3 p-1 border-warning shadow ">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#e0bd34"
+                             class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                            <path fill="#e0bd34" d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                            <path fill="#e0bd34" d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                        </svg>
+                    </div>
+                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                </div>
+                <div class="modal-body mb-3 " style="text-align: center;">
+                    <div>
+                        <h5 class="modal-title " id="staticBackdropLabel">Confirmation for clear case</h5>
+                    </div>
+                    Are sure you want to clear this request?Once clear this request then you are not able to see this request.
+                </div>
+                <div class="modal-footer d-flex justify-content-center pb-3">
+                    <button type="submit" class="btn btn-info text-white">Clear</button>
+                    <button type="button" id="cancelbtn" class="btn btn-white text-info border-info" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var myModalAssign = new bootstrap.Modal(document.getElementById('Clearcase'));
+        myModalAssign.show();
+    });
+    $('#cancelbtn').click(function (e) {
+        $("#modalpopup").remove();
+        $(".modal-backdrop").remove();
+        location.reload();
+    });
+    $('#clearcaseform').submit(function (e) {
+        e.preventDefault();
+        var reqid = '@TempData["reqid"]'
+        $.ajax({
+            url: "/Admin/Clearconfirm",
+            data: { id: reqid },
+            type: "POST",
+            success: function (data) {
+                $("#modalpopup").remove();
+                $(".modal-backdrop").remove();
+                location.reload();
+                //window.onload(getLocation());
+            },
+            error: function () {
+                alert("No Projects Found");
+            }
+        });
+    });
+</script>

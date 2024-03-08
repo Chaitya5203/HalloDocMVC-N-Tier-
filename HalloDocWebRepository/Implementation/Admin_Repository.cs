@@ -187,5 +187,11 @@ namespace HalloDocWebRepository.Implementation
             _context.Orderdetails.Add(orderdetail1);
             _context.SaveChanges();
         }
+
+        public void setrequestclientdata(Requestclient reqclient)
+        {
+            _context.Requestclients.Update(reqclient);
+            _context.SaveChanges();
+        }
     }
 }

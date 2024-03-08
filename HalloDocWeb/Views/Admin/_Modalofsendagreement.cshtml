@@ -1,0 +1,91 @@
+﻿<!-- Modal Send Agreement Case To Patient In Pending State-->
+@model HalloDocWebRepository.ViewModel.sendorder
+<div class="modal fade" id="Sendagreement" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Send Agreement</h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="sendagreementform" method="post">
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col text-muted">
+                            <p>
+                                @if (Model.RequestType == 1)
+                                {
+                                    <i class="fa-solid fa-circle fa-xs me-2" style="color: #DF657A;"></i>
+
+                                    <span>Business</span>
+                                }
+                                @if (Model.RequestType == 2)
+                                {
+                                    <i class="fa-solid fa-circle fa-xs me-2" style="color: #5FBC61;"></i> <span>Patient</span>
+                                }
+                                @if (Model.RequestType == 3)
+                                {
+                                    <i class="fa-solid fa-circle fa-xs me-2" style="color: #DE943D;"></i>
+                                    <span>Friend/Family</span>
+                                }
+                                @if (Model.RequestType == 4)
+                                {
+                                    <i class="fa-solid fa-circle fa-xs me-2" style="color: #007FC6;"></i>
+                                    <span>Concierge</span>
+                                }
+                                @* <span class="p-2 border-info" type="button"><i class="fa-solid fa-circle fa-xs me-2" style="color: #3ecc4e;"></i>Patient</span> *@
+                            </p>
+                            To Send Agreement Please make sure you are updating the correct contact information below for the responsible party.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-floating mb-3">
+                                <input value="@Model.requestclient.Phonenumber" type="tel"  class="form-control" id="floatingInput" placeholder="Phone Number">
+                                <label for="floatingInput">Phone Number</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating mb-3">
+                                <input value="@Model.requestclient.Email" type="email" class="form-control" id="floatingInput" placeholder="Email address">
+                                <label for="floatingInput">Email address</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info text-white">Send</button>
+                    <button type="button" class="btn btn-white border-info text-info" id="cancelbtn" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var myModalAssign = new bootstrap.Modal(document.getElementById('Sendagreement'));
+        myModalAssign.show();
+    });
+    $('#cancelbtn').click(function (e) {
+        $("#modalpopup").remove();
+        $(".modal-backdrop").remove();
+        location.reload();
+    });
+    $('#sendagreementform').submit(function (e) {
+        e.preventDefault();
+        var reqid = '@TempData["reqid"]'
+        $.ajax({
+            url: "/Admin/Sendagreementconfirm",
+            data: { id: @Model.id },
+            type: "POST",
+            success: function (data) {
+                $("#modalpopup").remove();
+                $(".modal-backdrop").remove();
+                location.reload();
+                //window.onload(getLocation());
+            },
+            error: function () {
+                alert("No Projects Found");
+            }
+        });
+    });
+</script>

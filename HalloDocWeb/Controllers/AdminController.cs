@@ -116,6 +116,18 @@ namespace HalloDocWeb.Controllers
         {
             return View();
         }
+        public IActionResult Close_case(int id)
+        {
+            ViewBag.id = id;
+            viewuploadmin model = _service.viewUploadAdmin(id);
+            return View(model);
+        }
+        public IActionResult Closecase(int id, viewuploadmin n)
+        {
+            _service.closecasetounpaid(id, n);
+            return RedirectToAction(nameof(Admindashboard));
+        }
+
         public IActionResult Patientrequestadmin()
         {
             return View();
@@ -139,6 +151,21 @@ namespace HalloDocWeb.Controllers
             var data = _service.opencancelmodel(id);
             TempData["reqid"] = id;
             return PartialView("_Modalsofnew", data);
+            //var data = _context.Requestclients.FirstOrDefault(r => r.Requestid == id);
+            //return PartialView("_Modalsofnew", data);
+        }
+        public async Task<IActionResult> Modalofsendagreement(int id)
+        {
+            var data = _service.sendAgreement(id);
+            return PartialView("_Modalofsendagreement", data);
+            //var data = _context.Requestclients.FirstOrDefault(r => r.Requestid == id);
+            //return PartialView("_Modalsofnew", data);
+        }
+        public async Task<IActionResult> Modalofclear(int id)
+        {                                                                               
+            var data = _service.opencancelmodel(id);
+            TempData["reqid"] = id;
+            return PartialView("_Modalofclear", data);
             //var data = _context.Requestclients.FirstOrDefault(r => r.Requestid == id);
             //return PartialView("_Modalsofnew", data);
         }
@@ -194,6 +221,19 @@ namespace HalloDocWeb.Controllers
             Request request = _service.getrequestdatatoassigncase(id,physician);
             return RedirectToAction(nameof(Admindashboard));
         }
+        [HttpPost]
+        public ActionResult Clearconfirm(int id)
+        {
+            _service.insertrequeststatuslogtableclearcase(id);
+            Request request = _service.setclearcase(id);
+            return RedirectToAction(nameof(Admindashboard));
+        }
+        [HttpPost]
+        public ActionResult Sendagreementconfirm(int id)
+        {
+            _service.SendAgreementEmail(id);
+            return RedirectToAction(nameof(Admindashboard));
+        }
         public ActionResult View_Note(int id)
         {
             var note = _service.getrequestnotes(id);
@@ -212,7 +252,7 @@ namespace HalloDocWeb.Controllers
         {
             var user = _service.getrequestdataofnotes(id);
             _service.getreqnoteofsavenote(id, n, user.Email);
-            return RedirectToAction(nameof(Admindashboard));
+            return RedirectToAction("");
         }
     }
 }  

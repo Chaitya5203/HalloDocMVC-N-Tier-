@@ -1,74 +1,5 @@
 ﻿<div id="modalpopup">
 </div>
-<!-- Modal Clear Case To Patient In Pending State-->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header text-center justify-content-center mb-3">
-                <div class="rounded-circle border border-3 p-1 border-warning shadow ">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#e0bd34"
-                         class="bi bi-exclamation-circle" viewBox="0 0 16 16">
-                        <path fill="#e0bd34" d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                        <path fill="#e0bd34" d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
-                    </svg>
-                </div>
-                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-            </div>
-            <div class="modal-body mb-3 " style="text-align: center;">
-                <div>
-                    <h5 class="modal-title " id="staticBackdropLabel">Confirmation for clear case</h5>
-                </div>
-                Are sure you want to clear this request?Once clear this request then you are not able to see this request.
-            </div>
-            <div class="modal-footer d-flex justify-content-center pb-3">
-                <button type="button" class="btn btn-info text-white " data-bs-dismiss="modal">Clear</button>
-                <button type="button" class="btn btn-white text-info border-info" data-bs-dismiss="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Send Agreement Case To Patient In Pending State-->
-<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-info text-white">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Send Agreement</h1>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row mb-3">
-                    <div class="col text-muted">
-                        <p>
-                            <span class="p-2 border-info" type="button"><i class="fa-solid fa-circle fa-xs me-2" style="color: #3ecc4e;"></i>Patient</span>
-                        </p>
-                        To Send Agreement Please make sure you are updating the correct contact information below for the responsible party.
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="form-floating mb-3">
-                            <input type="tel" class="form-control" id="floatingInput" placeholder="Phone Number">
-                            <label for="floatingInput">Phone Number</label>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="Email address">
-                            <label for="floatingInput">Email address</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info text-white">Send</button>
-                <button type="button" class="btn btn-white border-info text-info" data-bs-dismiss="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <div class="row mt-3 d-flex flex-row">
     <div class="text-end d-md-flex hideonmobile justify-content-md-end ">
@@ -195,9 +126,8 @@
                             <li><a class="dropdown-item" asp-action="ViewUploadAdmin" asp-controller="Admin" asp-route-id="@item.Requestid"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/keyword.png" style="height:15px;" class="me-1" />View Uploads</a></li>
                             <li><a class="dropdown-item" asp-action="View_Note" asp-controller="Admin"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/notebook.png" style="height:15px;" class="me-1" />View Notes</a></li>
                             <li><button class="dropdown-item" onclick="transfercase(this)" value="@item.Requestid" id="transfercase"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/keyword.png" style="height:15px;" class="me-1" />Transfer</button></li>
-                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/keyword.png" style="height:15px;" class="me-1" />Clear Case</a></li>
-
-                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal2"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/Assign_case.jpg" style="height:15px;" class="me-1" />Send Agreement</a></li>
+                            <li><button class="dropdown-item" onclick="clearcase(this)" value="@item.Requestid" id="clearcase"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/keyword.png" style="height:15px;" class="me-1" />Clear Case</button></li>
+                            <li><button class="dropdown-item" onclick="sendagreementcase(this)" value="@item.Requestid" id="sendagreementcase"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/Assign_case.jpg" style="height:15px;" class="me-1" />Send Agreement</button></li>
                             @* <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-xmark me-1"></i>Cancel Case</a></li>
                             <li><a class="dropdown-item" asp-action="View_Case" asp-controller="Admin"><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/keyword.png" style="height:15px;" class="me-1" />View Case</a></li>
                             
@@ -321,6 +251,40 @@
         $.ajax({
             url: "/Admin/Modaloftransfer",
             data: { 'id': id, 'regionid': 0 },
+            type: "GET",
+            dataType: "html",
+            success: function (data) {
+                $("#modalpopup").html(data);
+            },
+            error: function () {
+                alert("No Projects Found");
+                $("#tableContent").html('An error has occurred');
+            }
+        });
+    };
+    function clearcase(element) {
+        var id = element.value;
+        console.log(id);
+        $.ajax({
+            url: "/Admin/Modalofclear",
+            data: { 'id': id },
+            type: "GET",
+            dataType: "html",
+            success: function (data) {
+                $("#modalpopup").html(data);
+            },
+            error: function () {
+                alert("No Projects Found");
+                $("#tableContent").html('An error has occurred');
+            }
+        });
+    };
+    function sendagreementcase(element) {
+        var id = element.value;
+        console.log(id);
+        $.ajax({
+            url: "/Admin/Modalofsendagreement",
+            data: { 'id': id },
             type: "GET",
             dataType: "html",
             success: function (data) {

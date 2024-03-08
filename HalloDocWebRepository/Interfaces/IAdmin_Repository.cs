@@ -37,5 +37,6 @@ namespace HalloDocWebRepository.Interfaces
         public List<Healthprofessional> gethealthprofessionaldatabyid(int hprof);
         Healthprofessional getBusinessDetailById(int hprof);
         void storeordertable(Orderdetail orderdetail1);
+        void setrequestclientdata(Requestclient reqclient);
     }
 }
