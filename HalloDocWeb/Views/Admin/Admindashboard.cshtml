@@ -28,9 +28,9 @@
                     <img src="~/OneDrive_2024-01-17/SRS Screen Shorts/backremovelogo.png" alt="" height="100px" width="180">
                 </div>
             </li>
-            <li class="hideonmobile me-2">Welcome <b>Admin admin2</b></li>
+            <li class="hideonmobile me-2">Welcome <b> @Accessor.HttpContext.Request.Cookies["Usarname"]</b></li>
             <li>
-                <a>
+                <a asp-action="Logout" asp-controller="Home">
                     <button class="btn hideonmobile me-2"
                             style="border:2px solid #54d4d3; color: #54d4d3;">
                         Logout
@@ -125,8 +125,8 @@
         <div class="container-fluid bg-light mt-3">
             <div class="row d-flex justify-content-xl-center">
 
-                <div class="col-sm-4 col-md-4 col-lg-2 col-4 mb-3" style="padding-left:1px !important;">
-                    <button id="new-box" class="w-100 border-0 text-start">
+               <div class="col-sm-4 col-md-4 col-lg-2 col-4 mb-3" style="padding-left:1px !important;">
+                    <button id="new-box" class="w-100 border-0 p-0 text-start">
                         <div class="p-1 rounded" style="border: solid thin #063982; color:#063982; background-color:#CFE2FF">
                             <div class="d-flex flex-column">
                                 <span>
@@ -138,7 +138,7 @@
                     </button>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
-                    <button id="pending-box" class="w-100 border-0 text-start">
+                    <button id="pending-box" class="w-100 p-0 border-0 text-start">
                         <div class="p-1 rounded" style="border: solid thin #0AA2C0; color:#0AA2C0; background-color:#D1F7FF">
                             <div class="d-flex flex-column">
                                 <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/pending.png" class="hideonmobile" style="height:30px;" />PENDING</small></span>
@@ -148,7 +148,7 @@
                     </button>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
-                    <button id="active-box" class="w-100 border-0 text-start">
+                    <button id="active-box" class="w-100 p-0 border-0 text-start">
                         <div class="p-1 rounded" style="border: solid thin #198754; color:#198754; background-color:#E0F7ED">
                             <div class="d-flex flex-column">
                                 <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/active.png" class="hideonmobile" style="height:30px;" />ACTIVE</small></span>
@@ -158,17 +158,17 @@
                     </button>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
-                    <button id="conclude-box" class="w-100 border-0 text-start">
+                    <button id="conclude-box" class="w-100 p-0 border-0 text-start">
                         <div class="p-1 rounded" style="border: solid thin #AB296A; color:#AB296A; background-color:#FFDDED">
                             <div class="d-flex flex-column">
-                                <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/conclude.png" class="hideonmobile" style="height:30px;" />CONCLUDE</small></span>
+                                <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/33.png" class="hideonmobile" style="height:30px;" />CONCLUDE</small></span>
                                 <span class="h3 fw-bold"> @ViewBag.ConcludeCount </span>
                             </div>
                         </div>
                     </button>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
-                    <button id="close-box" class="w-100 border-0 text-start">
+                    <button id="close-box" class="w-100 p-0 border-0 text-start">
                         <div class="p-1 rounded" style="border: solid thin #0A58CA; color:#0A58CA; background-color:#CFE2FF">
                             <div class="d-flex flex-column">
                                 <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/toclose.png" class="hideonmobile" style="height:30px;" />TO CLOSE</small></span>
@@ -178,7 +178,7 @@
                     </button>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:0px !important;">
-                    <button id="unpaid-box" class="w-100 border-0 text-start">
+                    <button id="unpaid-box" class="w-100 p-0 border-0 text-start">
                         <div class="p-1 rounded" style="border: solid thin #8C68CD; color:#8C68CD; background-color:#E2D9F3">
                             <div class="d-flex flex-column">
                                 <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/unpaid.png" class="hideonmobile" style="height:30px;" />UNPAID</small></span>
@@ -297,7 +297,7 @@
                             </div>
                             <div class="col-sm-12 col-md-6 col-xl-6">
                                 <div class="mb-3 border border-light rounded-5">
-                                    <select class="form-select p-3 pla1" aria-label=".form-select-lg example">
+                                    <select class="form-select p-3 pla1" aria-label="form-select-lg example">
                                         <option selected value="1">Mobile</option>
                                         <option value="2">Email</option>
                                     </select>
@@ -305,7 +305,7 @@
                             </div>
                             <div class="col-sm-12 col-md-6 col-xl-6">
                                 <div class="mb-3 border border-light rounded-5">
-                                    <select class="form-select p-3 pla1" aria-label=".form-select-lg example">
+                                    <select class="form-select p-3 pla1" aria-label="form-select-lg example">
                                         <option selected value="1">Mobile</option>
                                         <option value="2">Email</option>
                                     </select>

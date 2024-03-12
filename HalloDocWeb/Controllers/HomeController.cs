@@ -27,10 +27,17 @@ namespace HalloDocWeb.Controllers
         {
             return View();
         }
+        public IActionResult CreateAccount(string Email)
+        {
+            ViewBag.Email = Email;  
+
+            return View();
+        }
         public IActionResult submit_request_screen()
         {
             return View();
         }
+        [CustomAuthorize("Login")]
         public IActionResult patientlogin()
         {
             return View();
@@ -47,12 +54,21 @@ namespace HalloDocWeb.Controllers
 
             //return _context.Requestwisefiles != null ? View(_context.Requestwisefiles.Where(m => m.Requestid == id).ToList()) : Problem("vchgvytfvtv");
         }
+        public IActionResult patientforgot()
+        {
+            return View();
+        }
         public IActionResult SubmitRequestOnMe()
         {
             return View();
         }
         public IActionResult SubmitRequestSomeone()
         {
+            return View();
+        }
+        public IActionResult ResetPassword(string Email)
+        {
+            ViewBag.Email = Email;
             return View();
         }
         // Request on me page When Dashboard Is Open and request is Created 
@@ -109,9 +125,11 @@ namespace HalloDocWeb.Controllers
             {
                 var user = _service.getUser(loginobj.Email);
                 var jwttoken = _jwt_Service.GetJWTToken(user);
-                Response.Cookies.Append("jwt", jwttoken);
-                HttpContext.Session.SetString("Usarname", user.Usarname);
-                HttpContext.Session.SetString("UsarEmail", loginobj.Email);
+                Response.Cookies.Append("jwt", jwttoken, new CookieOptions { MaxAge = TimeSpan.FromDays(1) });
+                Response.Cookies.Append("UsarEmail", loginobj.Email, new CookieOptions { MaxAge = TimeSpan.FromDays(1) });
+                Response.Cookies.Append("Usarname", user.Usarname, new CookieOptions { MaxAge = TimeSpan.FromDays(1) });
+                //HttpContext.Session.SetString("Usarname", user.Usarname);
+                //HttpContext.Session.SetString("UsarEmail", loginobj.Email);
                 if (user.Role=="3")
                 {
                     return RedirectToAction(nameof(AdminController.Admindashboard), "Admin");
@@ -141,9 +159,12 @@ namespace HalloDocWeb.Controllers
         [CustomAuthorize("Patient")]
         public async  Task<IActionResult> patientdashboard()
         {
-            var dictionary = _service.getDictionary(HttpContext.Session.GetString("Usarname"));
+            var req = HttpContext.Request;
+            var username = req.Cookies["Usarname"];
+            var useremail = req.Cookies["UsarEmail"];
+            var dictionary = _service.getDictionary(username);
             ViewBag.RequestIdCounts = dictionary;
-            var pro = _service.Dashboarddata(HttpContext.Session.GetString("UsarEmail"), HttpContext.Session.GetString("Usarname"));
+            var pro = _service.Dashboarddata(useremail, username);
             return View(pro);
         }
         public IActionResult Privacy()
@@ -180,6 +201,13 @@ namespace HalloDocWeb.Controllers
         {
             MemoryStream ms =  _service.DownloadAllService(id);
             return File(ms.ToArray(), "application/zip", "download.zip");
+        }
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("Usarname");
+            Response.Cookies.Delete("UsarEmail");
+            Response.Cookies.Delete("jwt");
+            return View(nameof(Index));
         }
     }
 }

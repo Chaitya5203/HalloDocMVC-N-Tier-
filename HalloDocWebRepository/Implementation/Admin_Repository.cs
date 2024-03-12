@@ -19,15 +19,61 @@ namespace HalloDocWebRepository.Implementation
         }
         public int getcountofeachstate(int id)
         {
-           return _context.Requests.Where(r => r.Status == id).Count();
+            int[] status = new int[1];
+            switch (id)
+            {
+                case 1:
+                    status = new int[] { 1 };
+                    break;
+                case 2:
+                    status = new int[] { 2 };
+                    break;
+                case 3:
+                    status = new int[] { 4, 5 };
+                    break;
+                case 4:
+                    status = new int[] { 6 };
+                    break;
+                case 5:
+                    status = new int[] { 3, 7, 8 };
+                    break;
+                case 6:
+                    status = new int[] { 9 };
+                    break;
+
+            }
+            return _context.Requests.Where(i => status.Any(j => j == i.Status)).Count();
         }
         public IQueryable getdataofdashboard(int id)
         {
+            int[] status = new int[1];
+            switch (id)
+            {
+                case 1:
+                    status = new int[] { 1 };
+                    break;
+                case 2:
+                    status = new int[] { 2 };
+                    break;
+                case 3:
+                    status = new int[] { 4, 5 };
+                    break;
+                case 4:
+                    status = new int[] { 6 };
+                    break;
+                case 5:
+                    status = new int[] { 3, 7, 8 };
+                    break;
+                case 6:
+                    status = new int[] { 9 };
+                    break;
+
+            }
             IQueryable data = from r in _context.Requests
                    join rc in _context.Requestclients on r.Requestid equals rc.Requestid
                    join rt in _context.Requesttypes on r.Requesttypeid equals rt.Requesttypeid
                    join reg in _context.Regions on rc.Regionid equals reg.Regionid
-                   where r.Status == id 
+                   where status.Any(s => s == r.Status)
                    select new AdminDashboardTableModel
                    {
                        Name = rc.Firstname + ' ' + rc.Lastname,
@@ -48,11 +94,34 @@ namespace HalloDocWebRepository.Implementation
         }
         public IQueryable getdataofdashboardcheckvise(int id, int check)
         {
+            int[] status = new int[1];
+            switch (id)
+            {
+                case 1:
+                    status = new int[] { 1 };
+                    break;
+                case 2:
+                    status = new int[] { 2 };
+                    break;
+                case 3:
+                    status = new int[] { 4, 5 };
+                    break;
+                case 4:
+                    status = new int[] { 6 };
+                    break;
+                case 5:
+                    status = new int[] { 3, 7, 8 };
+                    break;
+                case 6:
+                    status = new int[] { 9 };
+                    break;
+
+            }
             IQueryable data = from r in _context.Requests
                    join rc in _context.Requestclients on r.Requestid equals rc.Requestid
                    join rt in _context.Requesttypes on r.Requesttypeid equals rt.Requesttypeid
                    join reg in _context.Regions on rc.Regionid equals reg.Regionid
-                   where r.Status == id && r.Requesttypeid == check
+                   where status.Any(s => s == r.Status) && r.Requesttypeid == check
                    select new AdminDashboardTableModel
                    {
                        Name = rc.Firstname + ' ' + rc.Lastname,
@@ -192,6 +261,17 @@ namespace HalloDocWebRepository.Implementation
         {
             _context.Requestclients.Update(reqclient);
             _context.SaveChanges();
+        }
+
+        public void updateEncounterForm(EncounterForm model)
+        {
+            _context.EncounterForms.Update(model);
+            _context.SaveChanges();
+        }
+
+        public EncounterForm getEncounterTable(int id)
+        {
+            return _context.EncounterForms.FirstOrDefault(m => m.Requestid == id);
         }
     }
 }

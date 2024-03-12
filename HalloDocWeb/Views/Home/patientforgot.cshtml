@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <form class="w-50 text-center" asp-controller="Aspnetusers" asp-action="patientforgot" method="POST">
+        <form class="w-50 text-center" asp-controller="Request" asp-action="Sendforgotlink" method="POST">
             <div class=" form-floating mb-3  ">
                 <input asp-for="email" name="email" type="text" class="form-control text-muted backtra border-info " id="floatingInput"
                        placeholder="Username">
@@ -48,10 +48,11 @@
             </div> -->
             <div class="row justify-content-between mt-4">
                 <div class="col">
-                    <button type="submit" class="btn  btn-info w-100 ">
-                        <a class="text-decoration-none text-white"
-                          >Reset Password</a>
-                    </button>
+                    <a class="text-decoration-none text-white">
+                        <button type="submit" class="btn btn-info w-100 ">
+                        Reset Password
+                        </button>
+                    </a>
                 </div>
             </div>
             <div class="row-sm-10 mt-4 text-muted mb-5">

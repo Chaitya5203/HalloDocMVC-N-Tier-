@@ -39,6 +39,7 @@ namespace HalloDocWeb.Controllers
         {
             return View();
         }
+
         //Create Patient By It Self 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -68,6 +69,26 @@ namespace HalloDocWeb.Controllers
             return RedirectToAction(nameof(patientlogin), "Home");
         }
         [HttpPost]
+        public async Task<IActionResult> SavePatientData(login info)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("../Home/CreateAccount", info);
+            }
+             _service.addnewuserdata(info);
+            return RedirectToAction(nameof(patientlogin), "Home");
+        }
+        [HttpPost]
+        public async Task<IActionResult> SaveResetPassword(login info)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("../Home/ResetPassword", info);
+            }
+            _service.addresetpassword(info);
+            return RedirectToAction(nameof(patientlogin), "Home");
+        }
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreatePatientByBusiness(BusinessPatientRequest info)
         {
@@ -89,5 +110,25 @@ namespace HalloDocWeb.Controllers
             _service.insertbyconcierge(info);
             return RedirectToAction(nameof(patientlogin), "Home");
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Sendforgotlink(forgot info)
+        {
+            var mail = "tatva.dotnet.binalmalaviya@outlook.com";
+            var password = "binal@2002";
+            var receiver = info.email;
+            var subject = "Reset Password";
+            var message = "Reset Your Password: https://localhost:7234/Home/ResetPassword/?Email=" + receiver;
+
+            var client = new SmtpClient("smtp.office365.com", 587)
+            {
+                EnableSsl = true,
+                Credentials = new NetworkCredential(mail, password)
+            };
+
+            client.SendMailAsync(new MailMessage(from: mail, to: receiver, subject, message));
+            return RedirectToAction(nameof(patientlogin), "Home");
+        }
+
     }
 }

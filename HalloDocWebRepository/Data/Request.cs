@@ -111,6 +111,9 @@ public partial class Request
     public virtual ICollection<Emaillog> Emaillogs { get; set; } = new List<Emaillog>();
 
     [InverseProperty("Request")]
+    public virtual ICollection<EncounterForm> EncounterForms { get; set; } = new List<EncounterForm>();
+
+    [InverseProperty("Request")]
     public virtual ICollection<Orderdetail> Orderdetails { get; set; } = new List<Orderdetail>();
 
     [InverseProperty("Request")]

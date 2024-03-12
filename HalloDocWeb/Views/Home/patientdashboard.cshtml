@@ -11,8 +11,10 @@
                 <img src="~/OneDrive_2024-01-17/SRS Screen Shorts/backremovelogo.png" alt="" height="100px" width="180">
             </li>
 
-            <li class="hideonmobile me-2">Welcome <b> @Accessor.HttpContext.Session.GetString("Usarname")</b></li>
-            <li><a asp-controller="Home" asp-action="patientlogin"><button class="btn hideonmobile me-2"
+            <li class="hideonmobile me-2">Welcome <b> @Accessor.HttpContext.Request.Cookies["Usarname"]</b></li>
+            <li>
+                <a asp-controller="Home" asp-action="Logout">
+                    <button class="btn hideonmobile me-2"
                         style="border:2px solid #54d4d3; color: #54d4d3;">Logout</button></a></li>
             <li>
                 <a asp-controller="Home" asp-action="patientlogin">

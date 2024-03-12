@@ -12,6 +12,8 @@ namespace HalloDocWebServices.Interfaces
     public interface IPatient_Service
     {
         public void addfilerequestwise(int id, IFormFile fileToUpload);
+        public void addnewuserdata(login info);
+        public void addresetpassword(login info);
         public bool CheckEmail(string email);
         public profile Dashboarddata(string email,string username);
         public MemoryStream DownloadAllService(int id);

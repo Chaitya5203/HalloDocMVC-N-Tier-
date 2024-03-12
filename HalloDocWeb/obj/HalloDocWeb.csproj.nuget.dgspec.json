@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWeb\\HalloDocWeb.csproj": {}
+    "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWeb\\HalloDocWeb.csproj": {}
   },
   "projects": {
-    "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj": {
+    "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj",
+        "projectUniqueName": "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj",
         "projectName": "HalloDocWebRepository",
-        "projectPath": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj",
+        "projectPath": "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj",
         "packagesPath": "C:\\Users\\pce96\\.nuget\\packages\\",
-        "outputPath": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebRepository\\obj\\",
+        "outputPath": "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebRepository\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pce96\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -91,14 +91,14 @@
         }
       }
     },
-    "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebServices\\HalloDocWebServices.csproj": {
+    "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebServices\\HalloDocWebServices.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebServices\\HalloDocWebServices.csproj",
+        "projectUniqueName": "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebServices\\HalloDocWebServices.csproj",
         "projectName": "HalloDocWebServices",
-        "projectPath": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebServices\\HalloDocWebServices.csproj",
+        "projectPath": "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebServices\\HalloDocWebServices.csproj",
         "packagesPath": "C:\\Users\\pce96\\.nuget\\packages\\",
-        "outputPath": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebServices\\obj\\",
+        "outputPath": "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebServices\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pce96\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -115,8 +115,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj": {
-                "projectPath": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj"
+              "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj": {
+                "projectPath": "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj"
               }
             }
           }
@@ -182,14 +182,14 @@
         }
       }
     },
-    "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWeb\\HalloDocWeb.csproj": {
+    "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWeb\\HalloDocWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWeb\\HalloDocWeb.csproj",
+        "projectUniqueName": "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWeb\\HalloDocWeb.csproj",
         "projectName": "HalloDocWeb",
-        "projectPath": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWeb\\HalloDocWeb.csproj",
+        "projectPath": "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWeb\\HalloDocWeb.csproj",
         "packagesPath": "C:\\Users\\pce96\\.nuget\\packages\\",
-        "outputPath": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWeb\\obj\\",
+        "outputPath": "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWeb\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pce96\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -206,8 +206,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebServices\\HalloDocWebServices.csproj": {
-                "projectPath": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebServices\\HalloDocWebServices.csproj"
+              "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebServices\\HalloDocWebServices.csproj": {
+                "projectPath": "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebServices\\HalloDocWebServices.csproj"
               }
             }
           }

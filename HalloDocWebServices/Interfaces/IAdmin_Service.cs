@@ -17,6 +17,7 @@ namespace HalloDocWebServices.Interfaces
         public void deleteFile(int id);
         public MemoryStream DownloadAllServicebyadmin( string[] filenames);
         public byte[] DownloadSingleFilebyadmin(int id);
+        public Encounterformmodel EncounterAdmin(int id);
         public Casetag getcasetag(int reasonid);
         public int getcount(int id);
         public sendorder getdataofsendorder(int id,int hprof,int hproftype);
@@ -39,6 +40,7 @@ namespace HalloDocWebServices.Interfaces
         public CaseModels openassignmodel(int id, int regionid);
         public Requestclient opencancelmodel(int id);
         public Requestwisefile RequestwisefilesSerbyadmin(int id);
+        void saveEncounterForm(Encounterformmodel info);
         public sendorder sendAgreement(int id);
         void SendAgreementEmail(int id);
         void SendEmail(int id, string[] filename);

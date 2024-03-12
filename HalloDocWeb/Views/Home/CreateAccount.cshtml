@@ -1,0 +1,106 @@
+﻿@model HalloDocWebRepository.ViewModel.login
+@{
+    ViewData["Title"] = "Create Account Page";
+}
+<div class="min-vh-100 min-vw-100 bg1" id="light-theme"></div>
+<div class="container d-flex align-items-center backimage justify-content-center min-vh-100">
+    <div class="row justify-content-center text-center ">
+        <div class="col setmoon">
+            <div class="row">
+                <div class="col text-end ">
+                    <button class="moonbtn backtra"><i class="fa-solid fa-moon  "></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="row setlogo">
+            <div class="col">
+                <img src="~/OneDrive_2024-01-17/SRS Screen Shorts/backremovelogo.png" class="img-fluid mb-4" alt="logo">
+            </div>
+        </div>
+        <div class="d-flex flex-column align-items-center">
+            <div class="row h2 w-50">
+                <div class="col mb-3">
+                    Create Account
+                </div>
+            </div>
+        </div>
+        <form asp-controller="Request" asp-action="SavePatientData" class="w-100 text-center" method="post" >
+            <div class="text-danger"></div>
+            <div class=" form-floating mb-3 form-group ">
+                <input type="text" asp-for=Email value="@ViewBag.Email" class="form-control text-muted backtra border-info " id="floatingInput"
+                       placeholder="Username" />
+                <label class=" " for="floatingInput">
+                    Email
+                </label>
+                <span  class="text-danger text-start"></span>
+                <i class="far fa-user-circle text-secondary faicon"></i>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" asp-for=Passwordhash id="myInput" class="form-control backtra border-info text-muted" id="floatingPassword"
+                       placeholder="Password">
+                <label for="floatingPassword">Password</label>
+                <span class="text-danger text-start"></span>
+                <i class="far fa-eye text-secondary faicon" style="display:none" id="showeye" onclick="myFunction()"></i>
+                <i class="fa-solid fa-eye-slash faicon text-secondary" id="hideeye" style="display:block" onclick="myFunction()"></i>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" id="myInput1" class="form-control backtra border-info text-muted" id="floatingPassword"
+                       placeholder="Confirm Password" onchange="check()">
+                <label for="floatingPassword">Confirm Password</label>
+                <span class="text-danger text-start"></span>
+                <i class="far fa-eye text-secondary faicon" style="display:none" id="showeye1" onclick="myFunction1()"></i>
+                <i class="fa-solid fa-eye-slash faicon text-secondary" id="hideeye1" style="display:block" onclick="myFunction1()"></i>
+            </div>
+            <div class="row justify-content-between mt-4">
+                <div class="col">
+                    <button type="Submit" class="btn btn-info w-100">Create</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<footer class="footerset text-lg-center text-center justify-content-center">
+    <div class="">Terms Of Conditions <div class="vr fw-bold"></div> Privacy Policy</div>
+</footer>
+<script>
+    function check() {
+        console.log("called");
+        var x = document.getElementById('example1FormControlInput1').value;
+        var y = document.getElementById('example2FormControlInput1').value;
+        if (x != y) {
+            alert("Your password and confirmation password do not match.");
+            // example2FormControlInput1.focus();
+            return false;
+        }
+    }
+    function myFunction() {
+        var x = document.getElementById("myInput");
+        if (x.type === "password") {
+            x.type = "text";
+            document.getElementById('showeye').style.display = 'block';
+            document.getElementById('hideeye').style.display = 'none';
+        } else {
+            x.type = "password";
+            document.getElementById('hideeye').style.display = 'block';
+            document.getElementById('showeye').style.display = 'none';
+        }
+    }
+    function myFunction1() {
+        var x1 = document.getElementById("myInput1");
+        if (x1.type === "password") {
+            x1.type = "text";
+            document.getElementById('showeye1').style.display = 'block';
+            document.getElementById('hideeye1').style.display = 'none';
+        } else {
+            x1.type = "password";
+            document.getElementById('hideeye1').style.display = 'block';
+            document.getElementById('showeye1').style.display = 'none';
+        }
+    }
+</script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

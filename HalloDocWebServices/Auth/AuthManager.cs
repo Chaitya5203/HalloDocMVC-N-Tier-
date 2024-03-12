@@ -43,19 +43,46 @@ namespace HalloDocWebService.Authentication
             }
             var request = context.HttpContext.Request;
             var token = request.Cookies["jwt"];
-            if (token == null || !jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
+            if(_role == "Login")
             {
-                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
-                return;
+                if (token != null )
+                {
+                     if (!jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
+                    {
+                        context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
+                        return;
+                    }
+                    Claim roleClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
+                    if(roleClaim.Value == "Patient")
+                    {
+                        context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "patientdashboard" }));
+                        return;
+                    }
+                    else
+                    {
+                        context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Admin", action = "admindashboard" }));
+                        return;
+                    }
+                    
+                }
             }
-
-            Claim roleClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
-
-            if (roleClaim.Value != _role)
+            else
             {
-                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
-                return;
+                if (token == null || !jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
+                {
+                    context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
+                    return;
+                }
+
+                Claim roleClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
+
+                if (roleClaim.Value != _role)
+                {
+                    context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
+                    return;
+                }
             }
+            
 
             //if (string.IsNullOrEmpty(_role) || roleClaim.Value != _role)
             //{

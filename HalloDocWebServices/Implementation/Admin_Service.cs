@@ -18,7 +18,6 @@ using System.Net.Mail;
 using System.Net;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using System.Xml.Linq;
-
 namespace HalloDocWebServices.Interfaces
 {
     public class Admin_Service : IAdmin_Service
@@ -28,7 +27,6 @@ namespace HalloDocWebServices.Interfaces
         {
             _repository = repository;
         }
-
         public void addrequestwisefilebyadmin(int id, IFormFile fileToUpload)
         {
             var uploads = Path.Combine("wwwroot", "uploads");
@@ -43,7 +41,6 @@ namespace HalloDocWebServices.Interfaces
             };
             _repository.addrequestwisefiletablebyadmin(reqclient);
         }
-
         public void closecasetounpaid(int id , viewuploadmin n)
         {
             var request = _repository.getdataofrequest(id);
@@ -79,30 +76,25 @@ namespace HalloDocWebServices.Interfaces
             }
             return data;
         }
-
         public void deleteallfilesbyadmin(string[] reqids,int id)
         {
             List<Requestwisefile> file = new();
             foreach (var fl in reqids)
             {
-                file.Add(_repository.getRequestWiseFileListByFileName(fl,id));
-                
+                file.Add(_repository.getRequestWiseFileListByFileName(fl,id));  
             }
-         
             foreach(var item in file.ToList())
             {
                 item.Isdeleted = new BitArray(1, true);
                 _repository.updateRequestWiseFileTable(item);
             }
         }
-
         public void deleteFile(int id)
         {
             var file = _repository.getRequestWiseFile(id);
             file.Isdeleted = new BitArray(1, true);
             _repository.updateRequestWiseFileTable(file);
         }
-
         public MemoryStream DownloadAllServicebyadmin(string[] filenames)
         {
             string repositoryPath = "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWeb\\wwwroot\\uploads\\";
@@ -132,6 +124,43 @@ namespace HalloDocWebServices.Interfaces
             var filepath = "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWeb\\wwwroot\\uploads\\" + Path.GetFileName(file.Filename);
             var bytes = System.IO.File.ReadAllBytes(filepath);
             return bytes;
+        }
+        public Encounterformmodel EncounterAdmin(int id)
+        {
+            var patientData = _repository.getdataofviewcase(id);
+            DateOnly date = DateOnly.Parse(DateTime.Parse(patientData.Intdate + patientData.Strmonth + patientData.Intyear).ToString("yyyy-MM-dd"));
+            Encounterformmodel model = new();
+            var info = _repository.getEncounterTable(id);  
+            model.patientData = patientData;
+            model.confirmationDetail = _repository.getdataofrequest(id);
+            model.FileList = _repository.getRequestWiseFileList(id);
+            model.DOB = date;
+            model.Requestid = info.Requestid;
+            model.Abd = info.Abd;
+            model.Skin = info.Skin;
+            model.Hr = info.Hr;
+            model.O2 = info.O2;
+            model.Rr = info.Rr;
+            model.Cv = info.Cv;
+            model.BpS = info.BpS;
+            model.BpD = info.BpD;
+            model.Temp = info.Temp;
+            model.Allergies = info.Allergies;
+            model.Chest = info.Chest;
+            model.Date = info.Date;
+            model.Diagnosis = info.Diagnosis;
+            model.Extr = info.Extr;
+            model.Heent = info.Heent;
+            model.FollowUp = info.FollowUp;
+            model.HistoryIllness = info.HistoryIllness;
+            model.MedicalHistory = info.MedicalHistory;
+            model.Medications = info.Medications;
+            model.Procedures = info.Procedures;
+            model.MedicationDispensed = info.MedicationDispensed;
+            model.Neuro = info.Neuro;
+            model.Pain = info.Pain;
+            model.Other = info.Other;
+            return model;
         }
         public Casetag getcasetag(int reasonid)
         {
@@ -399,6 +428,39 @@ namespace HalloDocWebServices.Interfaces
         public Requestwisefile RequestwisefilesSerbyadmin(int id)
         {
             return _repository.RequestwisefilesRepobyadmin(id);
+        }
+
+        public void saveEncounterForm(Encounterformmodel info)
+        {
+            var model = _repository.getEncounterTable(info.Requestid);
+           
+            model.Requestid = info.Requestid;
+            model.Abd=info.Abd;
+            model.Skin=info.Skin;
+            model.Hr=info.Hr;
+            model.O2=info.O2;
+            model.Rr=info.Rr;
+            model.Cv=info.Cv;
+            model.BpS=info.BpS;
+            model.BpD=info.BpD;
+            model.Temp=info.Temp;
+            model.Allergies =info.Allergies;
+            model.Chest=info.Chest;
+            model.Date=info.Date;
+            model.Diagnosis=info.Diagnosis;
+            model.Extr=info.Extr;
+            model.Heent=info.Heent;
+            model.FollowUp=info.FollowUp;
+            model.HistoryIllness=info.HistoryIllness;
+            model.MedicalHistory=info.MedicalHistory;
+            model.Medications=info.Medications;
+            model.Procedures=info.Procedures;
+            model.MedicationDispensed=info.MedicationDispensed;
+            model.TreatmentPlan=info.TreatmentPlan;
+            model.Neuro=info.Neuro;
+            model.Pain=info.Pain;
+            model.Other=info.Other;
+            _repository.updateEncounterForm(model);
         }
         public sendorder sendAgreement(int id)
         {

@@ -33,6 +33,8 @@ public partial class ApplicationContext : DbContext
 
     public virtual DbSet<Emaillog> Emaillogs { get; set; }
 
+    public virtual DbSet<EncounterForm> EncounterForms { get; set; }
+
     public virtual DbSet<Healthprofessional> Healthprofessionals { get; set; }
 
     public virtual DbSet<Healthprofessionaltype> Healthprofessionaltypes { get; set; }
@@ -166,6 +168,18 @@ public partial class ApplicationContext : DbContext
             entity.Property(e => e.Emaillogid).UseIdentityAlwaysColumn();
 
             entity.HasOne(d => d.Request).WithMany(p => p.Emaillogs).HasConstraintName("fk_emaillog1");
+        });
+
+        modelBuilder.Entity<EncounterForm>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("EncounterForm_pkey");
+
+            entity.Property(e => e.Id).UseIdentityAlwaysColumn();
+            entity.Property(e => e.IsFinalized).HasDefaultValueSql("'0'::\"bit\"");
+
+            entity.HasOne(d => d.Request).WithMany(p => p.EncounterForms)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_encounter_request");
         });
 
         modelBuilder.Entity<Healthprofessional>(entity =>

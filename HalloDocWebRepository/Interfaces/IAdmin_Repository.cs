@@ -38,5 +38,7 @@ namespace HalloDocWebRepository.Interfaces
         Healthprofessional getBusinessDetailById(int hprof);
         void storeordertable(Orderdetail orderdetail1);
         void setrequestclientdata(Requestclient reqclient);
+        void updateEncounterForm(EncounterForm model);
+        public EncounterForm getEncounterTable(int id);
     }
 }

@@ -153,3 +153,260 @@ nav ul:first-child li:first-child{
     border: 0 !important;
     border-bottom: 3px solid #54d4d3 !important;
 }
+
+
+
+/*.darkblue {
+    background-color: rgb(219, 225, 255);
+    color: darkblue;
+    border: 1px solid darkblue;
+}
+
+    .darkblue:hover, .darkblue.active {
+        background-color: darkblue;
+        color: white;
+    }
+
+.newSpan {
+    color: darkblue;
+}
+
+.lightblue {
+    color: #2cc7f1;
+    background-color: #e5f2fa;
+    border: 1px solid #2cc7f1;
+}
+
+    .lightblue:hover, .lightblue:active {
+        background-color: #2cc7f1;
+        color: white;
+    }
+
+.pendingSpan {
+    color: #2cc7f1;
+}
+
+.green {
+    color: #77ad7d;
+    background-color: #e9f0e8;
+    border: 1px solid #77ad7d;
+}
+
+    .green:hover, .green:active {
+        background-color: #77ad7d;
+        color: white;
+    }
+
+.activeSpan {
+    color: #77ad7d;
+}
+
+.pink {
+    color: #912261;
+    background-color: #ffdff1;
+    border: 1px solid #912261;
+}
+
+    .pink:hover, .pink:active {
+        background-color: #912261;
+        color: white;
+    }
+
+.concludeSpan {
+    color: #912261;
+}
+
+.blue {
+    color: #0181f8;
+    background-color: #e5f2fa;
+    border: 1px solid #0181f8;
+}
+
+    .blue:hover, .blue:active {
+        background-color: #0181f8;
+        color: white;
+    }
+
+.toCloseSpan {
+    color: #0181f8;
+}
+
+.purple {
+    color: mediumslateblue;
+    background-color: #dce1ff;
+    border: 1px solid mediumslateblue;
+}
+
+    .purple:hover, .purple:active {
+        background-color: mediumslateblue;
+        color: white;
+    }
+
+.unpaidSpan {
+    color: mediumslateblue;
+}
+
+.bluetri {
+    color: #0181f8;
+    display: none;
+}
+
+.darkbluetri {
+    color: darkblue;
+    display: none;
+}
+
+.lightbluetri {
+    color: #2cc7f1;
+    display: none;
+}
+
+
+
+
+
+
+
+.greentri {
+    color: #77ad7d;
+    display: none;
+}
+
+
+
+.pinktri {
+    color: #912261;
+    display: none;
+}
+
+
+
+.purpletri {
+    color: mediumslateblue;
+    display: none;
+}
+
+
+
+.status-tab button.active.darkblue {
+    background-color: darkblue;
+    color: white;
+    position: relative;
+}
+
+.status-tab button.active.lightblue {
+    background-color: #2cc7f1;
+    color: white;
+    position: relative;
+}
+
+.status-tab button.active.green {
+    background-color: #77ad7d;
+    color: white;
+    position: relative;
+}
+
+.status-tab button.active.pink {
+    background-color: #912261;
+    color: white;
+    position: relative;
+}
+
+.status-tab button.active.blue {
+    background-color: #0181f8;
+    color: white;
+    position: relative;
+}
+
+.status-tab button.active.purple {
+    background-color: mediumslateblue;
+    color: white;
+    position: relative;
+}*/
+
+/*.status-tab button.active.darkblue::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-width: 12px;
+    border-style: solid;
+    border-color: darkblue transparent transparent transparent;
+}*/
+
+/*.status-tab button.active.lightblue::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-width: 12px;
+    border-style: solid;
+    border-color: #2cc7f1 transparent transparent transparent;
+    transform: translateX(-50%);
+}
+
+.status-tab button.active.green::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-width: 12px;
+    border-style: solid;
+    border-color: #77ad7d transparent transparent transparent;
+    transform: translateX(-50%);
+}
+
+.status-tab button.active.pink::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-width: 12px;
+    border-style: solid;
+    border-color: #912261 transparent transparent transparent;
+    transform: translateX(-50%);
+}
+
+.status-tab button.active.blue::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-width: 12px;
+    border-style: solid;
+    border-color: #0181f8 transparent transparent transparent;
+    transform: translateX(-50%);
+}
+
+.status-tab button.active.purple::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-width: 12px;
+    border-style: solid;
+    border-color: mediumslateblue transparent transparent transparent;
+    transform: translateX(-50%);
+}
+
+.statustabcontenttab1 {
+    display: block;
+    padding: 0 12px;
+}
+
+.statustabcontent {
+    display: none;
+    padding: 0 12px;
+}
+
+    .statustabcontent.show {
+        display: block;
+    }
+
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid;
+}*/

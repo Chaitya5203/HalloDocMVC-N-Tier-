@@ -39,6 +39,49 @@ namespace HalloDocWebServices.Implementation
             _repository.addrequestwisefiletable(reqclient);
         }
 
+        public void addnewuserdata(login info)
+        {
+            var req = _repository.getrequestclientdatabyemail(info.Email);
+            var request = _repository.getRequestById(req.Requestid);
+            Aspnetuser aspuser = new Aspnetuser
+            {
+                Usarname = req.Email,
+                Passwordhash = info.Passwordhash,
+                Email = info.Email,
+                Phonenumber = req.Phonenumber,
+                Role = "1",
+            };
+            _repository.addAspuserTable(aspuser);
+           
+            User user = new User
+            {
+                Firstname = req.Firstname,
+                Lastname = req.Lastname,
+                Email = req.Email,
+                Zip = req.Zipcode,
+                Mobile = req.Phonenumber,
+                Street = req.Street,
+                City = req.City,
+                State = req.State,
+                Aspnetuserid = aspuser.Id,
+                Intdate = req.Intdate,
+                Intyear = req.Intyear,
+                Strmonth = req.Strmonth,
+                Createdby = request.Email,
+                Createddate = DateTime.Now,
+            };
+            _repository.addUsertable(user);
+            request.Userid = user.Userid;
+            _repository.updaterequesttable(request);
+        }
+
+        public void addresetpassword(login info)
+        {
+            var asp = _repository.checkemailofreset(info.Email);
+            asp.Passwordhash = info.Passwordhash;
+            _repository.updateasptable(asp);
+        }
+
         public bool CheckEmail(string email)
         {
             return _repository.getAspuserByEmail(email);
@@ -97,8 +140,8 @@ namespace HalloDocWebServices.Implementation
             if (aspuser == null)
             {
                 var receiver = info.p_email;
-                var subject = "Create Account";
-                var message = "Tap on link for Create Account: https://localhost:7050/Home/create_patient";
+                var subject = "Create Account"; 
+                var message = "Tap on link for Create Account: https://localhost:7234/Home/CreateAccount/?Email=" + receiver;
                 var mail = "chaityamehta522003@gmail.com";
                 var password = "iwbc edlf rgpt oucs";
 
@@ -207,7 +250,7 @@ namespace HalloDocWebServices.Implementation
             {
                 var receiver = info.pemail;
                 var subject = "Create Account";
-                var message = "Tap on link for Create Account: https://localhost:7050/Home/create_patient";
+                var message = "Tap on link for Create Account: https://localhost:7234/Home/CreateAccount/?Email=" + receiver;
                 var mail = "chaityamehta522003@gmail.com";
                 var password = "iwbc edlf rgpt oucs";
 
@@ -222,20 +265,20 @@ namespace HalloDocWebServices.Implementation
             int Date = info.dob.Day;
             System.Globalization.DateTimeFormatInfo dateformat = new System.Globalization.DateTimeFormatInfo();
             var Month = dateformat.GetMonthName(info.dob.Month).ToString();
-            if (aspuser == null)
-            {
-                Aspnetuser aspuser1 = new Aspnetuser
-                {
-                    Usarname = info.first_name,
-                    Passwordhash = info.last_name,
-                    Email = info.pemail,
-                    Phonenumber = info.Phonenumber,
-                };
-                aspuser = aspuser1;
-                _repository.addAspuserTable(aspuser);
-                //_context.Aspnetusers.Add(aspuser);
-                //await _context.SaveChangesAsync();
-            }
+            //if (aspuser == null)
+            //{
+            //    Aspnetuser aspuser1 = new Aspnetuser
+            //    {
+            //        Usarname = info.first_name,
+            //        Passwordhash = info.last_name,
+            //        Email = info.pemail,
+            //        Phonenumber = info.Phonenumber,
+            //    };
+            //    aspuser = aspuser1;
+            //    _repository.addAspuserTable(aspuser);
+            //    //_context.Aspnetusers.Add(aspuser);
+            //    //await _context.SaveChangesAsync();
+            //}
             Concierge c = new Concierge
             {
                 Conciergename = info.cname,
@@ -250,24 +293,24 @@ namespace HalloDocWebServices.Implementation
             //_context.Concierges.Add(c);
             //await _context.SaveChangesAsync();
 
-            User user = new User
-            {
-                Firstname = info.first_name,
-                Lastname = info.last_name,
-                Email = info.pemail,
-                Mobile = info.Phonenumber,
-                Street = info.Street,
-                City = info.City,
-                State = info.State,
-                //Zip=info.Zip,
-                Aspnetuserid = aspuser.Id,
-                Intdate = Date,
-                Intyear = Year,
-                Strmonth = Month,
-                Createdby = info.Createddate.ToShortDateString(),
-                Createddate = info.Createddate
-            };
-            _repository.addUsertable(user);
+            //User user = new User
+            //{
+            //    Firstname = info.first_name,
+            //    Lastname = info.last_name,
+            //    Email = info.pemail,
+            //    Mobile = info.Phonenumber,
+            //    Street = info.Street,
+            //    City = info.City,
+            //    State = info.State,
+            //    //Zip=info.Zip,
+            //    Aspnetuserid = aspuser.Id,
+            //    Intdate = Date,
+            //    Intyear = Year,
+            //    Strmonth = Month,
+            //    Createdby = info.Createddate.ToShortDateString(),
+            //    Createddate = info.Createddate
+            //};
+            //_repository.addUsertable(user);
             //_context.Users.Add(user);
             //await _context.SaveChangesAsync();
 
@@ -276,7 +319,6 @@ namespace HalloDocWebServices.Implementation
                 Requesttypeid = 4,
                 Isurgentemailsent = new BitArray(1, false),
                 Status = 1,
-                Userid = user.Userid,
                 Firstname = info.cname,
                 Lastname = info.clname,
                 Email = info.cemail,
@@ -317,6 +359,7 @@ namespace HalloDocWebServices.Implementation
 
         public void insertbyfamilyfriend(FamilyFriendPatientRequest info)
         {
+
             Aspnetuser aspuser = _repository.setpatientdatabyfamilyfriend(info);
             //Aspnetuser aspuser = _context.Aspnetusers.FirstOrDefault(m => m.Email == info.p_email);
             int Year = info.dob.Year;
@@ -328,7 +371,7 @@ namespace HalloDocWebServices.Implementation
             {
                 var receiver = info.p_email;
                 var subject = "Create Account";
-                var message = "Tap on link for Create Account: https://localhost:7050/Home/create_patient";
+                var message = "Tap on link for Create Account: https://localhost:7234/Home/CreateAccount/?Email=" + receiver;
                 var mail = "chaityamehta522003@gmail.com";
                 var password = "iwbc edlf rgpt oucs";
 
@@ -339,44 +382,43 @@ namespace HalloDocWebServices.Implementation
                 };
                 client.SendMailAsync(new MailMessage(from: mail, to: receiver, subject, message));
             }
-            if (aspuser == null)
-            {
-                Aspnetuser aspuser1 = new Aspnetuser
-                {
-                    Usarname = info.p_first_name,
-                    Passwordhash = info.p_last_name,
-                    Email = info.p_email,
-                    Phonenumber = info.p_phonenumber,
-                };
-                aspuser = aspuser1;
-                _repository.addAspuserTable(aspuser);
-                //_context.Aspnetusers.Add(aspuser1);
-                //_context.SaveChanges();
-            }
-            User user = new User
-            {
-                Firstname = info.p_first_name,
-                Lastname = info.p_last_name,
-                Email = info.p_email,
-                Zip = info.p_zip,
-                Mobile = info.p_phonenumber,
-                Street = info.p_street,
-                City = info.p_city,
-                State = info.p_state,
-                Aspnetuserid = aspuser.Id,
-                Intdate = Date,
-                Intyear = Year,
-                Strmonth = Month,
-                Createdby = info.Createddate.ToShortDateString(),
-                Createddate = info.Createddate
-            };
-            _repository.addUsertable(user);
+            //if (aspuser == null)
+            //{
+            //    Aspnetuser aspuser1 = new Aspnetuser
+            //    {
+            //        Usarname = info.p_first_name,
+            //        Passwordhash = info.p_last_name,
+            //        Email = info.p_email,
+            //        Phonenumber = info.p_phonenumber,
+            //    };
+            //    aspuser = aspuser1;
+            //    _repository.addAspuserTable(aspuser);
+            //    //_context.Aspnetusers.Add(aspuser1);
+            //    //_context.SaveChanges();
+            //}
+            //User user = new User
+            //{
+            //    Firstname = info.p_first_name,
+            //    Lastname = info.p_last_name,
+            //    Email = info.p_email,
+            //    Zip = info.p_zip,
+            //    Mobile = info.p_phonenumber,
+            //    Street = info.p_street,
+            //    City = info.p_city,
+            //    State = info.p_state,
+            //    Aspnetuserid = aspuser.Id,
+            //    Intdate = Date,
+            //    Intyear = Year,
+            //    Strmonth = Month,
+            //    Createdby = info.Createddate.ToShortDateString(),
+            //    Createddate = info.Createddate
+            //};
+            //_repository.addUsertable(user);
             //_context.Users.Add(user);
             //_context.SaveChanges();
             Request request = new Request
             {
                 Requesttypeid = 3,
-                Userid = user.Userid,
                 Isurgentemailsent = new BitArray(1, false),
                 Status = 1,
                 Firstname = info.f_first_name,
@@ -605,7 +647,6 @@ namespace HalloDocWebServices.Implementation
             //_context.Requestclients.Add(reqclient);
             //_context.SaveChanges();
         }
-
         public Requestwisefile RequestwisefilesSer(int id)
         {
             return _repository.RequestwisefilesRepo(id);     

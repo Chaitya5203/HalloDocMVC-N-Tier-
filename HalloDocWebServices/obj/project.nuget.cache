@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oER20aIiwhBO4zi+9oJirn+Yfb2Wj4II7psCD6QJjACPVqZOCmSfOUIHcXt3HHX26zd+BiSKwwAvBqCn2KyiOg==",
+  "dgSpecHash": "pL5xexHdh+FV/JtPPDLfYudZeDcHWn5k0r8/ZEfuD3KLphjaSJ31VOoMAWJ10ywmP5WTXb/hGuYco+yZYlvNOA==",
   "success": true,
-  "projectFilePath": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebServices\\HalloDocWebServices.csproj",
+  "projectFilePath": "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebServices\\HalloDocWebServices.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pce96\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\pce96\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

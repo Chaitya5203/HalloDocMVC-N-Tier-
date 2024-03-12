@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HalloDocWebRepository.ViewModel.Encounterformmodel
+@{
     ViewData["Title"] = "Encounter Page";
 }
 <style>
@@ -21,149 +22,157 @@
                     </button>
                 </a>
             </div>
-            <form method="post" id="enable">
+            <form method="post" id="enable" asp-action="SaveEncounterForm" asp-controller="Admin">
                 <div class="container rounded bg-white shadow py-3">
                     <h3 class="mb-3 text-center text-info">Medical Report-Confidential</h3>
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <input  name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                            <input name="first_name" type="text" value="@Model.patientData.Firstname" class="form-control" id="exampleFormControlInput1" placeholder="Firstname" disabled>
                             <label for="exampleFormControlInput1" class="form-label ps-4">Firstname</label>
                             <span class="text-danger"></span>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <input  name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
+                            <input name="last_name" type="text" value="@Model.patientData.Lastname" class="form-control" id="exampleFormControlInput1" placeholder="Lastname" disabled>
                             <label for="exampleFormControlInput1" class="form-label ps-4">Lastname</label>
                             <span class="text-danger"></span>
                         </div>
                         <div class="col-12 form-floating mb-3 text-muted">
-                            <input name="Location" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Location">
+                            <input name="Location" type="text" value="@Model.patientData.Street,@Model.patientData.City,@Model.patientData.State " class="form-control" id="exampleFormControlInput1" placeholder="Location" disabled>
                             <label for="exampleFormControlInput1" class="form-label ps-4">Location</label>
                             <span class="text-danger"></span>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <input type="date"  name="DOB" class="form-control" id="dob" placeholder="Date Of Birth">
+                            <input type="date" asp-format="{0:yyyy-MM-dd}" asp-for="DOB" name="DOB" class="form-control" id="dob" placeholder="Date Of Birth"disabled>
                             <label for="exampleFormControlInput1" class="form-label ps-4">Date Of Birth</label>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <input type="date" name="Date" class="form-control" id="Date" placeholder="Date">
+                            <input asp-for=Date type="date" name="Date" class="form-control" id="Date" placeholder="Date" disabled>
                             <label for="exampleFormControlInput1" class="form-label ps-4">Date</label>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <input id="phone" class="form-control inp2" type="tel" placeholder="Phone Number">
+                            <input id="phone" class="form-control inp2" type="tel" value="@Model.patientData.Phonenumber" placeholder="Phone Number"disabled>
                         </div>
+                        <input type="hidden" value="@Model.Requestid" name="Requestid" />
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <input name="email" type="email" class="form-control" id="email" placeholder="Email">
+                            <input name="email" value="@Model.patientData.Email" type="email" class="form-control" id="email" placeholder="Email"disabled>
                             <label for="email" class="form-label ps-4">Email</label>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2" class="ps-4">History Of present illness or Injury</label>
+                            <input asp-for=HistoryIllness name="HistoryIllness" type="text" class="form-control" id="exampleFormControlInput1" placeholder="History Of present illness or Injury" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">History Of present illness or Injury</label>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2"class="ps-4">Medical History</label>
+                            <input asp-for=MedicalHistory name="MedicalHistory" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Medical History" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Medical History</label>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2"class="ps-4">Medications</label>
+                            <input asp-for=Medications name="Medications" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Medications" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Medications</label>
                         </div>
                         <div class="col-sm-12 col-md-6 col-lg-6 form-floating mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2"class="ps-4">Allergies</label>
+                            <input asp-for=Allergies name="Allergies" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Allergies" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Allergies</label>
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-4 col-6 form-floating mb-3 text-muted">
-                            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Temp">
+                            <input asp-for=Temp name="Temp" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Temp" disabled>
                             <label for="exampleFormControlInput1" class="form-label ps-4">Temp</label>
                             <span class="text-danger"></span>
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-4 col-6 form-floating mb-3 text-muted">
-                            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="HR">
+                            <input asp-for=Hr name="Hr" type="text" class="form-control" id="exampleFormControlInput1" placeholder="HR" disabled>
                             <label for="exampleFormControlInput1" class="form-label ps-4">HR</label>
                             <span class="text-danger"></span>
                         </div>
                         <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
-                            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="RR">
+                            <input asp-for=Rr name="Rr" type="text" class="form-control" id="exampleFormControlInput1" placeholder="RR" disabled>
                             <label for="exampleFormControlInput1" class="form-label ps-4">RR</label>
                             <span class="text-danger"></span>
                         </div>
 
                         <div class="col-sm-6 col-md-2 col-xl-2 col-6 form-floating mb-3 text-muted">
-                            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="FirsBlood pressuretname">
+                            <input asp-for=BpS name="BpS" type="text" class="form-control" id="exampleFormControlInput1" placeholder="FirsBlood pressuretname" disabled>
                             <label for="exampleFormControlInput1" class="form-label ps-4">Blood pressure</label>
                             <span class="text-danger"></span>
                         </div>
                         <div class="col-sm-6 col-md-2 col-xl-2 col-6 form-floating mb-3 text-muted">
-                            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Blood pressure">
+                            <input asp-for=BpD name="BpD" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Blood pressure" disabled>
                             <label for="exampleFormControlInput1" class="form-label ps-4">Blood pressure</label>
                             <span class="text-danger"></span>
                         </div>
                         <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
-                            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="O2">
+                            <input asp-for=O2 name="O2" type="text" class="form-control" id="exampleFormControlInput1" placeholder="O2" disabled>
                             <label for="exampleFormControlInput1" class="form-label ps-4">O2</label>
                             <span class="text-danger"></span>
                         </div>
                         <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
-                            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Pain">
+                            <input asp-for=Pain name="Pain" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Pain" disabled>
                             <label for="exampleFormControlInput1" class="form-label ps-4">Pain</label>
                             <span class="text-danger"></span>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2" class="ps-4">Heent</label>
+                            <input asp-for=Heent name="Heent" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Heent" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Heent</label>
+                            
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2"class="ps-4">CV</label>
+                            <input asp-for=Cv name="Cv" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Cv" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Cv</label>
+                           
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2"class="ps-4">Chest</label>
+                            <input asp-for=Chest name="Chest" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Chest" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Chest</label>
+                            
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2"class="ps-4">ABD</label>
+                            <input asp-for=Abd name="Abd" type="text" class="form-control" id="exampleFormControlInput1" placeholder="ABD" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">ABD</label>
+                           
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2"class="ps-4">Extr</label>
+                            <input asp-for=Extr name="Extr" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Extr" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Extr</label>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2"class="ps-4">Skin</label>
+                            <input asp-for=Skin name="Skin" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Skin" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Skin</label>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2"class="ps-4">Neuro</label>
+                            <input asp-for=Neuro name="Neuro" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Neuro" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Neuro</label>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2"class="ps-4">Other</label>
+                            <input asp-for=Other name="Other" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Other" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Other</label>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2"class="ps-4">Diagnosis</label>
+                            <input asp-for=Diagnosis name="Diagnosis" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Diagnosis" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Diagnosis</label>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2"class="ps-4">Treatment Plan</label>
+                            <input asp-for=TreatmentPlan name="TreatmentPlan" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Treatment Plan" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Treatment Plan</label>
+                            
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2"class="ps-4">Medications Dispensed</label>
+                            <input asp-for=MedicationDispensed name="MedicationDispensed" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Medications Dispensed" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Medications Dispensed</label>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2"class="ps-4">Procedures</label>
+                            <input asp-for=Procedures name="Procedures" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Procedures" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Procedures</label>
                         </div>
                         <div class="form-floating mb-3 text-muted">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2"class="ps-4">Followup</label>
+                            <input asp-for=FollowUp name="FollowUp" type="text" class="form-control" id="exampleFormControlInput1" placeholder="FollowUp" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">FollowUp</label>
+                          
                         </div>
                     </div>
                     <div class="text-end pb-3">
-                        <button class="btn btn-info text-white px-1" type="submit">Save Change</button>
-                        <button class="btn text-white px-1"style="background-color:blueviolet;" type="button">Finalize</button>
-                        <button class="btn btn-white px-1 text-info border-info" type="button">Cancel</button>
+                        <button class="btn btn-info text-white" id="edit" type="button" onclick="EditData()">Edit</button>
+                        <button class="btn btn-info text-white" id="save" type="submit" style="display:none;">Save</button>
+                        @* <button class="btn text-white px-1"style="background-color:blueviolet;" type="button">Finalize</button> *@
+                        <button class="btn btn-white text-info border-info" id="cancel" type="button" style="display:none;">Cancel</button>
                     </div>
                 </div>
             </form>
@@ -171,6 +180,10 @@
     </div>
 </div>
 <script>
+    function enbledata() {
+        document.getElementById("email").disabled = false;
+        document.getElementById("phone").disabled = false;
+    }
     const input = document.querySelector("#phone");
     const input2 = document.querySelector("#phone1");
     const button = document.querySelector("#btn");
@@ -189,4 +202,19 @@
         initialCountry: "us",
         utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
     });
+    function EditData(){
+        document.getElementById("save").style.display = "inline";
+        document.getElementById("cancel").style.display = "inline";
+        document.getElementById("edit").style.display = "none";
+        var formelements = document.getElementById("enable").elements;
+        for (var i = 4; i < formelements.length; i++) {
+            if (i == 7 || i == 9) {
+                continue;
+            }
+            else {
+                formelements[i].disabled = false;
+            }
+            
+        }
+    }
 </script>

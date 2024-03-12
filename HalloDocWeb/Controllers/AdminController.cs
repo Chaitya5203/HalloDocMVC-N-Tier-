@@ -12,7 +12,7 @@ using System.Drawing;
 
 namespace HalloDocWeb.Controllers
 {
-    [CustomAuthorize("Admin")]
+   
     public class AdminController : Controller
     {
         private readonly IAdmin_Service _service;
@@ -20,7 +20,7 @@ namespace HalloDocWeb.Controllers
         {
             _service = service;
         }
-        
+        [CustomAuthorize("Admin")]
         public IActionResult Admindashboard(int id)
         {
             ViewBag.NewCount = _service.getcount(1);
@@ -65,7 +65,10 @@ namespace HalloDocWeb.Controllers
         {
             return View();
         }
-       
+       public IActionResult ReviewAgreement()
+        {
+            return View();
+        }
         public IActionResult DeleteFile(int id)
         {
             _service.deleteFile(id);
@@ -142,9 +145,16 @@ namespace HalloDocWeb.Controllers
             //var data = _service.getdataofsendorder(id);
             return View(_service.getdataofsendorder(id,hprof,hproftype));
         }
-        public IActionResult Encounterform()
+        public IActionResult Encounterform(int id)
         {
-            return View();
+            ViewBag.id = id;
+            Encounterformmodel model = _service.EncounterAdmin(id);
+            return View(model);
+        }
+        public  ActionResult SaveEncounterForm(Encounterformmodel info)
+        {
+            _service.saveEncounterForm(info);
+            return RedirectToAction(nameof(Admindashboard));
         }
         public async Task<IActionResult> Modalsofnew(int id)
         {

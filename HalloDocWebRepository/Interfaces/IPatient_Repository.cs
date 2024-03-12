@@ -11,7 +11,7 @@ namespace HalloDocWebRepository.Interfaces
     public interface IPatient_Repository
     {
         void addAspuserTable(Aspnetuser aspuser);
-        void addbusinesstable(Business business);
+        void addbusinesstable(Business business);   
         void addconciergetable(Concierge c);
         void addrequestbusinesstable(Requestbusiness requestbusiness);
         void addrequestclientdata(Requestclient requestclient);
@@ -19,10 +19,13 @@ namespace HalloDocWebRepository.Interfaces
         void addrequesttable(Request request);
         void addrequestwisefiletable(Requestwisefile addrequestfile);
         void addUsertable(User user);
+        public Aspnetuser checkemailofreset(string email);
         public Requestwisefile downloadRequesrWiseFile(int id);
         public Aspnetuser getAspnetusername(string usarname);
         public bool getAspuserByEmail(string email);
         public List<Request> getRequest(string username);
+        public Request getRequestById(int requestid);
+        public Requestclient getrequestclientdatabyemail(string email);
         public List<Requestwisefile> getReqWiseFileById(int id);
         public bool getUser(login aspnetuser);
         public User getUser(string? email);
@@ -36,6 +39,8 @@ namespace HalloDocWebRepository.Interfaces
         public Aspnetuser setpatientdatabyconcierge(ConciergePatientRequest info);
         public Aspnetuser setpatientdatabyfamilyfriend(FamilyFriendPatientRequest info);
         public void UpdateAspnetuser(Aspnetuser upadateAsp);
+        void updateasptable(Aspnetuser asp);
+        void updaterequesttable(Request request);
         public void UpdateUser(User upadateUser);
     }
 }

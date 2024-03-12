@@ -70,6 +70,11 @@ namespace HalloDocWebRepository.Implementation
             _context.SaveChanges();
         }
 
+        public Aspnetuser checkemailofreset(string email)
+        {
+            return _context.Aspnetusers.FirstOrDefault(x=> x.Email == email);   
+        }
+
         public Requestwisefile downloadRequesrWiseFile(int id)
         {
             return _context.Requestwisefiles.Find(id);
@@ -83,6 +88,17 @@ namespace HalloDocWebRepository.Implementation
         {
             var user = _context.Users.FirstOrDefault(u=> u.Firstname == username);  
            return _context.Requests.Where(m => m.Userid == user.Userid).ToList();
+        }
+
+        public Request getRequestById(int requestid)
+        {
+            return _context.Requests.FirstOrDefault(m => m.Requestid == requestid);
+        }
+
+        public Requestclient getrequestclientdatabyemail(string email)
+        {
+            var user = _context.Requestclients.FirstOrDefault(u=> u.Email == email);
+            return user;
         }
 
         public List<Requestwisefile> getReqWiseFileById(int id)
@@ -127,6 +143,19 @@ namespace HalloDocWebRepository.Implementation
         {
             return _context.Aspnetusers.FirstOrDefault(m => m.Email == info.p_email);
         }
+
+        public void updateasptable(Aspnetuser asp)
+        {
+            _context.Aspnetusers.Update(asp);
+            _context.SaveChanges();
+        }
+
+        public void updaterequesttable(Request request)
+        {
+            _context.Requests.Update(request);
+            _context.SaveChanges();
+        }
+
         Aspnetuser IPatient_Repository.getAspnetusername(string usarname)
         {
             return _context.Aspnetusers.FirstOrDefault(u => u.Email == usarname);
