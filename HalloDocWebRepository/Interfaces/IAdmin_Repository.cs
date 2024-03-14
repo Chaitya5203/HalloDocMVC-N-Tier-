@@ -1,4 +1,5 @@
 ﻿using HalloDocWebRepository.Data;
+using HalloDocWebRepository.ViewModel;
 using NuGet.Protocol.Core.Types;
 using System;
 using System.Collections.Generic;
@@ -40,5 +41,16 @@ namespace HalloDocWebRepository.Interfaces
         void setrequestclientdata(Requestclient reqclient);
         void updateEncounterForm(EncounterForm model);
         public EncounterForm getEncounterTable(int id);
+        Aspnetuser getAspnetuserByEmail(string? v);
+        Admin getAdminByAspnetId(int id);
+        Region getregionById(int? regionid);
+        List<Request> getINlist();
+        List<Requeststatuslog> getRequestStatusLoglist(int id);
+        Physician getPhysicianById(int? physicianid);
+        public Admin getadmindata(Admin admin);
+        void saveadmindata(Admin model);
+        void savetoken(TokenRegister tokenRegister);
+        TokenRegister getTokenRegisterByToken(string token);
+        Requestclient getRequestClientByEmail(string? email);
     }
 }

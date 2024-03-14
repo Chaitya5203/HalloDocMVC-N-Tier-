@@ -40,7 +40,7 @@
         <div class="text-end d-md-flex justify-content-md-end ">
             <button class="hideonmobile btn btn-white" style="border-color:gainsboro;" type="button" id="all">All</button>
             <span class="p-2 border-info" type="button" id="patientdata"><i class="fa-solid fa-circle fa-xs me-2" style="color: #3ecc4e;"></i>Patient</span>
-            <span class="p-2" type="button" id="familydata"><i class="fa-solid fa-circle fa-xs me-2" style="color: #FFD43B;"></i>Family/Freind</span>
+            <span class="p-2" type="button" id="familydata"><i class="fa-solid fa-circle fa-xs me-2" style="color: #e6a00a;"></i>Family/Freind</span>
             <span class="p-2 border-info" type="button" id="businessdata"><i class="fa-solid fa-circle fa-xs me-2" style="color: #DA6679;"></i>Business</span>
             <span class=" p-2 " type="button" id="conciergedata"><i class="fa-solid fa-circle fa-xs me-2" style="color: #3c5bd7;"></i>Concierge</span>
             @* <span class="p-2 " type="button"><i class="fa-solid fa-circle fa-xs me-2" style="color: #6d4bd2;"></i>VIP</span> *@
@@ -77,7 +77,7 @@
             }
             @if (item.Requesttypeid == 3)
             {
-                str = "background-color : #FFD43B ;color:white;";
+                str = "background-color : #e6a00a ;color:white;";
             }
             @if (item.Requesttypeid == 4)
             {
@@ -240,10 +240,10 @@
         }
     }
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+@* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-
+ *@
 <script>
     function transfercase(element) {
         var id = element.value;

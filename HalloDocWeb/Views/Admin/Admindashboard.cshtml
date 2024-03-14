@@ -7,7 +7,7 @@
     //     Layout = "_AdminHeader";
     // }
     // else Layout = "_AdminHeader";
-    // Layout = "_AdminHeader";
+    Layout = "_AdminHeader";
     
 }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"> </script>
@@ -19,7 +19,7 @@
         height: 58px;
     }
 </style>
-<nav class="bg-white">
+@* <nav class="bg-white">
     <div class="container-fluid  shadow p-0" style="z-index:1060; padding-left :0px !important;">
         <ul style="padding-left :0px !important;">
             <li>
@@ -119,15 +119,14 @@
         <div class="offcanvasmenu p-2"><a id="accessnav" class="text-muted text-decoration-none">Access</a></div>
         <div class="offcanvasmenu p-2"><a id="recordnav" class="text-muted text-decoration-none">Records</a></div>
     </div>
-</div>
-<div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+</div> *@
+@* <div class="tab-content" id="myTabContent"> *@
+<div class="tab-pane fade show active" id="home" role="tabpanel">
         <div class="container-fluid bg-light mt-3">
-            <div class="row d-flex justify-content-xl-center">
-
+            <div class="row status-tab d-flex justify-content-xl-center">
                <div class="col-sm-4 col-md-4 col-lg-2 col-4 mb-3" style="padding-left:1px !important;">
-                    <button id="new-box" class="w-100 border-0 p-0 text-start">
-                        <div class="p-1 rounded" style="border: solid thin #063982; color:#063982; background-color:#CFE2FF">
+                    <button id="new-box" class="statustablinks darkblue w-100 border-0 p-0 text-start">
+                        <div class="p-1 rounded" style="border: solid thin #063982; ">
                             <div class="d-flex flex-column">
                                 <span>
                                     <small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/new.png" class="hideonmobile" style="height:30px;" />NEW</small>
@@ -136,274 +135,83 @@
                             </div>
                         </div>
                     </button>
+                    <div class=" d-flex justify-content-center">
+                        <div class="darkbluetri triangle-down"></div>
+                    </div>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
-                    <button id="pending-box" class="w-100 p-0 border-0 text-start">
-                        <div class="p-1 rounded" style="border: solid thin #0AA2C0; color:#0AA2C0; background-color:#D1F7FF">
+                    <button id="pending-box" class="statustablinks lightblue w-100 p-0 border-0 text-start">
+                        <div class="p-1 rounded" style="border: solid thin #0AA2C0; ">
                             <div class="d-flex flex-column">
                                 <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/pending.png" class="hideonmobile" style="height:30px;" />PENDING</small></span>
                                 <span class="h3 fw-bold"> @ViewBag.PendingCount</span>
                             </div>
                         </div>
                     </button>
+                    <div class=" d-flex justify-content-center">
+                        <div class="lightbluetri triangle-down"></div>
+                    </div>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
-                    <button id="active-box" class="w-100 p-0 border-0 text-start">
-                        <div class="p-1 rounded" style="border: solid thin #198754; color:#198754; background-color:#E0F7ED">
+                    <button id="active-box" class="statustablinks green w-100 p-0 border-0 text-start">
+                        <div class="p-1 rounded" style="border: solid thin #198754; ">
                             <div class="d-flex flex-column">
                                 <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/active.png" class="hideonmobile" style="height:30px;" />ACTIVE</small></span>
                                 <span class="h3 fw-bold">@ViewBag.ActiveCount</span>
                             </div>
                         </div>
                     </button>
+                    <div class=" d-flex justify-content-center">
+                        <div class="greentri triangle-down"></div>
+                    </div>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
-                    <button id="conclude-box" class="w-100 p-0 border-0 text-start">
-                        <div class="p-1 rounded" style="border: solid thin #AB296A; color:#AB296A; background-color:#FFDDED">
+                    <button id="conclude-box" class="statustablinks pink w-100 p-0 border-0 text-start">
+                        <div class="p-1 rounded" style="border: solid thin #AB296A; ">
                             <div class="d-flex flex-column">
                                 <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/33.png" class="hideonmobile" style="height:30px;" />CONCLUDE</small></span>
                                 <span class="h3 fw-bold"> @ViewBag.ConcludeCount </span>
                             </div>
                         </div>
                     </button>
+                    <div class=" d-flex justify-content-center">
+                        <div class="pinktri triangle-down"></div>
+                    </div>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
-                    <button id="close-box" class="w-100 p-0 border-0 text-start">
-                        <div class="p-1 rounded" style="border: solid thin #0A58CA; color:#0A58CA; background-color:#CFE2FF">
+                    <button id="close-box" class="statustablinks blue statustablinks blue w-100 p-0 border-0 text-start">
+                        <div class="p-1 rounded" style="border: solid thin #0A58CA; ">
                             <div class="d-flex flex-column">
                                 <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/toclose.png" class="hideonmobile" style="height:30px;" />TO CLOSE</small></span>
                                 <span class="h3 fw-bold">@ViewBag.TocloseCount</span>
                             </div>
                         </div>
                     </button>
+                    <div class=" d-flex justify-content-center">
+                        <div class="bluetri triangle-down"></div>
+                    </div>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:0px !important;">
-                    <button id="unpaid-box" class="w-100 p-0 border-0 text-start">
-                        <div class="p-1 rounded" style="border: solid thin #8C68CD; color:#8C68CD; background-color:#E2D9F3">
+                    <button id="unpaid-box" class="statustablinks purple w-100 p-0 border-0 text-start">
+                        <div class="p-1 rounded" style="border: solid thin #8C68CD; ">
                             <div class="d-flex flex-column">
                                 <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/unpaid.png" class="hideonmobile" style="height:30px;" />UNPAID</small></span>
                                 <span class="h3 fw-bold">@ViewBag.UnpaidCount</span>
                             </div>
                         </div>
                     </button>
+                    <div class=" d-flex justify-content-center">
+                        <div class="purpletri triangle-down"></div>
+                    </div>
                 </div>
             </div>
             <div class="">
                 <div id="tableContent" class="table-responsive">
-
                 </div>
-               @* <div class="accordion showonmobile hide mt-3" id="accordionExample">
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <div class="container-fluid accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                <div class="row w-100">
-                                    <div class="col-6 mb-3">
-                                        Patient Name
-                                    </div>
-                                    <div class="col-6 mb-3">
-                                        <i class="fa-solid fa-circle fa-xs me-2" style="color: #3ecc4e;"></i>patient
-                                    </div>
-                                    <div class="col-6">
-                                        Address
-                                    </div>
-                                    <div class="col-6">
-                                        <button class="btn btn-white border-info text-info rounded-pill 2px">
-                                            <small>Map Location</small>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                        <div class="accordion-body container-fluid">
-                            <p>
-                                <i class="fa-regular fa-calendar-days me-1 circlefa"></i>Date of Birth:
-                            </p>
-                            <p><i class="fa-regular fa-envelope me-1 circlefa"></i>Email</p>
-                            <p><i class="fa-solid fa-phone me-1 circlefa"></i>Patient</p>
-                            <p><i class="fa-solid fa-book me-1 circlefa"></i>Transfer Notes</p>
-                            <p><i class="fa-regular fa-calendar-days me-1 circlefa"></i>Date of Service</p>
-                            <p><i class="fa-solid fa-user-doctor me-1 circlefa"></i>Physician</p>
-                            <p><i class="fa-regular fa-user me-1 circlefa"></i>Requestor</p>
-                    <div class="row">
-                        <div class="col-6 mb-3">
-                            <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
-                                <small>View Notes</small>
-                            </button>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #145545;">
-                                <small>Doctors Note</small>
-                            </button>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
-                                <small>View Uploads</small>
-                            </button>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
-                                <small>Encounter</small>
-                            </button>
-                        </div>
-                        <div class="col-6 mb-3 ">
-                            <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #FFD43B;">
-                                <small>Orders</small>
-                            </button>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
-                                <small>Email</small>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="text-end d-md-flex justify-content-md-end">
-                        <span>Chat With:</span>
-                        <button class="btn btn-white border-info text-info me-md-2" type="button"><i class="fa-regular fa-user me-1"></i>Patient</button>
-                        <button class="btn btn-white border-info text-info" type="button"><i class="fa-solid fa-user-doctor me-1"></i>Provider</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-               </div> *@
-</div>
-</div>
-</div>
-<div class="tab-pane fade" id="providerlocation" role="tabpanel" aria-labelledby="provider-location-tab">fsdf</div>
-<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="d-flex justify-content-between mt-3">
-                    <h4 class="mt-3">My Profile</h4>
-                    @* <a asp-action="PatientDashboard" asp-controller="Home"><button class="theme-btn-header px-1 mt-3 mb-3 " style="height: 40px; width : 80px; color: #54B4D3;">< Back</button></a> *@
-                    <a class="text-start text-info text-decoration-none ">
-                        <button class="btn btn-white  text-info border-info rounded ">
-                            <i class="fa-solid  fa-less-than"></i> Back
-                        </button>
-                    </a>
-                </div>
-                <form method="post" id="enable">
-                    <div class="container rounded bg-white shadow py-3">
-                        <h5 class="mb-3">Account Information</h5>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
-                                <label for="exampleFormControlInput1" class="form-label ps-4">User Name</label>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                <input name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
-                                <label for="exampleFormControlInput1" class="form-label ps-4">Password </label>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-xl-6">
-                                <div class="mb-3 border border-light rounded-5">
-                                    <select class="form-select p-3 pla1" aria-label="form-select-lg example">
-                                        <option selected value="1">Mobile</option>
-                                        <option value="2">Email</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-xl-6">
-                                <div class="mb-3 border border-light rounded-5">
-                                    <select class="form-select p-3 pla1" aria-label="form-select-lg example">
-                                        <option selected value="1">Mobile</option>
-                                        <option value="2">Email</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-end pb-3">
-                            <button class="btn btn-white text-info border-info" type="button">Reset password</button>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 h5 mb-3">
-                                Administrator Information
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
-                                <label for="exampleFormControlInput1" class="form-label ps-4">Firstname</label>
-                                <span class="text-danger"></span>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                <input name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
-                                <label for="exampleFormControlInput1" class="form-label ps-4">Lastname</label>
-                                <span class="text-danger"></span>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                <input name="email" type="email" class="form-control" id="email" placeholder="Email">
-                                <label for="email" class="form-label ps-4">Email</label>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                <input name="cemail" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Confirm Email">
-                                <label for="exampleFormControlInput1" class="form-label ps-4">Confirm Email</label>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                <input id="phone" class="form-control inp2" type="tel" placeholder="Phone Number">
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-xl-6">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                    <label class="form-check-label" for="inlineCheckbox1">District Of Columbia</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                    <label class="form-check-label" for="inlineCheckbox2">New York</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-                                    <label class="form-check-label" for="inlineCheckbox3">Virginia</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
-                                    <label class="form-check-label" for="inlineCheckbox4">Maryland</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-end pb-3">
-                            <button class="btn btn-info text-white" onclick="enbledata()" type="button">Edit</button>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 h5 mb-3">
-                                Mailing & Billing Information
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                <input type="text" name="Address-1" class="form-control" id="Address-1" placeholder="Address 1">
-                                <label for="exampleFormControlInput1" class="form-label ps-4">Address 1</label>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                <input type="text" name="Address-2" class="form-control" id="Address-2" placeholder="Address 2">
-                                <label for="exampleFormControlInput1" class="form-label ps-4">Address 2</label>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
-                                <input type="text" name="city" class="form-control" id="city" placeholder="City">
-                                <label for="exampleFormControlInput1" class="form-label ps-4">City</label>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
-                                <input type="text" name="state" class="form-control" id="state" placeholder="State">
-                                <label for="exampleFormControlInput1" class="form-label ps-4">State</label>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
-                                <input type="text" name="zipcode" class="form-control" id="zipcode" placeholder="Zip Code">
-                                <label for="exampleFormControlInput1" class="form-label ps-4">Zip Code</label>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                <input id="phone1" class="form-control inp2" type="tel" placeholder="Phone Number">
-                            </div>
-                        </div>
-                        <div class="text-end pb-3">
-                            <button class="btn btn-info text-white" onclick="enbledata()" type="button">Edit</button>
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
-</div>
-<div class="tab-pane fade" id="providers" role="tabpanel" aria-labelledby="providers-tab">.fdfgg..</div>
-<div class="tab-pane fade" id="partners" role="tabpanel" aria-labelledby="partners-tab">..fff.</div>
-<div class="tab-pane fade" id="access" role="tabpanel" aria-labelledby="Accedss-tab">.ddd..</div>
-<div class="tab-pane fade" id="records" role="tabpanel" aria-labelledby="Records-tab">..ddf.</div>
-</div>
+@* </div> *@
 <footer class="text-center justify-content-center bg-secondary position-fixed w-100 bottom-0">
     <div class="">Terms Of Conditions <div class="vr "></div> Privacy Policy</div>
 </footer>
@@ -426,6 +234,9 @@
         initialCountry: "us",
         utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
     });
+</script>
+<script>
+    document.getElementById("Dashboard").classList.add("active");
 </script>
 <script>
     $(document).ready(function () {

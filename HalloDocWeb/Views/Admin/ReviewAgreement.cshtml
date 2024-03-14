@@ -1,6 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Agreement";
+    // Layout = "_AdminHeader";
 }
+@model HalloDocWebRepository.Data.Requestclient
 <div class="container" id="opensendorderpage">
     <div class="row mt-5">
         <div class="col-12">
@@ -10,7 +12,7 @@
                 is completed.So with this points, if you like us to provide care to you click on "Agree" and we'll get started immediately,if you do not agree simply click "Cancel".
             </p>
             <div class="d-flex justify-content-between align-items-center">
-                <button type="button" class="btn btn-success">I Agree</button>
+                <a asp-action="AgreementAccept" asp-controller="Admin" asp-route-id="@Model.Requestid"><button type="button" class="btn btn-success">I Agree</button></a>
                 <a type="button" class="btn btn-danger" data-bs-target="#CancelRequest" data-bs-toggle="modal">Cancel</a>
                 <div class="modal fade" id="CancelRequest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -19,17 +21,21 @@
                                 <h5 class="modal-title text-white" id="exampleModalLongTitle">Cancel Confirmation</h5>
                                 <img src="~/images/close.png" height="35px" data-bs-dismiss="modal" aria-label="Close" />
                             </div>
-                            <div class="modal-body">
-                                <p>test test,</p>
-                                <div class="form-group my-3">
-                                    <textarea class="form-control" id="assignnotes" rows="6"
-                                                placeholder="Please provide a brief explanation for your cancellation"></textarea>
+                            <form id="myForm" method="post">
+                                <div class="modal-body">
+                                    <p>@Model.Firstname @Model.Lastname</p>
+                                    <div class="form-group my-3">
+                                        <textarea class="form-control" id="assignnotes" rows="6"
+                                                    placeholder="Please provide a brief explanation for your cancellation"></textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-outline-info">Confirm</button>
-                                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Cancel</button>
-                            </div>
+                           
+                                <input type="hidden" value="@Model.Requestid" />
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-outline-info">Confirm</button>
+                                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -37,3 +43,27 @@
         </div>
    </div>
 </div>
+<script>
+    $('#myForm').submit(function (e) {
+        e.preventDefault();
+       
+        var note = $("assignnotes").val();
+        $.ajax({
+            url: "/Admin/ReviewAgreementByPatient",
+            data: { id: @Model.Requestid, notes:note },
+            type: "POST",
+            success: function (data) {
+                location.reload();
+                //window.onload(getLocation());
+            },
+            error: function () {
+                alert("No Projects Found");
+            }
+        });
+    });
+    // $('#myForm').submit(function (e) {
+    //     var id = @Model.Requestid;
+    //     var notes = $("assignnotes").val();
+    //     window.location.href = "/Admin/ReviewAgreementByPatient?id="+id+"&notes="+notes;
+    // });
+</script>

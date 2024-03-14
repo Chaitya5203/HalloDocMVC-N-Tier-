@@ -112,18 +112,19 @@ nav ul:first-child{
     display: flex;
     list-style: none;
     width: 100%;
-    justify-content: flex-end;
+    /*justify-content: flex-end;*/
     align-items: center;
 }
-nav ul:last-child{
+/*nav ul:last-child{
     display: flex;
     list-style: none;
     width: 100%;
     justify-content: flex-start;
-}
-nav ul:first-child li:first-child{
+}*/
+.sidebar li:first-child{
     margin-right: auto;
 }
+
 .hide{
     display: none !important;
 }
@@ -153,10 +154,12 @@ nav ul:first-child li:first-child{
     border: 0 !important;
     border-bottom: 3px solid #54d4d3 !important;
 }
+.navbar{
+    padding-bottom :0 !important;
+}
 
 
-
-/*.darkblue {
+.darkblue {
     background-color: rgb(219, 225, 255);
     color: darkblue;
     border: 1px solid darkblue;
@@ -288,11 +291,11 @@ nav ul:first-child li:first-child{
 
 
 
-.status-tab button.active.darkblue {
+/*.status-tab button.active.darkblue {
     background-color: darkblue;
     color: white;
     position: relative;
-}
+}*/
 
 .status-tab button.active.lightblue {
     background-color: #2cc7f1;
@@ -322,19 +325,18 @@ nav ul:first-child li:first-child{
     background-color: mediumslateblue;
     color: white;
     position: relative;
-}*/
+}
 
-/*.status-tab button.active.darkblue::after {
-    content: "";
+.status-tab button.active.darkblue::after {
     position: absolute;
     top: 100%;
     left: 50%;
     border-width: 12px;
     border-style: solid;
     border-color: darkblue transparent transparent transparent;
-}*/
+}
 
-/*.status-tab button.active.lightblue::after {
+.status-tab button.active.lightblue::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -409,4 +411,4 @@ nav ul:first-child li:first-child{
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
     border-top: 15px solid;
-}*/
+}

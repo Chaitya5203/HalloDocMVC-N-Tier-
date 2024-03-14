@@ -83,6 +83,8 @@ public partial class ApplicationContext : DbContext
 
     public virtual DbSet<Smslog> Smslogs { get; set; }
 
+    public virtual DbSet<TokenRegister> TokenRegisters { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -429,6 +431,15 @@ public partial class ApplicationContext : DbContext
             entity.Property(e => e.Smslogid).UseIdentityAlwaysColumn();
 
             entity.HasOne(d => d.Request).WithMany(p => p.Smslogs).HasConstraintName("fk_smslog2");
+        });
+
+        modelBuilder.Entity<TokenRegister>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("TokenRegister_pkey");
+
+            entity.Property(e => e.Id).UseIdentityAlwaysColumn();
+            entity.Property(e => e.IsDeleted).HasDefaultValueSql("'0'::\"bit\"");
+            entity.Property(e => e.IsVerified).HasDefaultValueSql("'0'::\"bit\"");
         });
 
         modelBuilder.Entity<User>(entity =>

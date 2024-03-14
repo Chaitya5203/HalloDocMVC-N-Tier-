@@ -245,3 +245,11 @@ D:\ProjectMvc\HalloDocWeb\HalloDocWeb\bin\Debug\net7.0\Microsoft.AspNetCore.Auth
 D:\ProjectMvc\HalloDocWeb\HalloDocWeb\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
 D:\ProjectMvc\HalloDocWeb\HalloDocWeb\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\ProjectMvc\HalloDocWeb\HalloDocWeb\obj\Debug\net7.0\HalloDocWeb.MvcApplicationPartsAssemblyInfo.cs
+D:\ProjectMvc\HalloDocWeb\HalloDocWeb\obj\Debug\net7.0\scopedcss\Views\Shared\_AdminHeader.cshtml.rz.scp.css
+D:\ProjectMvc\HalloDocWeb\HalloDocWeb\bin\Debug\net7.0\ClosedXML.dll
+D:\ProjectMvc\HalloDocWeb\HalloDocWeb\bin\Debug\net7.0\DocumentFormat.OpenXml.dll
+D:\ProjectMvc\HalloDocWeb\HalloDocWeb\bin\Debug\net7.0\ExcelNumberFormat.dll
+D:\ProjectMvc\HalloDocWeb\HalloDocWeb\bin\Debug\net7.0\Irony.dll
+D:\ProjectMvc\HalloDocWeb\HalloDocWeb\bin\Debug\net7.0\SixLabors.Fonts.dll
+D:\ProjectMvc\HalloDocWeb\HalloDocWeb\bin\Debug\net7.0\System.IO.Packaging.dll
+D:\ProjectMvc\HalloDocWeb\HalloDocWeb\bin\Debug\net7.0\XLParser.dll

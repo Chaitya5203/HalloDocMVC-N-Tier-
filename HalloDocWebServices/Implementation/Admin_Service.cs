@@ -41,6 +41,41 @@ namespace HalloDocWebServices.Interfaces
             };
             _repository.addrequestwisefiletablebyadmin(reqclient);
         }
+
+        public void AgreementAccepted(int id)
+        {
+            Request req = _repository.getdataofrequest(id);
+
+            if (req != null)
+            {
+                Requeststatuslog log = new();
+                log.Requestid = req.Requestid;
+                log.Createddate = DateTime.Now;
+                log.Notes = "Agreement Aceepted!!!";
+                log.Status = req.Status;
+                _repository.setrequeststatuslogdata(log);
+                req.Status = 4;
+                _repository.setrequestdata(req);
+            }
+        }
+
+        public void AgreementCancel(int id, string notes)
+        {
+            Request req = _repository.getdataofrequest(id);
+
+            if (req != null)
+            {
+                Requeststatuslog log = new();
+                log.Requestid = req.Requestid;
+                log.Createddate = DateTime.Now;
+                log.Notes = notes;
+                log.Status = req.Status;
+                _repository.setrequeststatuslogdata(log);
+                req.Status = 7;
+                _repository.setrequestdata(req);
+            }
+        }
+
         public void closecasetounpaid(int id , viewuploadmin n)
         {
             var request = _repository.getdataofrequest(id);
@@ -190,12 +225,10 @@ namespace HalloDocWebServices.Interfaces
             {
                 var hprofessional = _repository.gethealthprofessionaltypedata();
                 sendorder.healthprofessional = _repository.gethealthprofessionaldata();
-                sendorder.healthprofessionaltype = hprofessional;
-                
+                sendorder.healthprofessionaltype = hprofessional;                
             }
             else if(hporftype != 0)
-            {
-                
+            {       
                 sendorder.healthprofessionaltype = _repository.gethealthprofessionaltypedata();
                 sendorder.healthprofessional = _repository.gethealthprofessionaldatabyid(hporftype);
             }else if(hporftype == 0 && hprof != 0)
@@ -207,6 +240,16 @@ namespace HalloDocWebServices.Interfaces
             sendorder.id = id;
             return sendorder;
         }
+        public AdminProfileModel getMyProfileData(string? v)
+        {
+            var adminUser = _repository.getAspnetuserByEmail(v);
+           
+            AdminProfileModel model = new();
+            model.adminuser = adminUser;
+            model.admin = _repository.getAdminByAspnetId(adminUser.Id);
+            model.region = _repository.getregionById(model.admin.Regionid);
+            return model;
+        }   
         public void getreqnoteofsavenote(int id,Notes n , string email)
         {
             var reqnotes = _repository.getrequestnotebyid(id);
@@ -231,6 +274,8 @@ namespace HalloDocWebServices.Interfaces
                 _repository.addreqnotetablewithnewnotw(addreq);   
             }   
         }
+
+
         public Request getrequestdata(int id, string name)
         {
             var request= _repository.getdataofrequest(id);
@@ -238,6 +283,10 @@ namespace HalloDocWebServices.Interfaces
             request.Casetag =name;
             _repository.setrequestdata(request);
             return request;
+        }
+        public List<Request> GetRequestDataInList()
+        {
+            return _repository.getINlist();
         }
         public Request getrequestdataofnotes(int id)
         {
@@ -271,6 +320,8 @@ namespace HalloDocWebServices.Interfaces
         public Notes getrequestnotes(int id)
         {
             var note = _repository.getrequestnotebyid(id);
+            List<Requeststatuslog> reqstlog = _repository.getRequestStatusLoglist(id);
+            List<string> item = new();
             Notes notes = new();
             if (note != null)
             {
@@ -287,9 +338,41 @@ namespace HalloDocWebServices.Interfaces
             {
                 notes.phyNotes = notes.AdminNotes = "---";
             }
+            foreach (var a in reqstlog)
+            {
+                if (a.Transtoadmin != null)
+                {
+                    var phy = _repository.getPhysicianById(a.Physicianid);
+                    string str = "Dr." + phy.Firstname + ' ' + phy.Lastname + " has transmitted case to Admin On " + a.Createddate.ToString("dd/MM/yyyy") + " at " + a.Createddate.ToString("HH: mm:ss: tt") + ": " + a.Notes;
+                    item.Add(str);
+                }
+                else if (a.Status == 1 && a.Physicianid != null)
+                {
+                    var phy = _repository.getPhysicianById(a.Physicianid);
+                    string str = "Admin Assigned Case To Dr." + phy.Firstname + ' ' + phy.Lastname + " On " + a.Createddate.ToString("dd/MM/yyyy") + " at " + a.Createddate.ToString("HH: mm:ss: tt") + ": " + a.Notes;
+                    item.Add(str);
+
+                }
+                else if (a.Transtophysicianid != null)
+                {
+                    var phy1 = _repository.getPhysicianById(a.Transtophysicianid);
+                    string str = "Case transfer To Dr." + phy1.Firstname + ' ' + phy1.Lastname + " On " + a.Createddate.ToString("dd / MM / yyyy") + " at " + a.Createddate.ToString("HH: mm: ss: tt") + ": " + a.Notes;
+                    item.Add(str);
+                }
+
+            }
+            notes.Transfernote = item;
             notes.req_id = id;
             return notes;
         }
+
+        public Requestclient getReviewAgreementData(string token)
+        {
+            TokenRegister tokenreg = _repository.getTokenRegisterByToken(token);
+            return _repository.getRequestClientByEmail(tokenreg.Email);
+            
+        }
+
         public requestclientvisedata getviewcasedataofpatient(int id)
         {
             var data = _repository.getdataofviewcase(id);
@@ -358,9 +441,10 @@ namespace HalloDocWebServices.Interfaces
             {
                 Requestid = id,
                 Notes = notes,
-                Status = 2,
+                Status = req.Status,
                 Createddate = DateTime.Now,
                 Physicianid = physician,
+                Adminid=1, //admin change 
             };
             _repository.setrequeststatuslogdata(statuslog);
         }
@@ -375,29 +459,32 @@ namespace HalloDocWebServices.Interfaces
                 Createddate = DateTime.Now,
                 Physicianid=req.Physicianid,
                 Transtophysicianid=physician,
+                Adminid = 1, //admin change 
             };
             _repository.setrequeststatuslogdata(statuslog);
         }
-
         public void insertrequeststatuslogtableclearcase(int id)
         {
+            var req = _repository.getdataofrequest(id);
             Requeststatuslog statuslog = new Requeststatuslog
             {
                 Requestid = id,
-                Status = 10,
+                Status = req.Status,
                 Createddate = DateTime.Now,
+                Adminid = 1, //admin change 
             };
             _repository.setrequeststatuslogdata(statuslog) ;
         }
-
         public void insertrequeststatuslogtableofblockcase(int id, string notes)
         {
+            var req = _repository.getdataofrequest(id);
             Requeststatuslog statuslog = new Requeststatuslog
             {
                 Requestid = id,
                 Notes = notes,
-                Status = 10,
+                Status = req.Status,
                 Createddate = DateTime.Now,
+                Adminid = 1, //admin change 
             };
             _repository.setrequeststatuslogdata(statuslog);
         }
@@ -429,7 +516,6 @@ namespace HalloDocWebServices.Interfaces
         {
             return _repository.RequestwisefilesRepobyadmin(id);
         }
-
         public void saveEncounterForm(Encounterformmodel info)
         {
             var model = _repository.getEncounterTable(info.Requestid);
@@ -475,10 +561,13 @@ namespace HalloDocWebServices.Interfaces
         }
         public void SendAgreementEmail(int id)
         {
+            Random random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var token = new string(Enumerable.Repeat(chars, 8).Select(s => s[random.Next(s.Length)]).ToArray());
             Request request = _repository.getdataofrequest(id);
             var receiver = "binalmalaviya2002@gmail.com";
             var subject = "Documents of Request " + request.Confirmationnumber?.ToUpper();
-            var message = "Find the Files uploaded for your request in below:";
+            var message = "https://localhost:44327/Admin/ReviewAgreement?token="+token;
             var mailMessage = new MailMessage(from: "chaityamehta522003@gmail.com", to: receiver, subject, message);
             var mail = "chaityamehta522003@gmail.com";
             var password = "iwbc edlf rgpt oucs";
@@ -488,6 +577,10 @@ namespace HalloDocWebServices.Interfaces
                 Credentials = new NetworkCredential(mail, password)
             };
             client.SendMailAsync(mailMessage);
+            TokenRegister tokenRegister = new TokenRegister();
+            tokenRegister.Email = request.Email;
+            tokenRegister.TokenValue = token;
+            _repository.savetoken(tokenRegister);
         }
         public void SendEmail(int id, string[] filenames)
         {
@@ -536,6 +629,30 @@ namespace HalloDocWebServices.Interfaces
             _repository.setrequestdata(request);
             return request;
         }
+        public void updateadminaddress(AdminProfileModel info)
+        {
+            var model = _repository.getadmindata(info.admin);
+            //var model1 = _repository.getregionById(model.Regionid);
+            model.Address1 = info.admin.Address1;
+            model.Address2 = info.admin.Address2;
+            model.City = info.admin.City;
+            model.Zip = info.admin.Zip;
+            model.Altphone = info.admin.Altphone;
+            model.Modifieddate = DateTime.Now;
+            //model1.Name = info.region.Name;
+            _repository.saveadmindata(model);
+            //_repository.saveadmindata(model1);          
+        }
+        public void updateadminform(AdminProfileModel info)
+        {
+            var model = _repository.getadmindata(info.admin);
+            model.Firstname = info.admin.Firstname;
+            model.Lastname = info.admin.Lastname;
+            model.Email = info.admin.Email;
+            model.Mobile = info.admin.Mobile;
+            model.Modifieddate = DateTime.Now;
+            _repository.saveadmindata(model);
+        }
         public viewuploadmin viewUploadAdmin(int id)
         {
             var patientData = _repository.getdataofviewcase(id);
@@ -546,6 +663,11 @@ namespace HalloDocWebServices.Interfaces
             model.FileList = _repository.getRequestWiseFileList(id);
             model.DOB = date;
             return model;
+        }
+
+        HalloDocWebRepository.ViewModel.Notes IAdmin_Service.getrequestnotes(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -9,6 +9,8 @@ using System.Net;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using HalloDocWebService.Authentication;
 using System.Drawing;
+using ClosedXML.Excel;
+
 
 namespace HalloDocWeb.Controllers
 {
@@ -65,9 +67,38 @@ namespace HalloDocWeb.Controllers
         {
             return View();
         }
-       public IActionResult ReviewAgreement()
+        public IActionResult AdminProviderLocation()
         {
             return View();
+
+        }
+        public IActionResult AdminMyProfile()
+        {
+            return View(_service.getMyProfileData(HttpContext.Request.Cookies["UsarEmail"]));
+        }
+        public IActionResult AdminPartner()
+        {
+            return View();
+        }
+        public IActionResult AdminProvider()
+        {
+            return View();
+        }
+        public IActionResult AdminAccess()
+        {
+            return View();
+        }
+        public IActionResult AdminRecord()
+        {
+            return View();
+        }
+        
+        public IActionResult ReviewAgreement(string token )
+        {
+            var model = _service.getReviewAgreementData(token);
+            if (model == null)
+                return Problem("Invalid Request");
+            return View(model);
         }
         public IActionResult DeleteFile(int id)
         {
@@ -151,9 +182,19 @@ namespace HalloDocWeb.Controllers
             Encounterformmodel model = _service.EncounterAdmin(id);
             return View(model);
         }
-        public  ActionResult SaveEncounterForm(Encounterformmodel info)
+        public ActionResult SaveEncounterForm(Encounterformmodel info)
         {
             _service.saveEncounterForm(info);
+            return RedirectToAction(nameof(Admindashboard));
+        }
+        public ActionResult UpdateAdminProfile(AdminProfileModel info)
+        {
+            _service.updateadminform(info);
+            return RedirectToAction(nameof(Admindashboard));
+        }
+        public ActionResult UpdateAddressInformationOfAdmin(AdminProfileModel info)
+        {
+            _service.updateadminaddress(info);
             return RedirectToAction(nameof(Admindashboard));
         }
         public async Task<IActionResult> Modalsofnew(int id)
@@ -244,12 +285,24 @@ namespace HalloDocWeb.Controllers
             _service.SendAgreementEmail(id);
             return RedirectToAction(nameof(Admindashboard));
         }
+        [HttpPost]
+        public ActionResult ReviewAgreementByPatient(int id,string notes)
+        {
+            _service.AgreementCancel(id, notes);
+            return RedirectToAction(nameof(HomeController.Index),"Home");
+        }
+        
         public ActionResult View_Note(int id)
         {
             var note = _service.getrequestnotes(id);
             //var tranfernote =  _service.getrequeststatuslog(id);
             note.req_id = id;
             return View(note);
+        }
+        public ActionResult AgreementAccept(int id)
+        {
+            _service.AgreementAccepted(id);
+            return RedirectToAction(nameof(HomeController.Index),"Home");
         }
         [HttpPost]
         public ActionResult SendMail(int id, string[] filenames)
@@ -264,5 +317,89 @@ namespace HalloDocWeb.Controllers
             _service.getreqnoteofsavenote(id, n, user.Email);
             return RedirectToAction("");
         }
+        public IActionResult ExportAll()
+        {
+            try
+            {
+                List<Request> data = GetTableData();
+                var workbook = new XLWorkbook();
+                var worksheet = workbook.Worksheets.Add("Data");
+
+
+                worksheet.Cell(1, 1).Value = "Name";
+                worksheet.Cell(1, 2).Value = "Date Of Birth";
+                worksheet.Cell(1, 3).Value = "Requestor";
+                worksheet.Cell(1, 4).Value = "Physician Name";
+                worksheet.Cell(1, 5).Value = "Date of Service";
+                worksheet.Cell(1, 6).Value = "Requested Date";
+                worksheet.Cell(1, 7).Value = "Phone Number";
+                worksheet.Cell(1, 8).Value = "Address";
+                worksheet.Cell(1, 9).Value = "Notes";
+
+                int row = 2;
+                foreach (var item in data)
+                {
+                    var statusClass = "";
+                    var dos = "";
+                    var notes = "";
+                    if (item.Requesttypeid == 1)
+                    {
+                        statusClass = "patient";
+                    }
+                    else if (item.Requesttypeid == 4)
+                    {
+                        statusClass = "business";
+                    }
+                    else if (item.Requesttypeid == 2)
+                    {
+                        statusClass = "family";
+                    }
+                    else
+                    {
+                        statusClass = "concierge";
+                    }
+                    foreach (var stat in item.Requeststatuslogs)
+                    {
+                        if (stat.Status == 2)
+                        {
+                            dos = stat.Createddate.ToString("MMMM dd,yyyy");
+                            notes = stat.Notes ?? "";
+                        }
+                    }
+                    worksheet.Cell(row, 1).Value = item.Requestclients?.FirstOrDefault()?.Firstname + item.Requestclients?.FirstOrDefault()?.Lastname;
+                    //worksheet.Cell(row, 2).Value = DateTime.Parse($"{item.Requestclients?.FirstOrDefault()?.Intyear}-{item.Requestclients?.FirstOrDefault()?.Strmonth}-{item.Requestclients?.FirstOrDefault()?.Intdate}").ToString("MM dd,yyyy");
+                    worksheet.Cell(row, 3).Value = statusClass.Substring(0, 1).ToUpper() + statusClass.Substring(1).ToLower() + item.Firstname + item.Lastname;
+                    worksheet.Cell(row, 4).Value = ("Dr." );
+                    worksheet.Cell(row, 5).Value = dos;
+                    worksheet.Cell(row, 6).Value = item.Createddate.ToString("MMMM dd,yyyy");
+                    worksheet.Cell(row, 7).Value = item.Requestclients?.FirstOrDefault()?.Phonenumber + "(Patient)" + (item.Requesttypeid != 4 ? item.Phonenumber + statusClass.Substring(0, 1).ToUpper() + statusClass.Substring(1).ToLower() : "");
+                    worksheet.Cell(row, 8).Value = (item.Requestclients?.FirstOrDefault()?.Address == null ? item.Requestclients?.FirstOrDefault()?.Address + item.Requestclients?.FirstOrDefault()?.Street + item.Requestclients?.FirstOrDefault()?.City + item.Requestclients?.FirstOrDefault()?.State + item.Requestclients?.FirstOrDefault()?.Zipcode : item.Requestclients?.FirstOrDefault()?.Street + item.Requestclients?.FirstOrDefault()?.City + item.Requestclients?.FirstOrDefault()?.State + item.Requestclients?.FirstOrDefault()?.Zipcode);
+                    worksheet.Cell(row, 9).Value = item.Requestclients?.FirstOrDefault()?.Notes;
+                    row++;
+                }
+                worksheet.Columns().AdjustToContents();
+
+                var memoryStream = new MemoryStream();
+                workbook.SaveAs(memoryStream);
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "data.xlsx");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+                throw;
+            }
+        }
+
+        public List<Request> GetTableData()
+        {
+            List<Request> data = new List<Request>();
+            //var user_id = HttpContext.Session.GetInt32("id");
+            //data = _context.Requests.Include(r => r.RequestClient).Where(u => u.UserId == user_id).ToList();
+            data = _service.GetRequestDataInList();
+            return data;
+        }
+
     }
 }  

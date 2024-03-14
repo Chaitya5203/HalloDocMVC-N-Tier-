@@ -273,5 +273,63 @@ namespace HalloDocWebRepository.Implementation
         {
             return _context.EncounterForms.FirstOrDefault(m => m.Requestid == id);
         }
+
+        public Aspnetuser getAspnetuserByEmail(string? v)
+        {
+            return _context.Aspnetusers.FirstOrDefault(m => m.Email == v);
+        }
+
+        public Admin getAdminByAspnetId(int id)
+        {
+            return _context.Admins.FirstOrDefault(m => m.Aspnetuserid == id);
+        }
+
+        public Region getregionById(int? regionid)
+        {
+            return _context.Regions.FirstOrDefault(m => m.Regionid == regionid);
+        }
+
+        public List<Request> getINlist()
+        {
+            return _context.Requests.Include(r => r.Requestclients).ToList();
+        }
+
+        public List<Requeststatuslog> getRequestStatusLoglist(int id)
+        {
+            return _context.Requeststatuslogs.Where(m => m.Requestid == id).ToList();
+        }
+
+        public Physician getPhysicianById(int? physicianid)
+        {
+            return _context.Physicians.FirstOrDefault(m => m.Physicianid == physicianid);
+        }
+
+        public Admin getadmindata(Admin admin)
+        {
+            return _context.Admins.FirstOrDefault(m => m.Adminid == admin.Adminid);
+        }
+
+        public void saveadmindata(Admin model)
+        {
+            _context.Admins.Update(model);
+            _context.SaveChanges();
+
+        }
+
+        public void savetoken(TokenRegister tokenRegister)
+        {
+            _context.TokenRegisters.Add(tokenRegister);
+            _context.SaveChanges();
+        }
+
+        public TokenRegister getTokenRegisterByToken(string token)
+        {
+            return  _context.TokenRegisters.FirstOrDefault(m => m.TokenValue == token);
+        }
+
+        public Requestclient getRequestClientByEmail(string? email)
+        {
+            return _context.Requestclients.FirstOrDefault(m => m.Email == email);
+        }
     }
 }

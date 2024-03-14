@@ -43,11 +43,11 @@ namespace HalloDocWebService.Authentication
             }
             var request = context.HttpContext.Request;
             var token = request.Cookies["jwt"];
-            if(_role == "Login")
+            if (_role == "Login")
             {
-                if (token != null )
-                {
-                     if (!jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
+               
+
+                if ( !jwtService.ValidateToken(token, out JwtSecurityToken jwtToken) || token == null)
                     {
                         context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
                         return;
@@ -59,12 +59,11 @@ namespace HalloDocWebService.Authentication
                         return;
                     }
                     else
-                    {
+                    { 
                         context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Admin", action = "admindashboard" }));
                         return;
                     }
-                    
-                }
+                
             }
             else
             {

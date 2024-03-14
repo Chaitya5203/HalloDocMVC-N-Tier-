@@ -1,6 +1,7 @@
 ﻿@model HalloDocWebRepository.ViewModel.Encounterformmodel
 @{
     ViewData["Title"] = "Encounter Page";
+    Layout = "_AdminHeader";
 }
 <style>
     .iti {
@@ -10,7 +11,11 @@
     #phone, #phone1 {
         height: 58px;
     }
+    
+
 </style>
+
+
 <div class="container ">
     <div class="row">
         <div class="col-12">
@@ -23,6 +28,7 @@
                 </a>
             </div>
             <form method="post" id="enable" asp-action="SaveEncounterForm" asp-controller="Admin">
+                
                 <div class="container rounded bg-white shadow py-3">
                     <h3 class="mb-3 text-center text-info">Medical Report-Confidential</h3>
                     <div class="row">
@@ -49,9 +55,9 @@
                             <input asp-for=Date type="date" name="Date" class="form-control" id="Date" placeholder="Date" disabled>
                             <label for="exampleFormControlInput1" class="form-label ps-4">Date</label>
                         </div>
-                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <input id="phone" class="form-control inp2" type="tel" value="@Model.patientData.Phonenumber" placeholder="Phone Number"disabled>
-                        </div>
+                            <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                                <input id="phone" class="form-control inp2" type="tel" value="@Model.patientData.Phonenumber" placeholder="Phone Number"disabled>
+                            </div>
                         <input type="hidden" value="@Model.Requestid" name="Requestid" />
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
                             <input name="email" value="@Model.patientData.Email" type="email" class="form-control" id="email" placeholder="Email"disabled>
