@@ -23,6 +23,7 @@ namespace HalloDocWeb.Controllers
               _service = service;
             _jwt_Service = jwtservice;
         }
+        //[CustomAuthorize("Index")]
         public IActionResult Index()
         {
             return View();
@@ -30,7 +31,6 @@ namespace HalloDocWeb.Controllers
         public IActionResult CreateAccount(string Email)
         {
             ViewBag.Email = Email;  
-
             return View();
         }
         public IActionResult submit_request_screen()
@@ -136,6 +136,7 @@ namespace HalloDocWeb.Controllers
                 }
                 else if(user.Role=="1")
                 {
+                    TempData["toastMsg"] = "Login Successfully!!!!";
                     return RedirectToAction(nameof(patientdashboard), "Home");
                 }
                 else

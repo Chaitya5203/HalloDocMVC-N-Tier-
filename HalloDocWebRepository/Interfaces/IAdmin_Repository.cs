@@ -52,5 +52,7 @@ namespace HalloDocWebRepository.Interfaces
         void savetoken(TokenRegister tokenRegister);
         TokenRegister getTokenRegisterByToken(string token);
         Requestclient getRequestClientByEmail(string? email);
+        TokenRegister updatetokenregister(int id);
+        void updateandsavetokenregister(TokenRegister tokenRegister);
     }
 }

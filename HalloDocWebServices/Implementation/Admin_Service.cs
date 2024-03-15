@@ -45,6 +45,11 @@ namespace HalloDocWebServices.Interfaces
         public void AgreementAccepted(int id)
         {
             Request req = _repository.getdataofrequest(id);
+            _repository.updatetokenregister(id);
+            TokenRegister tokenRegister = new TokenRegister();
+            tokenRegister.IsDeleted = new BitArray(1, true);
+            tokenRegister.IsVerified = new BitArray(1, true);
+            _repository.updateandsavetokenregister(tokenRegister);
 
             if (req != null)
             {
@@ -59,21 +64,32 @@ namespace HalloDocWebServices.Interfaces
             }
         }
 
-        public void AgreementCancel(int id, string notes)
+        public bool AgreementCancel(int id, string notes)
         {
             Request req = _repository.getdataofrequest(id);
-
-            if (req != null)
+            
+            TokenRegister tokenRegister = _repository.updatetokenregister(id);
+            if(tokenRegister != null)
             {
-                Requeststatuslog log = new();
-                log.Requestid = req.Requestid;
-                log.Createddate = DateTime.Now;
-                log.Notes = notes;
-                log.Status = req.Status;
-                _repository.setrequeststatuslogdata(log);
-                req.Status = 7;
-                _repository.setrequestdata(req);
+                tokenRegister.IsDeleted = new BitArray(1, true);
+                tokenRegister.IsVerified = new BitArray(1, true);
+                _repository.updateandsavetokenregister(tokenRegister);
+            
+            
+                if (req != null)
+                {
+                    Requeststatuslog log = new();
+                    log.Requestid = req.Requestid;
+                    log.Createddate = DateTime.Now;
+                    log.Notes = notes;
+                    log.Status = req.Status;
+                    _repository.setrequeststatuslogdata(log);
+                    req.Status = 7;
+                    _repository.setrequestdata(req);
+                }
+                return true;
             }
+            return false;
         }
 
         public void closecasetounpaid(int id , viewuploadmin n)
@@ -366,11 +382,19 @@ namespace HalloDocWebServices.Interfaces
             return notes;
         }
 
-        public Requestclient getReviewAgreementData(string token)
+        public Requestclient getReviewAgreementData(TokenRegister token)
+        {
+            
+            
+            var client = _repository.getRequestClientByEmail(token.Email);
+            return client;
+
+        }
+
+        public TokenRegister getTokenRegidterDataByToken(string token)
         {
             TokenRegister tokenreg = _repository.getTokenRegisterByToken(token);
-            return _repository.getRequestClientByEmail(tokenreg.Email);
-            
+            return tokenreg;
         }
 
         public requestclientvisedata getviewcasedataofpatient(int id)
@@ -579,6 +603,7 @@ namespace HalloDocWebServices.Interfaces
             client.SendMailAsync(mailMessage);
             TokenRegister tokenRegister = new TokenRegister();
             tokenRegister.Email = request.Email;
+            tokenRegister.Requestid = id;
             tokenRegister.TokenValue = token;
             _repository.savetoken(tokenRegister);
         }

@@ -1,6 +1,7 @@
 @model login
 @{
     ViewData["Title"] = "patientlogin Page";
+
 }
 <div class="min-vh-100 min-vw-100 bg1" id="light-theme"></div>
 <div class="container d-flex align-items-center backimage justify-content-center min-vh-100">
@@ -98,6 +99,7 @@
             document.getElementById('showeye').style.display = 'none';
         }
     }
+    
 </script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -95,9 +95,12 @@ namespace HalloDocWeb.Controllers
         
         public IActionResult ReviewAgreement(string token )
         {
-            var model = _service.getReviewAgreementData(token);
-            if (model == null)
+            TokenRegister tokenReg = _service.getTokenRegidterDataByToken(token);
+            if(tokenReg == null)
                 return Problem("Invalid Request");
+           
+            var model = _service.getReviewAgreementData(tokenReg);
+          
             return View(model);
         }
         public IActionResult DeleteFile(int id)
@@ -286,9 +289,11 @@ namespace HalloDocWeb.Controllers
             return RedirectToAction(nameof(Admindashboard));
         }
         [HttpPost]
-        public ActionResult ReviewAgreementByPatient(int id,string notes)
+        public ActionResult ReviewAgreement(int Requestid, string notes)
         {
-            _service.AgreementCancel(id, notes);
+            bool isValidToken =  _service.AgreementCancel(Requestid, notes);
+            if (isValidToken == false)
+                return Problem("Invalid Request");
             return RedirectToAction(nameof(HomeController.Index),"Home");
         }
         

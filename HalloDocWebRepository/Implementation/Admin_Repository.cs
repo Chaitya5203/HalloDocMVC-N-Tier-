@@ -3,6 +3,7 @@ using HalloDocWebRepository.Interfaces;
 using HalloDocWebRepository.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -80,6 +81,7 @@ namespace HalloDocWebRepository.Implementation
                        Requestor = rt.Name + " , " + r.Firstname + ' ' + r.Lastname,
                        physician = "Dr.Agola",/* + phy.Firstname,*/
                        Dateofservice = r.Lastreservationdate,
+                       DOB = rc.Intdate.ToString() + "/" + rc.Strmonth + "/" + rc.Intyear.ToString(),
                        Requesteddate = r.Createddate,
                        Phonenumber = rc.Phonenumber,
                        Email = r.Email,
@@ -89,6 +91,7 @@ namespace HalloDocWebRepository.Implementation
                        Requesttypeid = r.Requesttypeid,
                        RegionName = reg.Name,
                        RequestTypeName = rt.Name
+
                    };
             return data;
         }
@@ -128,6 +131,7 @@ namespace HalloDocWebRepository.Implementation
                        Requestor = rt.Name + " , " + r.Firstname + ' ' + r.Lastname,
                        physician = "Dr.Agola",/* + phy.Firstname,*/
                        Dateofservice = r.Lastreservationdate,
+                       DOB = rc.Intdate.ToString() + "/" + rc.Strmonth + "/" + rc.Intyear.ToString(),
                        Requesteddate = r.Createddate,
                        Phonenumber = rc.Phonenumber,
                        Email = r.Email,
@@ -324,12 +328,23 @@ namespace HalloDocWebRepository.Implementation
 
         public TokenRegister getTokenRegisterByToken(string token)
         {
-            return  _context.TokenRegisters.FirstOrDefault(m => m.TokenValue == token);
+            return  _context.TokenRegisters.FirstOrDefault(m => m.TokenValue == token && m.IsDeleted != new BitArray(1 , true));
         }
 
         public Requestclient getRequestClientByEmail(string? email)
         {
             return _context.Requestclients.FirstOrDefault(m => m.Email == email);
+        }
+
+        public TokenRegister updatetokenregister(int id)
+        {
+            return _context.TokenRegisters.FirstOrDefault(m=> m.Requestid == id && m.IsDeleted != new BitArray(1,true));
+        }
+
+        public void updateandsavetokenregister(TokenRegister tokenRegister )
+        {
+            _context.TokenRegisters.Update(tokenRegister);
+            _context.SaveChanges();
         }
     }
 }

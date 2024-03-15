@@ -1,7 +1,6 @@
 .height {
     min-height: 100%;
 }
-
 @media only screen and (max-width : 768px) {
     .left {
         height: 0px;
@@ -10,11 +9,10 @@
 }
 .circlefa {
     display: inline-block;
-    border-radius: 60px; 
-    border:2px solid cyan; 
+    border-radius: 60px;
+    border: 1px solid #54d4d3;
     padding: 0.5em 0.6em;
 }
-
 .moonbtn {
     height: 40px;
     width: 40px;
@@ -26,12 +24,13 @@
     align-items: center;
     border-radius: 10px;
 }
-
-.usericon {
+.accordion-button::after {
+    display:none;
+}
+    .usericon {
     position: absolute;
     top: 5px;
 }
-
 .faicon {
     position: absolute;
     top: 0px;
@@ -40,7 +39,7 @@
     width: 25px;
     /* right: 0px; */
 }
-
+}
 .form-control:focus~label {
     color: cyan;
     background-color: transparent;
@@ -157,19 +156,15 @@ nav ul:first-child{
 .navbar{
     padding-bottom :0 !important;
 }
-
-
 .darkblue {
     background-color: rgb(219, 225, 255);
     color: darkblue;
     border: 1px solid darkblue;
 }
-
-    .darkblue:hover, .darkblue.active {
-        background-color: darkblue;
-        color: white;
-    }
-
+.darkblue:hover, .darkblue.active {
+    background-color: darkblue;
+    color: white;
+}
 .newSpan {
     color: darkblue;
 }
@@ -180,10 +175,10 @@ nav ul:first-child{
     border: 1px solid #2cc7f1;
 }
 
-    .lightblue:hover, .lightblue:active {
-        background-color: #2cc7f1;
-        color: white;
-    }
+.lightblue:hover, .lightblue:active {
+    background-color: #2cc7f1;
+    color: white;
+}
 
 .pendingSpan {
     color: #2cc7f1;
@@ -199,134 +194,107 @@ nav ul:first-child{
         background-color: #77ad7d;
         color: white;
     }
-
 .activeSpan {
     color: #77ad7d;
 }
-
 .pink {
     color: #912261;
     background-color: #ffdff1;
     border: 1px solid #912261;
 }
-
-    .pink:hover, .pink:active {
-        background-color: #912261;
-        color: white;
-    }
-
+.pink:hover, .pink:active {
+    background-color: #912261;
+    color: white;
+}
 .concludeSpan {
     color: #912261;
 }
-
 .blue {
     color: #0181f8;
     background-color: #e5f2fa;
     border: 1px solid #0181f8;
 }
-
-    .blue:hover, .blue:active {
-        background-color: #0181f8;
-        color: white;
-    }
-
+.blue:hover, .blue:active {
+    background-color: #0181f8;
+    color: white;
+}
 .toCloseSpan {
     color: #0181f8;
 }
-
 .purple {
     color: mediumslateblue;
     background-color: #dce1ff;
     border: 1px solid mediumslateblue;
 }
-
-    .purple:hover, .purple:active {
-        background-color: mediumslateblue;
-        color: white;
-    }
-
+.purple:hover, .purple:active {
+    background-color: mediumslateblue;
+    color: white;
+}
 .unpaidSpan {
     color: mediumslateblue;
 }
-
 .bluetri {
     color: #0181f8;
     display: none;
 }
-
 .darkbluetri {
     color: darkblue;
     display: none;
 }
-
 .lightbluetri {
     color: #2cc7f1;
     display: none;
 }
-
-
-
-
-
-
-
-.greentri {
-    color: #77ad7d;
-    display: none;
+.accordion-button:not(.collapsed) {
+    color: black !important;
+    background-color: #daffff !important;
+    box-shadow: inset 0 calc(-1 * var(--bs-accordion-border-width)) 0 var(--bs-accordion-border-color);
 }
-
-
-
+.accordion-item {
+    background-color: #daffff !important;
+}
+.greentri {
+color: #77ad7d;
+display: none;
+}
 .pinktri {
     color: #912261;
     display: none;
 }
-
-
-
 .purpletri {
     color: mediumslateblue;
     display: none;
 }
-
-
-
 /*.status-tab button.active.darkblue {
     background-color: darkblue;
     color: white;
     position: relative;
 }*/
-
 .status-tab button.active.lightblue {
     background-color: #2cc7f1;
     color: white;
     position: relative;
 }
-
 .status-tab button.active.green {
     background-color: #77ad7d;
     color: white;
     position: relative;
 }
-
 .status-tab button.active.pink {
     background-color: #912261;
     color: white;
     position: relative;
 }
-
 .status-tab button.active.blue {
     background-color: #0181f8;
     color: white;
     position: relative;
 }
-
 .status-tab button.active.purple {
     background-color: mediumslateblue;
     color: white;
     position: relative;
 }
-
 .status-tab button.active.darkblue::after {
     position: absolute;
     top: 100%;
@@ -335,7 +303,6 @@ nav ul:first-child{
     border-style: solid;
     border-color: darkblue transparent transparent transparent;
 }
-
 .status-tab button.active.lightblue::after {
     content: "";
     position: absolute;
@@ -346,7 +313,6 @@ nav ul:first-child{
     border-color: #2cc7f1 transparent transparent transparent;
     transform: translateX(-50%);
 }
-
 .status-tab button.active.green::after {
     content: "";
     position: absolute;
@@ -357,7 +323,6 @@ nav ul:first-child{
     border-color: #77ad7d transparent transparent transparent;
     transform: translateX(-50%);
 }
-
 .status-tab button.active.pink::after {
     content: "";
     position: absolute;
@@ -368,7 +333,6 @@ nav ul:first-child{
     border-color: #912261 transparent transparent transparent;
     transform: translateX(-50%);
 }
-
 .status-tab button.active.blue::after {
     content: "";
     position: absolute;
@@ -379,7 +343,6 @@ nav ul:first-child{
     border-color: #0181f8 transparent transparent transparent;
     transform: translateX(-50%);
 }
-
 .status-tab button.active.purple::after {
     content: "";
     position: absolute;
@@ -390,21 +353,17 @@ nav ul:first-child{
     border-color: mediumslateblue transparent transparent transparent;
     transform: translateX(-50%);
 }
-
 .statustabcontenttab1 {
     display: block;
     padding: 0 12px;
 }
-
 .statustabcontent {
     display: none;
     padding: 0 12px;
 }
-
-    .statustabcontent.show {
-        display: block;
-    }
-
+.statustabcontent.show {
+    display: block;
+}
 .triangle-down {
     width: 0;
     height: 0;

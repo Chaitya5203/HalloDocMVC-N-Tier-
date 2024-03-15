@@ -3,12 +3,23 @@
 @inject IHttpContextAccessor Accessor
 @{
     ViewData["Title"] = "patientdashboard Page";
+    var toastMsg = TempData["toastMsg"] == null ? "" : TempData["toastMsg"];
+    var toastType = TempData["toastType"] == null ? "success" : TempData["toastType"];
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
 <nav class="bg-white">
-    <div class="container-fluid shadow">
-        <ul>
-            <li>
-                <img src="~/OneDrive_2024-01-17/SRS Screen Shorts/backremovelogo.png" alt="" height="100px" width="180">
+    <div class="container-fluid shadow p-0">
+        <ul class="sidebar p-0">
+            
+            <li >
+                <div class=" bg-transparent d-flex">
+                    <button class="Logout1 btn showonmobile hide " data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars" style="color: #54d4d3;"></i> </button>
+                    <img src="~/OneDrive_2024-01-17/SRS Screen Shorts/backremovelogo.png" alt="" height="100px" width="180">
+                </div>
+                @* <span class="showonmobile hide">
+                    <button class="Logout1 btn  " data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars" style="color: #54d4d3;"></i> </button>
+                </span>
+                <img src="~/OneDrive_2024-01-17/SRS Screen Shorts/backremovelogo.png" alt="" height="100px" width="180"> *@
             </li>
 
             <li class="hideonmobile me-2">Welcome <b> @Accessor.HttpContext.Request.Cookies["Usarname"]</b></li>
@@ -24,7 +35,7 @@
             <li><button class="moonbtn backtra me-2"><i class="fa-solid fa-moon  "></i></button></li>
         </ul>
         <hr>
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <ul class="nav nav-tabs hideonmobile" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active border-0 text-muted" id="home-tab" data-bs-toggle="tab"
                     data-bs-target="#home" type="button" role="tab" aria-controls="home"
@@ -38,7 +49,16 @@
         </ul>
     </div>
 </nav>
-
+<div class="offcanvas offcanvas-start w-50 showonmobile hide bg-light" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Welcome <strong>@Accessor.HttpContext.Request.Cookies["Usarname"]</strong></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="offcanvasmenu p-2"><a id="dashboardnav" class="text-muted text-decoration-none">Dashboard</a></div>
+        <div class="offcanvasmenu p-2"><a id="myprofilenav" class="text-muted text-decoration-none">Profile</a></div>
+    </div>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -104,22 +124,69 @@
                         </button>
                     </div>
                 </div>
+
                 <div class="accordion" style="background-color: #54d4d3;" id="accordionExample">
+
                 @foreach (var item in Model.Request.ToList())
                         {
                         string id = 'a' + item.Requestid.ToString();
                         <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#@id" aria-expanded="false" >
-                                    <b>Created Date: </b> @Html.DisplayFor(modelItem => item.Createddate)
+                        <h2 class="accordion-header" id="@id">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@id+1" aria-expanded="false" aria-controls="@id">
+                             <i class="fa-regular fa-clock me-1" style="color: #54d4d3;"></i><b>Created Date: </b> @Html.DisplayFor(modelItem => item.Createddate)
                             </button>
                         </h2>
-                        <div id="@id" class="accordion-collapse collapse" 
-                            data-bs-parent="#accordionExample">
+                            <div id="@id+1" class="accordion-collapse collapse" aria-labelledby="@id+1" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <p>Provider : @id</p>
-                                    <p>Current Status @Html.DisplayFor(modelItem => item.Status)</p>
+                                    <p><i class="fa-solid fa-user-doctor me-1 circlefa" style="color: #54d4d3; "></i>Provider : @id</p>
+                                    <p>
+                                        <i class="fa-solid fa-check circlefa me-1" style="color: #54d4d3;"></i>Current Status
+                                    
+                                        @switch (item.Status)
+                                        {
+                                            case 1:
+                                                <span> Unassigned</span>
+                                                
+                                                break;
+                                            case 2:
+                                                <span>
+                                                    Accepted
+                                                </span>
+                                                break;
+                                            case 5 or 4 :
+                                                <span>
+                                                    Processing
+                                                </span>
+                                                break;
+                                            case 3:
+                                                <span>
+                                                    Cancelled by Admin
+                                                </span>
+                                                break;
+                                            case 6:
+                                                <span>
+                                                    Concluded
+                                                </span>
+                                                break;
+                                            case 7:
+                                                <span>
+                                                    Cancelled by Patient
+                                                </span>
+                                                break;
+                                            case 8:
+                                                <span>
+                                                    Closed
+                                                </span>
+                                                break;
+                                            case 9:
+                                                <span>
+                                                    Unpaid
+                                                </span>
+                                                break;
+                                        }
+                                        
+                                        
+                                <p class=""><a asp-action="document" asp-controller="Home" asp-route-id="@item.Requestid"><button class="btn btn-white w-100" style="border-color: #54d4d3; color: #54d4d3;">(@ViewBag.RequestIdCounts[item.Requestid])Document</button></a></p>
                             </div>
                         </div>
                     </div>
@@ -206,16 +273,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                @* <div class="dropdown col-sm-2 col-md-2 col-xl-2">
-                                  <a class="btn btn-light btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Mobile
-                                  </a>
-                                  <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                  </ul>
-                                </div> *@
                                 <div class="col-sm-12 col-md-4 col-xl-4 form-floating mb-3 text-muted">
                                     <input value="@Model.User.Mobile" name="phonenumber" type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Lastname" disabled>
                                     <label  for="exampleFormControlInput1" class="form-label ps-4">Phone Number</label>
@@ -261,6 +318,11 @@
         <div class="tab-pane container fade" id="profile">this is Profile tab</div>
         </div>
         <script>
+            window.onload = function () {
+                if ('@toastMsg' != "") {
+                    showToaster('@toastMsg', '@toastType');
+                }
+            }
             $(document).ready(function () {
                 $("#openBtn").click(function () {
                     $("#myModal1").modal("show");

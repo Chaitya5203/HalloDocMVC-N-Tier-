@@ -12,7 +12,7 @@ namespace HalloDocWebServices.Interfaces
     {
         void addrequestwisefilebyadmin(int id, IFormFile fileToUpload);
         void AgreementAccepted(int id);
-        void AgreementCancel(int id, string notes);
+        bool AgreementCancel(int id, string notes);
         public void closecasetounpaid(int id, viewuploadmin n);
         public IQueryable dashboardtabledata(int id, int check);
         public void deleteallfilesbyadmin(string[] reqids, int id);
@@ -32,7 +32,8 @@ namespace HalloDocWebServices.Interfaces
         public Request getrequestdatatoblockcase(int id);
         public Request getrequestdatatotransfercase(int id,int physician);
         public Notes getrequestnotes(int id);
-        public Requestclient getReviewAgreementData(string token);
+        public Requestclient getReviewAgreementData(TokenRegister token);
+        TokenRegister getTokenRegidterDataByToken(string token);
 
         //public Requeststatuslog getrequeststatuslog(int id);
         public requestclientvisedata getviewcasedataofpatient(int id);

@@ -22,15 +22,14 @@
                                 <img src="~/images/close.png" height="35px" data-bs-dismiss="modal" aria-label="Close" />
                             </div>
                             <form id="myForm" method="post">
+                                <input type="hidden" value="@Model.Requestid" name="Requestid" />
                                 <div class="modal-body">
                                     <p>@Model.Firstname @Model.Lastname</p>
                                     <div class="form-group my-3">
-                                        <textarea class="form-control" id="assignnotes" rows="6"
-                                                    placeholder="Please provide a brief explanation for your cancellation"></textarea>
+                                        <textarea class="form-control" name="notes" rows="6" placeholder="Please provide a brief explanation for your cancellation"></textarea>
                                     </div>
                                 </div>
-                           
-                                <input type="hidden" value="@Model.Requestid" />
+                               
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-outline-info">Confirm</button>
                                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Cancel</button>
@@ -44,23 +43,23 @@
    </div>
 </div>
 <script>
-    $('#myForm').submit(function (e) {
-        e.preventDefault();
+    // $('#myForm').submit(function (e) {
+    //     e.preventDefault();
        
-        var note = $("assignnotes").val();
-        $.ajax({
-            url: "/Admin/ReviewAgreementByPatient",
-            data: { id: @Model.Requestid, notes:note },
-            type: "POST",
-            success: function (data) {
-                location.reload();
-                //window.onload(getLocation());
-            },
-            error: function () {
-                alert("No Projects Found");
-            }
-        });
-    });
+    //     var note = $("assignnotes").val();
+    //     $.ajax({
+    //         url: "/Admin/ReviewAgreementByPatient",
+    //         data: { id: @Model.Requestid, 'notes': note },
+    //         type: "POST",
+    //         success: function (data) {
+    //             location.reload();
+    //             //window.onload(getLocation());
+    //         },
+    //         error: function () {
+    //             alert("No Projects Found");
+    //         }
+    //     });
+    // });
     // $('#myForm').submit(function (e) {
     //     var id = @Model.Requestid;
     //     var notes = $("assignnotes").val();

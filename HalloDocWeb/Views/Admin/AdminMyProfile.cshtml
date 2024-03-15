@@ -109,7 +109,7 @@
                             <button class="btn btn-info text-white" id="edit" onclick="EditData()" type="button">Edit</button>
                             <button class="btn btn-info text-white" id="save" type="submit" style="display:none;">Save</button>
                             @* <button class="btn text-white px-1"style="background-color:blueviolet;" type="button">Finalize</button> *@
-                            <button class="btn btn-white text-info border-info" id="cancel" type="button" style="display:none;">Cancel</button>
+                        <button class="btn btn-white text-info border-info" onclick="disableData1()" id="cancel" type="button" style="display:none;">Cancel</button>
                         </div>
                     </form>
                     <form asp-action="UpdateAddressInformationOfAdmin" asp-controller="Admin" id="enable1">
@@ -145,7 +145,7 @@
                         <div class="text-end pb-3">
                             <button class="btn btn-info text-white" id="edit1" onclick="EditData1()" type="button">Edit</button>
                             <button class="btn btn-info text-white" id="save1" type="submit" style="display:none;">Save</button>
-                            <button class="btn btn-white text-info border-info" id="cancel1" type="button" style="display:none;">Cancel</button>
+                        <button class="btn btn-white text-info border-info" onclick="disableData()" id="cancel1" type="button" style="display:none;">Cancel</button>
                         </div>
                     </form>
                  </div>
@@ -154,7 +154,28 @@
     </div>
 
 <script>
-
+    function disableData() {
+        document.getElementById("save1").style.display = "none";
+        document.getElementById("cancel1").style.display = "none";
+        document.getElementById("edit1").style.display = "inline";
+        var formelements = document.getElementById("enable1").elements;
+        for (var i = 0; i < formelements.length; i++) {
+            if (i == 7)
+                continue;
+            formelements[i].disabled = true;
+        }
+    }
+    function disableData1() {
+        document.getElementById("save").style.display = "none";
+        document.getElementById("cancel").style.display = "none";
+        document.getElementById("edit").style.display = "inline";
+        var formelements = document.getElementById("enable").elements;
+        for (var i = 0; i < formelements.length; i++) {
+            if (i == 10)
+                continue;
+            formelements[i].disabled = true;
+        }
+    }
     function EditData() {
         document.getElementById("save").style.display = "inline";
         document.getElementById("cancel").style.display = "inline";
