@@ -7,9 +7,9 @@ D:\ProjectMvc\HalloDocWeb\HalloDocWebRepository\obj\Debug\net7.0\HalloDocWebRepo
 D:\ProjectMvc\HalloDocWeb\HalloDocWebRepository\obj\Debug\net7.0\HalloDocWebRepository.AssemblyInfoInputs.cache
 D:\ProjectMvc\HalloDocWeb\HalloDocWebRepository\obj\Debug\net7.0\HalloDocWebRepository.AssemblyInfo.cs
 D:\ProjectMvc\HalloDocWeb\HalloDocWebRepository\obj\Debug\net7.0\HalloDocWebRepository.csproj.CoreCompileInputs.cache
+D:\ProjectMvc\HalloDocWeb\HalloDocWebRepository\obj\Debug\net7.0\HalloDocWebRepository.sourcelink.json
 D:\ProjectMvc\HalloDocWeb\HalloDocWebRepository\obj\Debug\net7.0\HalloDocWebRepository.dll
 D:\ProjectMvc\HalloDocWeb\HalloDocWebRepository\obj\Debug\net7.0\refint\HalloDocWebRepository.dll
 D:\ProjectMvc\HalloDocWeb\HalloDocWebRepository\obj\Debug\net7.0\HalloDocWebRepository.pdb
 D:\ProjectMvc\HalloDocWeb\HalloDocWebRepository\obj\Debug\net7.0\HalloDocWebRepository.genruntimeconfig.cache
 D:\ProjectMvc\HalloDocWeb\HalloDocWebRepository\obj\Debug\net7.0\ref\HalloDocWebRepository.dll
-D:\ProjectMvc\HalloDocWeb\HalloDocWebRepository\obj\Debug\net7.0\HalloDocWebRepository.sourcelink.json

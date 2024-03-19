@@ -1,16 +1,137 @@
+@model HalloDocWebRepository.ViewModel.AdminDashboardDataWithRegionModel
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor Accessor
 @{
-    ViewData["Title"] = "Admin Dashboard Page";
-    // if (@Accessor.HttpContext.Session.GetString("Isheader") == "true")
-    // {
-    //     Layout = "_AdminHeader";
-    // }
-    // else Layout = "_AdminHeader";
+    ViewData["Title"] = "Admin Dashboard Page";   
     Layout = "_AdminHeader";
     
 }
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    var check;
+    var id;
+    $(document).ready(function () {
+        check = 0;
+        id = 1;
+        MyAjax();
+   
+    $('.statustablinks').click(function () {
+        $('.statustablinks').removeClass('active');
+        $(this).addClass('active');
+        $('.triangle-down').hide();
+        $(this).parent().find('.triangle-down').show();
+    });
+
+
+    $('#new-box').click(function () {
+        id = 1;
+        MyAjax();
+        // $.ajax({
+        //     url: "/Admin/New",
+        //     type: "POST",
+        //     data: { 'id': id , 'check' : 0},
+        //     dataType: "html",
+        //     success: function (data) {
+        //         $("#tableContent").html(data);
+        //     },
+        //     error: function () {
+        //         alert("No Projects Found");
+        //         $("#tableContent").html('An error has occurred');
+        //     }
+        // });
+    });
+    $('#pending-box').click(function () {
+        id = 2;
+        MyAjax();
+    });
+    $('#active-box').click(function () {
+        id = 3;
+        MyAjax();
+    });
+    $('#conclude-box').click(function () {
+        id = 4;
+        MyAjax();
+    });
+    $('#close-box').click(function () {
+        id = 5;
+        MyAjax();
+    });
+    $('#unpaid-box').click(function () {
+        id = 6;
+        MyAjax();
+    });
+
+    });
+
+
+    function filter(e) {
+        var s = e.id;
+        switch (s) {
+            case "all":
+                check = 0;
+                MyAjax();
+                break;
+            case "patientdata":
+                check = 2;
+                MyAjax();
+                break;
+            case "familydata":
+                check = 3;
+                MyAjax();
+                break;
+            case "businessdata":
+                check = 1;
+                MyAjax();
+                break;
+            case "conciergedata":
+                check = 4;
+                MyAjax();
+                break;
+        }
+
+        }
+        function MyAjax(pagenumber) {
+            if (pagenumber == 0) {
+                pagenumber = @Model.CurrentPage;
+            }
+            var search = document.getElementById("Searchinput").value;
+            var region = document.getElementById("SearchByRegion").value;
+            $.ajax({
+                url: "/Admin/New",
+                type: "POST",
+                data: { 'id': id, 'check': check, 'searchValue': search, 'searchRegion': region, 'pagenumber': pagenumber, 'pagesize': 3 },
+                dataType: "html",
+                success: function (data) {
+                    $("#tableContent").html(data);
+                },
+                error: function () {
+                    alert("No Projects Found");
+                    $("#tableContent").html('An error has occurred');
+                }
+            });
+        }
+        document.getElementById("Dashboard").classList.add("active");
+
+
+        const input = document.querySelector("#phone");
+        const input2 = document.querySelector("#phone1");
+        const button = document.querySelector("#btn");
+        const errorMsg = document.querySelector("#error-msg");
+        const validMsg = document.querySelector("#valid-msg");
+
+        // here, the index maps to the error code returned from getValidationError - see readme
+        const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+        // initialise plugin
+        const iti = window.intlTelInput(input, {
+            initialCountry: "us",
+            utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
+        });
+        const iti1 = window.intlTelInput(input2, {
+            initialCountry: "us",
+            utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
+        });
+</script>
 <style>
     .iti {
         width: 100%;
@@ -19,108 +140,6 @@
         height: 58px;
     }
 </style>
-@* <nav class="bg-white">
-    <div class="container-fluid  shadow p-0" style="z-index:1060; padding-left :0px !important;">
-        <ul style="padding-left :0px !important;">
-            <li>
-                <div class=" bg-transparent d-flex">
-                    <button class="Logout1 btn showonmobile hide " data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars" style="color: #54d4d3;"></i> </button>
-                    <img src="~/OneDrive_2024-01-17/SRS Screen Shorts/backremovelogo.png" alt="" height="100px" width="180">
-                </div>
-            </li>
-            <li class="hideonmobile me-2">Welcome <b> @Accessor.HttpContext.Request.Cookies["Usarname"]</b></li>
-            <li>
-                <a asp-action="Logout" asp-controller="Home">
-                    <button class="btn hideonmobile me-2"
-                            style="border:2px solid #54d4d3; color: #54d4d3;">
-                        Logout
-                    </button>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <button class="btn showonmobile hide me-2"
-                            style="border:2px solid #54d4d3;">
-                        <i class="fa-solid fa-arrow-right-from-bracket"
-                           style="color: #54d4d3;">
-                        </i>
-                    </button>
-                </a>
-            </li>
-            <li>
-                <button class="moonbtn backtra me-2"><i class="fa-solid fa-moon"></i></button>
-            </li>
-        </ul>
-        <hr>
-        <ul class="nav nav-tabs hideonmobile" id="myTab" role="tablist">
-            <li class="nav-item purpletri triangle-down" role="presentation">
-                <button class="nav-link active border-0 text-muted" id="home-tab" data-bs-toggle="tab"
-                        data-bs-target="#home" type="button" role="tab" aria-controls="home"
-                        aria-selected="true">
-                    <b>Dashboard</b>
-                </button>
-            </li>
-            <li class="nav-item purpletri triangle-down" role="presentation">
-                <button class="nav-link text-muted border-0 " id="provider-location-tab" data-bs-toggle="tab"
-                        data-bs-target="#providerlocation" type="button" role="tab" aria-controls="providerlocation"
-                        aria-selected="false">
-                    <b>Provider Location</b>
-                </button>
-            </li>
-            <li class="nav-item purpletri triangle-down" role="presentation">
-                <button class="nav-link text-muted border-0 " id="profile-tab" data-bs-toggle="tab"
-                        data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
-                        aria-selected="false">
-                    <b>My Profile</b>
-                </button>
-            </li>
-            <li class="nav-item purpletri triangle-down" role="presentation">
-                <button class="nav-link text-muted border-0 " id="providers-tab" data-bs-toggle="tab"
-                        data-bs-target="#providers" type="button" role="tab" aria-controls="providers"
-                        aria-selected="false">
-                    <b>Providers</b>
-                </button>
-            </li>
-            <li class="nav-item purpletri triangle-down" role="presentation">
-                <button class="nav-link text-muted border-0 " id="partners-tab" data-bs-toggle="tab"
-                        data-bs-target="#partners" type="button" role="tab" aria-controls="partners"
-                        aria-selected="false">
-                    <b>Partners</b>
-                </button>
-            </li>
-            <li class="nav-item purpletri triangle-down" role="presentation">
-                <button class="nav-link text-muted border-0 " id="Accedss-tab" data-bs-toggle="tab"
-                        data-bs-target="#access" type="button" role="tab" aria-controls="access"
-                        aria-selected="false">
-                    <b>Access</b>
-                </button>
-            </li>
-            <li class="nav-item purpletri triangle-down" role="presentation">
-                <button class="nav-link text-muted border-0 " id="Records-tab" data-bs-toggle="tab"
-                        data-bs-target="#records" type="button" role="tab" aria-controls="records"
-                        aria-selected="false">
-                    <b>Records</b>
-                </button>
-            </li>
-        </ul>
-    </div>
-</nav>
-<div class="offcanvas offcanvas-start w-50 showonmobile hide bg-light" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Welcome <strong>Test Tests</strong></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <div class="offcanvasmenu p-2"><a id="dashboardnav" class="text-muted text-decoration-none">Dashboard</a></div>
-        <div class="offcanvasmenu p-2"><a id="providerlocationnav" class="text-muted text-decoration-none">ProviderLocation</a></div>
-        <div class="offcanvasmenu p-2"><a id="myprofilenav" class="text-muted text-decoration-none">My Profile</a></div>
-        <div class="offcanvasmenu p-2"><a id="providernav" class="text-muted text-decoration-none">Providers</a></div>
-        <div class="offcanvasmenu p-2"><a id="partnerdnav" class="text-muted text-decoration-none">Partners</a></div>
-        <div class="offcanvasmenu p-2"><a id="accessnav" class="text-muted text-decoration-none">Access</a></div>
-        <div class="offcanvasmenu p-2"><a id="recordnav" class="text-muted text-decoration-none">Records</a></div>
-    </div>
-</div> *@
-@* <div class="tab-content" id="myTabContent"> *@
 <div class="tab-pane fade show active" id="home" role="tabpanel">
         <div class="container-fluid bg-light mt-3">
             <div class="row status-tab d-flex justify-content-xl-center">
@@ -135,7 +154,7 @@
                             </div>
                         </div>
                     </button>
-                    <div class=" d-flex justify-content-center">
+                    <div class="d-flex justify-content-center">
                         <div class="darkbluetri triangle-down"></div>
                     </div>
                 </div>
@@ -205,6 +224,53 @@
                     </div>
                 </div>
             </div>
+
+        <div class="row mt-3 d-flex flex-row">
+            <div class="text-end d-md-flex hideonmobile justify-content-md-end ">
+                <h5 class="ms-2" style="position:absolute !important; left:10px !important;">Patients <span style="color:#063982">(New)</span></h5>
+                <button class="btn btn-info ms-1 text-white" type="button"><i class="fa-regular fa-paper-plane me-1"></i><small>Send Link</small></button>
+                <a class="text-decoration-none" asp-action="Patientrequestadmin" asp-controller="Admin">
+                    <button class="btn btn-info text-white ms-1 border-info" type="button"><i class="fa-regular fa-note-sticky me-1"></i><small> Requests</small></button>
+                </a>
+                <button class="btn btn-info ms-1 text-white" type="button"><i class="fa fa-share-square me-1" aria-hidden="true"></i><small>Export</small></button>
+                <a asp-action="ExportAll" class="btn btn-info text-white ms-1 border-info" type="button"><i class="fa fa-share-square me-1" aria-hidden="true"></i><small>Export All</small></a>
+                <button class="btn btn-info text-white ms-1" type="button"><i class="fa-regular fa-user me-1"></i><small>Request DTY Support</small></button>
+            </div>
+            <div class="text-end d-md-flex showonmobile hide justify-content-md-end ">
+                <h6 class="ms-2" style="position:absolute !important; left:10px !important;">Patients <span style="color:#063982">(New)</span></h6>
+                <button class="btn btn-info ms-1 p-1 text-white" type="button"><i class="fa-regular fa-paper-plane"></i></button>
+                <a class="text-decoration-none" asp-action="Patientrequestadmin" asp-controller="Admin"><button class="btn btn-info p-1 text-white ms-1 border-info" type="button"><i class="fa-regular fa-note-sticky"></i> </button> </a>
+                <button class="btn btn-info p-1 ms-1 text-white" type="button"><i class="fa fa-share-square" aria-hidden="true"></i></button>
+                <button class="btn btn-info p-1 text-white ms-1 border-info" type="button"><i class="fa fa-share-square" aria-hidden="true"></i></button>
+                <button class="btn btn-info p-1 text-white ms-1" type="button"><i class="fa-regular fa-user"></i></button>
+            </div>
+        </div>
+        <div class="row g-2 mt-2 pt-2 pb-3 bg-white shadow rounded-1">
+            <div class="col-lg-2 col-md-6 col-sm-12">
+                <i class="fa fa-search text-muted position-absolute" style="padding-top:10px; padding-left:10px;"></i>
+                <input type="search" class="form-control floatingInputGrid" style="padding-left:35px;" id="Searchinput" onkeyup="MyAjax()" placeholder="Search Patients">
+            </div>
+            <div class="col-lg-2 col-md-6 col-sm-12">
+                <select class="form-select" id="SearchByRegion" onchange="MyAjax()">
+                    <option value=0 selected>All Regions</option>
+                    @foreach (var i in Model.regions)
+                    {
+                        <option value="@i.Regionid">@i.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <div class="text-end d-md-flex justify-content-md-end ">
+                    <button class="hideonmobile btn btn-white" style="border-color:gainsboro;" type="button" onclick="filter(this)" id="all">All</button>
+                    <span class="p-2 border-info" onclick="filter(this)" type="button" id="patientdata"><i class="fa-solid fa-circle fa-xs me-2" style="color: #3ecc4e;"></i>Patient</span>
+                    <span class="p-2" type="button" onclick="filter(this)" id="familydata"><i class="fa-solid fa-circle fa-xs me-2" style="color: #e6a00a;"></i>Family/Freind</span>
+                    <span class="p-2 border-info" onclick="filter(this)" id="businessdata" type="button"><i class="fa-solid fa-circle fa-xs me-2" style="color: #DA6679;"></i>Business</span>
+                    <span class=" p-2 " type="button" onclick=" filter(this)" id="conciergedata"><i class="fa-solid fa-circle fa-xs me-2" style="color: #3c5bd7;"></i>Concierge</span>
+                    @* <span class="p-2 " type="button"><i class="fa-solid fa-circle fa-xs me-2" style="color: #6d4bd2;"></i>VIP</span> *@
+                </div>
+            </div>
+        </div>
+
             <div class="">
                 <div id="tableContent" class="table-responsive">
                 </div>
@@ -215,145 +281,3 @@
 <footer class="text-center justify-content-center bg-secondary position-fixed w-100 bottom-0">
     <div class="">Terms Of Conditions <div class="vr "></div> Privacy Policy</div>
 </footer>
-<script>
-    const input = document.querySelector("#phone");
-    const input2 = document.querySelector("#phone1");
-    const button = document.querySelector("#btn");
-    const errorMsg = document.querySelector("#error-msg");
-    const validMsg = document.querySelector("#valid-msg");
-
-    // here, the index maps to the error code returned from getValidationError - see readme
-    const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
-
-    // initialise plugin
-    const iti = window.intlTelInput(input, {
-        initialCountry: "us",
-        utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
-    });
-    const iti1 = window.intlTelInput(input2, {
-        initialCountry: "us",
-        utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
-    });
-</script>
-<script>
-    document.getElementById("Dashboard").classList.add("active");
-</script>
-<script>
-    $(document).ready(function () {
-        $.ajax({
-            url: "/Admin/New",
-            type: "POST",
-            data: { 'id': 1 , 'check' : 0},
-            dataType: "html",
-            success: function (data) {
-                $("#tableContent").html(data);
-            },
-            error: function () {
-                alert("No Projects Found");
-                $("#tableContent").html('An error has occurred');
-            }
-        });
-        $('#new-box').click(function () {
-            $.ajax({
-                url: "/Admin/New",
-                type: "POST",
-                data: { 'id': 1 , 'check' : 0},
-                dataType: "html",
-                success: function (data) {
-                    $("#tableContent").html(data);
-                },
-                error: function () {
-                    alert("No Projects Found");
-                    $("#tableContent").html('An error has occurred');
-                }
-            });
-        });
-        $('#pending-box').click(function () {
-            $.ajax({
-                url: "/Admin/New",
-                type: "POST",
-                data: { 'id': 2 , 'check' : 0},
-                dataType: "html",
-                success: function (data) {
-                    $("#tableContent").html(data);
-                },
-                error: function () {
-                    alert("No Projects Found");
-                    $("#tableContent").html('An error has occurred');
-                }
-            });
-        });
-        $('#active-box').click(function () {
-            $.ajax({
-                url: "/Admin/New",
-                data: { 'id': 3 , 'check' : 0},
-                type: "POST",
-                dataType: "html",
-                success: function (data) {
-                    $("#tableContent").html(data);
-                },
-                error: function () {
-                    alert("No Projects Found");
-                    $("#tableContent").html('An error has occurred');
-                }
-            });
-        });
-        $('#conclude-box').click(function () {
-            $.ajax({
-                url: "/Admin/New",
-                type: "POST",
-                data: { 'id': 4 , 'check' : 0},
-                dataType: "html",
-                success: function (data) {
-                    $("#tableContent").html(data);
-                },
-                error: function () {
-                    alert("No Projects Found");
-                    $("#tableContent").html('An error has occurred');
-                }
-            });
-        });
-        $('#close-box').click(function () {
-            $.ajax({
-                url: "/Admin/New",
-                data: { 'id': 5 , 'check' : 0},
-                type: "POST",
-                dataType: "html",
-                success: function (data) {
-                    $("#tableContent").html(data);
-                },
-                error: function () {
-                    alert("No Projects Found");
-                    $("#tableContent").html('An error has occurred');
-                }
-            });
-        });
-        $('#unpaid-box').click(function () {
-            $.ajax({
-                url: "/Admin/New",
-                type: "POST",
-                data: { 'id': 6 , 'check' : 0},
-                dataType: "html",
-                success: function (data) {
-                    $("#tableContent").html(data);
-                },
-                error: function () {
-                    alert("No Projects Found");
-                    $("#tableContent").html('An error has occurred');
-                }
-            });
-        });
-    });
-
-</script>
-
-<script>
-    $(document).ready(function () {
-        $('.statustablinks').click(function () {
-            $('.statustablinks').removeClass('active');
-            $(this).addClass('active');
-            $('.triangle-down').hide();
-            $(this).parent().find('.triangle-down').show();
-        });
-    });
-</script>

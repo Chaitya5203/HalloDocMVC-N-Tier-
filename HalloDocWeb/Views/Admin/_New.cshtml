@@ -1,48 +1,64 @@
-﻿<div id="modalpopup">
-</div>
-<div class="row mt-3 d-flex flex-row">
-    <div class="text-end d-md-flex hideonmobile justify-content-md-end ">
-        <h5 class="ms-2" style="position:absolute !important; left:10px !important;">Patients <span style="color:#063982">(New)</span></h5>
-        <button class="btn btn-info ms-1 text-white" type="button"><i class="fa-regular fa-paper-plane me-1"></i><small>Send Link</small></button>
-        <a class="text-decoration-none" asp-action="Patientrequestadmin" asp-controller="Admin" >
-            <button class="btn btn-info text-white ms-1 border-info" type="button"><i class="fa-regular fa-note-sticky me-1"></i><small> Requests</small></button>
-        </a>
-        <button class="btn btn-info ms-1 text-white" type="button"><i class="fa fa-share-square me-1" aria-hidden="true"></i><small>Export</small></button>
-        <a asp-action="ExportAll" class="btn btn-info text-white ms-1 border-info" type="button"><i class="fa fa-share-square me-1" aria-hidden="true"></i><small>Export All</small></a>
-        <button class="btn btn-info text-white ms-1" type="button"><i class="fa-regular fa-user me-1"></i><small>Request DTY Support</small></button>
-    </div>
-    <div class="text-end d-md-flex showonmobile hide justify-content-md-end ">
-        <h6 class="ms-2" style="position:absolute !important; left:10px !important;">Patients <span style="color:#063982">(New)</span></h6>
-        <button class="btn btn-info ms-1 p-1 text-white" type="button"><i class="fa-regular fa-paper-plane"></i></button>
-        <a class="text-decoration-none" asp-action="Patientrequestadmin" asp-controller="Admin"><button class="btn btn-info p-1 text-white ms-1 border-info" type="button"><i class="fa-regular fa-note-sticky"></i> </button> </a>
-        <button class="btn btn-info p-1 ms-1 text-white" type="button"><i class="fa fa-share-square" aria-hidden="true"></i></button>
-        <button class="btn btn-info p-1 text-white ms-1 border-info" type="button"><i class="fa fa-share-square" aria-hidden="true"></i></button>
-        <button class="btn btn-info p-1 text-white ms-1" type="button"><i class="fa-regular fa-user"></i></button>
-    </div>
-</div>
-<div class="row g-2 mt-2 pt-2 pb-3 bg-white shadow rounded-1">
-    <div class="col-lg-2 col-md-6 col-sm-12">
-        <i class="fa fa-search text-muted position-absolute" style="padding-top:10px; padding-left:10px;"></i>
-        <input type="search" class="form-control floatingInputGrid" style="padding-left:35px;" id="my-search-input" placeholder="Search Patients">
-    </div>
-    <div class="col-lg-2 col-md-6 col-sm-12">
-        <select class="form-select" id="floatingSelectGrid">
-            <option selected>All Regions</option>
-            <option value="1">Surat</option>
-            <option value="2">Ahmedabad</option>
-            <option value="3">Anand</option>
-        </select>
-    </div>
-    <div class="col-lg-8 col-md-12 col-sm-12">
-        <div class="text-end d-md-flex justify-content-md-end ">
-            <button class="hideonmobile btn btn-white" style="border-color:gainsboro;" type="button" id="all">All</button>
-            <span class="p-2 border-info" type="button" id="patientdata"><i class="fa-solid fa-circle fa-xs me-2" style="color: #3ecc4e;"></i>Patient</span>
-            <span class="p-2" type="button" id="familydata"><i class="fa-solid fa-circle fa-xs me-2" style="color: #e6a00a;"></i>Family/Freind</span>
-            <span class="p-2 border-info" id="businessdata" type="button"><i class="fa-solid fa-circle fa-xs me-2" style="color: #DA6679;"></i>Business</span>
-            <span class=" p-2 " type="button" id="conciergedata"><i class="fa-solid fa-circle fa-xs me-2" style="color: #3c5bd7;"></i>Concierge</span>
-            @* <span class="p-2 " type="button"><i class="fa-solid fa-circle fa-xs me-2" style="color: #6d4bd2;"></i>VIP</span> *@
-        </div>
-    </div>
+﻿@model HalloDocWebRepository.ViewModel.AdminDashboardDataWithRegionModel
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+ 
+    function blockcase(element) {
+        var id = element.value;
+        console.log(id);
+        $.ajax({
+            url: "/Admin/Modalofblock",
+            data: { 'id': id },
+            type: "GET",
+            dataType: "html",
+            success: function (data) {
+                $("#modalpopup").html(data);
+            },
+            error: function () {
+                alert("No Projects Found");
+                $("#tableContent").html('An error has occurred');
+            }
+        });
+    };
+    function cancelcase(element) {
+        var id = element.value;
+        console.log(id);
+        $.ajax({
+            url: "/Admin/Modalsofnew",
+            data: { 'id': id },
+            type: "GET",
+            dataType: "html",
+            success: function (data) {
+                $("#modalpopup").html(data);
+            },
+            error: function () {
+                alert("No Projects Found");
+                $("#tableContent").html('An error has occurred');
+            }
+        });
+    };
+    function assigncase(element) {
+        var id = element.value;
+        console.log(id);
+        $.ajax({
+            url: "/Admin/Modalofassign",
+            data: { 'id': id, 'regionid': 0 },
+            type: "GET",
+            dataType: "html",
+            success: function (data) {
+                $("#modalpopup").html(data);
+            },
+            error: function () {
+                alert("No Projects Found");
+                $("#tableContent").html('An error has occurred');
+            }
+        });
+    };
+
+</script>
+
+
+<div id="modalpopup">
 </div>
 <table class="table table-responsive mt-4 hideonmobile" id="adminTable">
     <thead>
@@ -60,7 +76,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.tabledata)
         {
             string str = "";
             @if (item.Requesttypeid == 1)
@@ -81,7 +97,7 @@
             }
             <tr style="@str">
                 <td class="font">
-                    @item.Requestor
+                    @item.Name
                 </td>
                 <td>
                     <span><i class="fa-regular fa-envelope fa-lg"></i></span>
@@ -90,7 +106,8 @@
                     @item.DOB
                 </td>
                 <td class="font">
-                    Patient @item.Name
+                    @item.Requestor
+                    
                 </td>
                 <td class="font">
                     @item.Dateofservice
@@ -105,7 +122,7 @@
                     @item.Notes
                 </td>
                 <td>
-                    <button class="btn btn-outline-light" type="button"><i class="fa-solid fa-user-doctor me-1"></i>Provider</button>
+                    <button class="btn btn-outline-light" type="button"><i class="fa-solid fa-user-doctor fa-sm "></i><small>Provider</small></button>
                 </td>
                 <td>
                     <div class="dropdown">
@@ -125,46 +142,19 @@
         }
     </tbody>
 </table>
-<div aria-label="Page navigation">
-    <ul class="pagination justify-content-center mt-3">
-        @if (Model.Count != 0 && Model[0].TotalPages >= 1)
-        {
-            <!-- Previous page -->
-            <li class="page-item @(Model[0].PreviousPage ? " " : "disabled")">
-                <a class="page-link" href="javascript:void(0)" onclick="changePage(@Model[0].CurrentPage-1)" aria-label="Previous">
-                    <span aria-hidden="true"> &lt;  </span>
-                </a>
-            </li>
 
-            <!-- Page numbers -->
-            @for (int i = 1; i <= Model[0].TotalPages; i++)
-            {
-                <li class="page-item @(Model[0].CurrentPage == i ? "active" : " ")">
-                    <a class="page-link" id="plink-@i" href="javascript:void(0)" onclick="changePage(@i)">@i</a>
-                </li>
-            }
-
-            <!-- Next page -->
-            <li class="page-item @(Model[0].NextPage ? " " : "disabled")">
-                <a class="page-link" href="javascript:void(0)" onclick="changePage(@Model[0].CurrentPage+1)" aria-label="Next">
-                    <span aria-hidden="true"> &gt; </span>
-                </a>
-            </li>
-        }
-    </ul>
-</div>
 <div class="accordion showonmobile mt-3" id="accordionExample" style="display:none" id="adminTable">
     @if (1 == 1)
     {
         var i = 0;
-        @foreach (var item in Model)
+        @foreach (var item in Model.tabledata)
         {
             <div class="accordion-item" >
                 <div class="accordion-header">
                     <div class="container-fluid accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_@i" aria-expanded="true" aria-controls="collapse_@i">
                         <div class="row w-100">
                             <div class="col-6 mb-3">
-                                @item.Requestor
+                                @item.Name
                             </div>
                             <div class="col-6 mb-3">
                                 @if (item.Requesttypeid == 1)
@@ -199,29 +189,54 @@
                         </div>
                     </div>
                 </div>
-                <div id="collapse_@i" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                    <div class="accordion-body container-fluid">
-                        <p>
-                            <i class="fa-regular fa-calendar-days me-1 circlefa"></i>Date of Birth:@item.Dateofservice
+                <hr class="m-0 p-0 text-muted" />
+                <div id="collapse_@i" class="accordion-collapse collapse" style="background-color: #00bae920;" aria-labelledby="flush-heading" data-bs-parent="#accordionExample">
+                    <div class="d-flex justify-content-end">
+                        <a role="button" asp-action="View_Case" asp-controller="Admin" asp-route-id="@item.Requestid" class="btn bg-white rounded-pill border-secondary text-dark z-3 mx-3" style="position: relative;bottom: 20px;right: 5px; z-index: 1050;" type="button">
+                            View
+                            Case
+                        </a>
+                    </div>
+                    <div class="accordion-body container-fluid pt-0 pb-0">
+                        <p class="mb-1">
+                            <i class="fa-regular fa-calendar-days me-1 circlefa"></i>Date of Birth:@item.DOB
                         </p>
-                        <p><i class="fa-regular fa-envelope me-1 circlefa"></i>Email:</p>
-                        <p><i class="fa-solid fa-phone me-1 circlefa"></i>PhoneNumber:@item.Phonenumber</p>
-                        <p><i class="fa-solid fa-book me-1 circlefa"></i>Transfer Notes</p>
-                        <p><i class="fa-regular fa-calendar-days me-1 circlefa"></i>Date of Service</p>
-                        <p><i class="fa-solid fa-user-doctor me-1 circlefa"></i>Physician</p>
-                        <p><i class="fa-regular fa-user me-1 circlefa"></i>Requestor</p>
+                        <p class ="mb-1"><i class="fa-regular fa-envelope me-1 circlefa"></i>Email:@item.Email</p>
+                        <p class="mb-1"><i class="fa-solid fa-phone me-1 circlefa"></i>Patient:@item.Phonenumber</p>
+                        @* <p><i class="fa-solid fa-book me-1 circlefa"></i>Transfer Notes</p> *@
+                        @* <p><i class="fa-regular fa-calendar-days me-1 circlefa"></i>Date of Service:@item.Dateofservice</p> *@
+                        @* <p><i class="fa-solid fa-user-doctor me-1 circlefa"></i>Physician</p> *@
+                        <p class="mb-1"><i class="fa-regular fa-user me-1 circlefa"></i>Requestor:@item.Requestor</p>
                         <div class="row">
-                            <div class="col-6 mb-3">
-                                <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
+                            <div class="col-6 mb-2">
+                                <a >
+                                    <button class="btn btn-white  text-white rounded-pill 2px w-100" onclick="assigncase(this)" value="@item.Requestid" id="assigncase" style="background-color:blueviolet;">
+                                        <small>Assign Case</small>
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <a>
+                                    <button class="btn btn-danger text-white rounded-pill 2px w-100" onclick="cancelcase(this)" value="@item.Requestid" id="cancelcase">
+                                        <small>Cancel Case</small>
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <a asp-action="View_Note" asp-controller="Admin" asp-route-id="@item.Requestid">
+                                    <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #228B22;">
                                     <small>View Notes</small>
                                 </button>
+                                </a>
                             </div>
-                            <div class="col-6 mb-3">
-                                <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #145545;">
-                                    <small>Doctors Note</small>
-                                </button>
+                            <div class="col-6 mb-2">
+                                <a>
+                                    <button class="btn btn-danger text-white rounded-pill 2px w-100" onclick="blockcase(this)" value="@item.Requestid" id="blockcase">
+                                        <small>Block Patient</small>
+                                    </button>
+                                </a>
                             </div>
-                            <div class="col-6 mb-3">
+                            @* <div class="col-6 mb-3">
                                 <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
                                     <small>View Uploads</small>
                                 </button>
@@ -236,13 +251,15 @@
                                     <small>Orders</small>
                                 </button>
 
-                            </div>
-                            <div class="col-6 mb-3">
-                                <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #3ecc4e;">
+                            </div> *@
+                            <div class="col-6 mb-2">
+                                <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #228B22;">
                                     <small>Email</small>
                                 </button>
                             </div>
+                            <hr class="mb-1 p-0 text-muted" />
                         </div>
+                       
                         <div class="text-end d-md-flex justify-content-md-end pb-3">
                             <span>Chat With:</span>
                             <button class="btn btn-info text-white me-md-1" type="button"><i class="fa-regular fa-user me-1"></i><small>Patient</small> </button>
@@ -255,156 +272,31 @@
         }
     }
 </div>
-@* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script> *@
-<script>
-    function blockcase(element) {
-        var id = element.value;
-        console.log(id);
-        $.ajax({
-            url: "/Admin/Modalofblock",
-            data: { 'id': id },
-            type: "GET",
-            dataType: "html",
-            success: function (data) {
-                $("#modalpopup").html(data);
-            },
-            error: function () {
-                alert("No Projects Found");
-                $("#tableContent").html('An error has occurred');
+<div aria-label="Page navigation pb-5">
+    <ul class="pagination justify-content-center mt-3 pb-3">
+        @if (Model.TotalPages >= 1)
+        {
+            <!-- Previous page -->
+            <li class="page-item @(Model.PreviousPage ? " " : "disabled")">
+                <a class="page-link" href="javascript:void(0)" onclick="MyAjax(@Model.CurrentPage-1)" aria-label="Previous">
+                    <span aria-hidden="true"> &lt;  </span>
+                </a>
+            </li>
+
+            <!-- Page numbers -->
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(Model.CurrentPage == i ? "active" : " ")">
+                    <a class="page-link" id="plink-@i" href="javascript:void(0)" onclick="MyAjax(@i)">@i</a>
+                </li>
             }
-        });
-    };
-    function cancelcase(element) {
-        var id = element.value;
-        console.log(id);
-        $.ajax({
-            url: "/Admin/Modalsofnew",
-            data: { 'id': id},
-            type: "GET",
-            dataType: "html",
-            success: function (data) {
-                $("#modalpopup").html(data);
-            },
-            error: function () {
-                alert("No Projects Found");
-                $("#tableContent").html('An error has occurred');
-            }
-        });
-    };
-    function assigncase(element) {
-        var id = element.value;
-        console.log(id);
-        $.ajax({
-            url: "/Admin/Modalofassign",
-            data: { 'id': id,'regionid':0 },
-            type: "GET",
-            dataType: "html",
-            success: function (data) {
-                $("#modalpopup").html(data);
-            },
-            error: function () {
-                alert("No Projects Found");
-                $("#tableContent").html('An error has occurred');
-            }
-        });
-    };
-    $(document).ready(function () {
-        $('#adminTable').DataTable({
-            "initComplete": function (settings, json) {
-                $('#my-search-input').val(settings.oPreviousSearch.sSearch);
-                $('#my-search-input').on('keyup', function () {
-                    var searchValue = $(this).val();
-                    settings.oPreviousSearch.sSearch = searchValue;
-                    settings.oApi._fnReDraw(settings);
-                });
-            },
-            "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
-            "pageLength": 5,
-            language: {
-                oPaginate: {
-                    sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
-                    sPrevious: '<i class="bi bi-caret-left-fill text-info"></i>'
-                }
-            }
-        });
-        $('.dataTables_length').hide();
-        $('.dataTables_filter').hide();
-    });
-    $('#patientdata').click(function () {
-        $.ajax({
-            url: "/Admin/New",
-            type: "POST",
-            data: { 'id': 1, 'check': 2 },
-            dataType: "html",
-            success: function (data) {
-                $("#tableContent").html(data);
-            },
-            error: function () {
-                alert("No Projects Found");
-                $("#tableContent").html('An error has occurred');
-            }
-        });
-    });
-    $('#familydata').click(function () {
-        $.ajax({
-            url: "/Admin/New",
-            type: "POST",
-            data: { 'id': 1, 'check': 3 },
-            dataType: "html",
-            success: function (data) {
-                $("#tableContent").html(data);
-            },
-            error: function () {
-                alert("No Projects Found");
-                $("#tableContent").html('An error has occurred');
-            }
-        });
-    });
-    $('#businessdata').click(function () {
-        $.ajax({
-            url: "/Admin/New",
-            data: { 'id': 1, 'check': 1 },
-            type: "POST",
-            dataType: "html",
-            success: function (data) {
-                $("#tableContent").html(data);
-            },
-            error: function () {
-                alert("No Projects Found");
-                $("#tableContent").html('An error has occurred');
-            }
-        });
-    });
-    $('#conciergedata').click(function () {
-        $.ajax({
-            url: "/Admin/New",
-            type: "POST",
-            data: { 'id': 1, 'check': 4 },
-            dataType: "html",
-            success: function (data) {
-                $("#tableContent").html(data);
-            },
-            error: function () {
-                alert("No Projects Found");
-                $("#tableContent").html('An error has occurred');
-            }
-        });
-    });
-    $('#all').click(function () {
-        $.ajax({
-            url: "/Admin/New",
-            data: { 'id': 1, 'check': 0 },
-            type: "POST",
-            dataType: "html",
-            success: function (data) {
-                $("#tableContent").html(data);
-            },
-            error: function () {
-                alert("No Projects Found");
-                $("#tableContent").html('An error has occurred');
-            }
-        });
-    });
-</script>
+
+            <!-- Next page -->
+            <li class="page-item @(Model.NextPage ? " " : "disabled")">
+                <a class="page-link" href="javascript:void(0)" onclick="MyAjax(@Model.CurrentPage+1)" aria-label="Next">
+                    <span aria-hidden="true"> &gt; </span>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

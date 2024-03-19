@@ -9,10 +9,10 @@ D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServic
 D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.AssemblyInfoInputs.cache
 D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.AssemblyInfo.cs
 D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.csproj.CoreCompileInputs.cache
+D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.sourcelink.json
 D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.csproj.CopyComplete
 D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.dll
 D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\refint\HalloDocWebServices.dll
 D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.pdb
 D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.genruntimeconfig.cache
 D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\ref\HalloDocWebServices.dll
-D:\ProjectMvc\HalloDocWeb\HalloDocWebServices\obj\Debug\net7.0\HalloDocWebServices.sourcelink.json

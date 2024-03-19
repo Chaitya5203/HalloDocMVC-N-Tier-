@@ -14,7 +14,7 @@ namespace HalloDocWebServices.Interfaces
         void AgreementAccepted(int id);
         bool AgreementCancel(int id, string notes);
         public void closecasetounpaid(int id, viewuploadmin n);
-        public IQueryable dashboardtabledata(int id, int check);
+        public IQueryable<AdminDashboardTableModel> dashboardtabledata(int id, int check);
         public void deleteallfilesbyadmin(string[] reqids, int id);
         public void deleteFile(int id);
         public MemoryStream DownloadAllServicebyadmin( string[] filenames);
@@ -24,6 +24,8 @@ namespace HalloDocWebServices.Interfaces
         public int getcount(int id);
         public sendorder getdataofsendorder(int id,int hprof,int hproftype);
         AdminProfileModel getMyProfileData(string? v);
+        List<Physician> getPhycision();
+        List<Region> getRegionList();
         public void getreqnoteofsavenote(int id,Notes n ,string email);
         public Request getrequestdata(int id,string name);
         List<Request> GetRequestDataInList();

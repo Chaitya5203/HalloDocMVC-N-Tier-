@@ -2,19 +2,11 @@
 using HalloDocWebRepository.ViewModel;
 using HalloDocWebServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol.Core.Types;
-using System.Net.Mail;
-using System.Net;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using HalloDocWebService.Authentication;
-using System.Drawing;
 using ClosedXML.Excel;
-
-
+using DocumentFormat.OpenXml.Wordprocessing;
 namespace HalloDocWeb.Controllers
 {
-   
     public class AdminController : Controller
     {
         private readonly IAdmin_Service _service;
@@ -25,6 +17,12 @@ namespace HalloDocWeb.Controllers
         [CustomAuthorize("Admin")]
         public IActionResult Admindashboard(int id)
         {
+            AdminDashboardDataWithRegionModel model = new();
+            model.TotalPages = 1;
+            model.CurrentPage = 1;
+            model.PreviousPage = 1 > 1;
+            model.NextPage = 1 < model.TotalPages;
+            model.regions = _service.getRegionList();
             ViewBag.NewCount = _service.getcount(1);
             ViewBag.PendingCount = _service.getcount(2);
             ViewBag.ActiveCount = _service.getcount(3);
@@ -37,28 +35,74 @@ namespace HalloDocWeb.Controllers
             //ViewBag.ConcludeCount = _context.Requests.Where(r => r.Status == 4).Count();
             //ViewBag.TocloseCount = _context.Requests.Where(r => r.Status == 5).Count();
             //ViewBag.UnpaidCount = _context.Requests.Where(r => r.Status == 6).Count();
-            return View();
+            return View(model);
         }
         [HttpPost]
-        public ActionResult New(int id, int check)
+        public ActionResult New(int id, int check , string searchValue, int searchRegion,int pagesize=3, int  pagenumber =1 )
         {
-            IQueryable data;
-            data = _service.dashboardtabledata(id, check);
+            IQueryable<AdminDashboardTableModel> tabledata1;
+            AdminDashboardDataWithRegionModel model = new();
+            tabledata1 = _service.dashboardtabledata(id, check);
+            model.physicians = _service.getPhycision();
+            model.regions = _service.getRegionList();
+            if (searchValue != null)
+            {
+                if (!string.IsNullOrWhiteSpace(searchValue))
+                {
+                    tabledata1 = tabledata1.Where(x => x.Name.ToLower().Contains(searchValue.ToLower()));
+                }
+            }
+            if (searchRegion != 0)
+            {
+                tabledata1 = tabledata1.Where(x => x.RegionID == searchRegion);
+            }
+            model.tabledata = tabledata1;
+            var count = tabledata1.Count();
+            if (count > 0)
+            {
+                tabledata1 = tabledata1.Skip((pagenumber - 1) * 5).Take(5);
+                model.tabledata = tabledata1;
+                model.TotalPages = (int)Math.Ceiling((double)count / 5);
+                model.CurrentPage = pagenumber;
+                model.PreviousPage = pagenumber > 1;
+                model.NextPage = pagenumber < model.TotalPages;
+            }
             if (id == 1)
-                return PartialView("_New", data);
+                return PartialView("_New", model);
             if (id == 2)
-                return PartialView("_Pending", data);
+                return PartialView("_Pending", model);
             if (id == 3)
-                return PartialView("_Active", data);
+                return PartialView("_Active", model);
             if (id == 4)
-                return PartialView("_Conclude", data);
+                return PartialView("_Conclude", model);
             if (id == 5)
-                return PartialView("_Toclose", data);
+                return PartialView("_Toclose", model);
             if (id == 6)
-                return PartialView("_Unpaid", data);
+                return PartialView("_Unpaid", model);
             else
-                return PartialView("_New", data);
+                return PartialView("_New", model);
         }
+        //[HttpPost]
+        //public ActionResult New(int id, int check)
+        //{
+        //    IQueryable data;
+        //    data = _service.dashboardtabledata(id, check);
+        //    if (id == 1)
+        //        return PartialView("_New", data);
+        //    if (id == 2)
+        //        return PartialView("_Pending", data);
+        //    if (id == 3)
+        //        return PartialView("_Active", data);
+        //    if (id == 4)
+        //        return PartialView("_Conclude", data);
+        //    if (id == 5)
+        //        return PartialView("_Toclose", data);
+        //    if (id == 6)
+        //        return PartialView("_Unpaid", data);
+        //    else
+        //        return PartialView("_New", data);
+        //}
+
         public async Task<ActionResult> View_Case(int id)
         {
             return View(_service.getviewcasedataofpatient(id));
@@ -67,6 +111,15 @@ namespace HalloDocWeb.Controllers
         {
             return View();
         }
+        public IActionResult CreatePhysicianAccount()
+        {
+            return View();
+        }
+        public IActionResult EditPhysicianAccount()
+        {
+            return View();
+        }
+        
         public IActionResult AdminProviderLocation()
         {
             return View();

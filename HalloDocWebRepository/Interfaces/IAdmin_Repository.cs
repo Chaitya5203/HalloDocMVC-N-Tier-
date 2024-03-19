@@ -11,8 +11,8 @@ namespace HalloDocWebRepository.Interfaces
     public interface IAdmin_Repository
     {
         public int getcountofeachstate(int id);
-        public IQueryable getdataofdashboard(int id);
-        public IQueryable getdataofdashboardcheckvise(int id, int check);
+        public IQueryable<AdminDashboardTableModel> getdataofdashboard(int id);
+        public IQueryable<AdminDashboardTableModel> getdataofdashboardcheckvise(int id, int check);
         public Requestclient getdataofviewcase(int id);
         public HalloDocWebRepository.Data.Region getdataofregionvise(int regionid);
         public List<Physician> getphysician();
@@ -54,5 +54,6 @@ namespace HalloDocWebRepository.Interfaces
         Requestclient getRequestClientByEmail(string? email);
         TokenRegister updatetokenregister(int id);
         void updateandsavetokenregister(TokenRegister tokenRegister);
+        List<Adminregion> getadminregionname(int id);
     }
 }

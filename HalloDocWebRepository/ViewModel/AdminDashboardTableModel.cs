@@ -2,7 +2,7 @@
 {
     public class AdminDashboardTableModel
     {
-        public string physician;
+        public int? physician {  get; set; }
         public string Name { get; set; }
         public string Requestor { get; set; }
         public string Phonenumber { get; set; }
@@ -15,7 +15,8 @@
         public DateTime Requesteddate { get; set; }
         public int Requesttypeid { get; set; }
         public DateTime? Dateofservice { get; internal set; }
-        public string RegionName { get; internal set; }
+        public string RegionName { get;  set; }
+        public int RegionID { get;  set; }
         public string RequestTypeName { get; internal set; }
 
     }

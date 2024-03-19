@@ -45,7 +45,7 @@ namespace HalloDocWebRepository.Implementation
             }
             return _context.Requests.Where(i => status.Any(j => j == i.Status)).Count();
         }
-        public IQueryable getdataofdashboard(int id)
+        public IQueryable<AdminDashboardTableModel> getdataofdashboard(int id)
         {
             int[] status = new int[1];
             switch (id)
@@ -70,16 +70,16 @@ namespace HalloDocWebRepository.Implementation
                     break;
 
             }
-            IQueryable data = from r in _context.Requests
+            IQueryable<AdminDashboardTableModel> data = from r in _context.Requests
                    join rc in _context.Requestclients on r.Requestid equals rc.Requestid
                    join rt in _context.Requesttypes on r.Requesttypeid equals rt.Requesttypeid
                    join reg in _context.Regions on rc.Regionid equals reg.Regionid
-                   where status.Any(s => s == r.Status)
+                   where status.Any(s => s == r.Status)  
                    select new AdminDashboardTableModel
                    {
                        Name = rc.Firstname + ' ' + rc.Lastname,
                        Requestor = rt.Name + " , " + r.Firstname + ' ' + r.Lastname,
-                       physician = "Dr.Agola",/* + phy.Firstname,*/
+                       physician = r.Physicianid,
                        Dateofservice = r.Lastreservationdate,
                        DOB = rc.Intdate.ToString() + "/" + rc.Strmonth + "/" + rc.Intyear.ToString(),
                        Requesteddate = r.Createddate,
@@ -90,12 +90,13 @@ namespace HalloDocWebRepository.Implementation
                        Notes = rc.Notes,
                        Requesttypeid = r.Requesttypeid,
                        RegionName = reg.Name,
+                       RegionID = rc.Regionid,
                        RequestTypeName = rt.Name
 
                    };
             return data;
         }
-        public IQueryable getdataofdashboardcheckvise(int id, int check)
+        public IQueryable<AdminDashboardTableModel> getdataofdashboardcheckvise(int id, int check)
         {
             int[] status = new int[1];
             switch (id)
@@ -120,7 +121,7 @@ namespace HalloDocWebRepository.Implementation
                     break;
 
             }
-            IQueryable data = from r in _context.Requests
+            IQueryable<AdminDashboardTableModel> data = from r in _context.Requests
                    join rc in _context.Requestclients on r.Requestid equals rc.Requestid
                    join rt in _context.Requesttypes on r.Requesttypeid equals rt.Requesttypeid
                    join reg in _context.Regions on rc.Regionid equals reg.Regionid
@@ -129,7 +130,7 @@ namespace HalloDocWebRepository.Implementation
                    {
                        Name = rc.Firstname + ' ' + rc.Lastname,
                        Requestor = rt.Name + " , " + r.Firstname + ' ' + r.Lastname,
-                       physician = "Dr.Agola",/* + phy.Firstname,*/
+                       physician = r.Physicianid,
                        Dateofservice = r.Lastreservationdate,
                        DOB = rc.Intdate.ToString() + "/" + rc.Strmonth + "/" + rc.Intyear.ToString(),
                        Requesteddate = r.Createddate,
@@ -140,6 +141,7 @@ namespace HalloDocWebRepository.Implementation
                        Notes = rc.Notes,
                        Requesttypeid = r.Requesttypeid,
                        RegionName = reg.Name,
+                       RegionID = rc.Regionid,
                        RequestTypeName = rt.Name
                    };
             return data;
@@ -345,6 +347,11 @@ namespace HalloDocWebRepository.Implementation
         {
             _context.TokenRegisters.Update(tokenRegister);
             _context.SaveChanges();
+        }
+
+        public List<Adminregion> getadminregionname(int id)
+        {
+           return  _context.Adminregions.Where(m=> m.Adminid==id).ToList();
         }
     }
 }

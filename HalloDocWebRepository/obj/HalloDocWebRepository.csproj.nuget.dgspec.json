@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj": {}
+    "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj": {}
   },
   "projects": {
-    "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj": {
+    "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj",
+        "projectUniqueName": "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj",
         "projectName": "HalloDocWebRepository",
-        "projectPath": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj",
+        "projectPath": "D:\\ProjectMVC\\HalloDocWeb\\HalloDocWebRepository\\HalloDocWebRepository.csproj",
         "packagesPath": "C:\\Users\\pce96\\.nuget\\packages\\",
         "outputPath": "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWebRepository\\obj\\",
         "projectStyle": "PackageReference",

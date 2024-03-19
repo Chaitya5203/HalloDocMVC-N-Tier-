@@ -3,21 +3,13 @@ using HalloDocWebRepository.Interfaces;
 using HalloDocWebRepository.ViewModel;
 using Microsoft.AspNetCore.Http;
 using System.IO.Compression;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
+
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using NuGet.Protocol.Core.Types;
+
 using System.Net.Mail;
 using System.Net;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-using System.Xml.Linq;
+using DocumentFormat.OpenXml.Spreadsheet;
+
 namespace HalloDocWebServices.Interfaces
 {
     public class Admin_Service : IAdmin_Service
@@ -114,9 +106,9 @@ namespace HalloDocWebServices.Interfaces
             };
             _repository.setrequeststatuslogdata(statuslog);
         }
-        public IQueryable dashboardtabledata(int id, int check)
+        public IQueryable<AdminDashboardTableModel> dashboardtabledata(int id, int check)
         {
-            IQueryable data;
+            IQueryable<AdminDashboardTableModel> data;
             if (check == 0)
             {
                data = _repository.getdataofdashboard(id);
@@ -259,13 +251,27 @@ namespace HalloDocWebServices.Interfaces
         public AdminProfileModel getMyProfileData(string? v)
         {
             var adminUser = _repository.getAspnetuserByEmail(v);
-           
             AdminProfileModel model = new();
             model.adminuser = adminUser;
-            model.admin = _repository.getAdminByAspnetId(adminUser.Id);
+            var admin = _repository.getAdminByAspnetId(adminUser.Id);
+            model.admin = admin;
+            model.adminregion = _repository.getadminregionname(admin.Adminid);
+
             model.region = _repository.getregionById(model.admin.Regionid);
+            model.regions = _repository.getregion();
             return model;
-        }   
+        }
+
+        public List<Physician> getPhycision()
+        {
+            return _repository.getphysician();
+        }
+
+        public List<Region> getRegionList()
+        {
+            return _repository.getregion();
+        }
+
         public void getreqnoteofsavenote(int id,Notes n , string email)
         {
             var reqnotes = _repository.getrequestnotebyid(id);
@@ -690,9 +696,9 @@ namespace HalloDocWebServices.Interfaces
             return model;
         }
 
-        HalloDocWebRepository.ViewModel.Notes IAdmin_Service.getrequestnotes(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //HalloDocWebRepository.ViewModel.Notes IAdmin_Service.getrequestnotes(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}   
     }
 }

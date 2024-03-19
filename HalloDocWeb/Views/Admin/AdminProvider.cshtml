@@ -1,4 +1,94 @@
 ﻿@{
     Layout = "_AdminHeader";
 }
-Day
+<div class="container p-0">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between mt-3">
+                <h4 class="mt-3">Provider Information</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container hideonmobile bg-white rounded shadow mt-3 p-0">
+    <div class="row pt-3 pb-3">
+
+        <div class="col text-end">
+           <a asp-action="CreatePhysicianAccount" asp-controller="Admin"> <button class="btn btn-info text-white me-3" style="border-color: #54d4d3; color: #54d4d3;">
+                Create Provider Accout
+            </button>
+            </a>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr class="bg-light text-muted h-100">
+                <th scope="col">Stop Notification</th>
+                <th scope="col">Provider Name<i class="fa fa-arrow-up" aria-hidden="true"></i></th>
+                <th scope="col">Role</th>
+                <th scope="col">On Call Status</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="text-muted">
+            @* @foreach (var item in Model.Request.ToList())
+            { *@
+                <tr>
+                    <td><input type="checkbox" class="Subcheckbox" style="width:20px;height:20px"></td>
+                    <td>fhjbfvjb</td>
+                    <td>bhjbvchj</td>
+                    <td>bhjbvchj</td>
+                    <td>bhjbvchj</td>
+                <td>
+                    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">Contact</button>
+                    <a asp-action="EditPhysicianAccount" asp-controller="Admin"><button type="button" class="btn btn-outline-info">Edit</button></a>
+                </td>
+                </tr>
+            @* } *@
+        </tbody>
+    </table>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title" id="exampleModalLabel">Contact Your Provider</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3">
+                        Choose Communication to send message.
+                    </p>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                        <label class="form-check-label" for="inlineRadio1">SMS</label>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                        <label class="form-check-label" for="inlineRadio2">Email</label>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" >
+                        <label class="form-check-label" for="inlineRadio3">Both</label>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Message" id="notes" style="height: 100px"></textarea>
+                                <label for="floatingTextarea2">Message</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">                    
+                    <button type="button" class="btn btn-info text-white">Send</button>
+                    <button type="button" class="btn btn-white text-info border-info" data-bs-dismiss="modal">cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("providers").classList.add("active");
+</script>

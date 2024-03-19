@@ -56,7 +56,7 @@
                     <button class="moonbtn backtra me-2"><i class="fa-solid fa-moon"></i></button>
                 </li>
             </ul>
-            <hr>
+           
 
             @* <ul class="nav nav-tabs hideonmobile" id="myTab" role="tablist">
                 <li class="nav-item " role="presentation">
@@ -110,36 +110,67 @@
                     </a>
                 </li>
             </ul> *@
-            <div class="navbar navbar-expand-md navbar-light ">
+            <hr class="m-0" />
+            <div class="navbar navbar-expand-md  navbar-light ">
+                
                 <div class="collapse navbar-collapse " id="myNavbar">
+                    
                     <ul class="navbar-nav ">
                         <li class="nav-item ms-1">
                             <a class="nav-link " id="Dashboard" aria-current="page" asp-action="admindashboard" asp-controller="Admin">Dashboard</a>
                         </li>
                         <li class="nav-item ms-1">
-                            <a class="nav-link " href="#">Provider Location</a>
+                            <a class="nav-link " id="ProviderLocation" asp-action="AdminProviderLocation" asp-controller="Admin">Provider Location</a>
                         </li>
                         <li class="nav-item ms-1">
                             <a class="nav-link " id="profile" asp-action="AdminMyProfile" asp-controller="Admin">My Profile</a>
                         </li>
+                        <div class="dropdown navbar-dropdown">
+                            <button class="navbar-btn bg-white border-0 nav-link" type="button" id="provider" data-bs-toggle="dropdown" aria-expanded="false">
+                                Providers
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="provider">
+                                <li><a class="navbar-dropdown-item dropdown-item" asp-action="AdminProvider" asp-controller="Admin" id="providers">Provider</a></li>
+                                <li><a class="navbar-dropdown-item dropdown-item" href="#">Scheduling</a></li>
+                                <li><a class="navbar-dropdown-item dropdown-item" href="#">Invoicing</a></li>
+                            </ul>
+                        </div>
                         <li class="nav-item ms-1">
-                            <a class="nav-link " id="providers">Providers</a>
+                            <a class="nav-link " id="partners" asp-action="AdminPartner" asp-controller="Admin">Partners</a>
                         </li>
-                        <li class="nav-item ms-1">
-                            <a class="nav-link " id="partners">Partners</a>
-                        </li>
-                        <li class="nav-item ms-1">
-                            <a class="nav-link " id="access">Access</a>
-                        </li>
-                        <li class="nav-item ms-1">
-                            <a class="nav-link " id="records">Records</a>
-                        </li>
+                        <div class="dropdown navbar-dropdown ms-1">
+                            <button class="navbar-btn bg-white border-0 nav-link" type="button" id="access1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Access
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="access1">
+                                <li><a class="navbar-dropdown-item dropdown-item" id="access" asp-action="AdminAccess" asp-controller="Admin">Account Access</a></li>
+                                <li><a class="navbar-dropdown-item dropdown-item" href="#">User Access</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown navbar-dropdown ms-1">
+                            <button class="navbar-btn bg-white border-0 nav-link" type="button" id="records" data-bs-toggle="dropdown" aria-expanded="false">
+                                Records
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="records">
+                                @* <a class="navbar-dropdown-item dropdown-item" id="records" asp-action="AdminRecord" asp-controller="Admin">Records</a>
+                                <a class="navbar-dropdown-item dropdown-item" href="#">Search Records</a>
+                                <a class="navbar-dropdown-item dropdown-item" href="#">Email Logs</a>
+                                <a class="navbar-dropdown-item dropdown-item" href="#">SMS Logs</a>
+                                <a class="navbar-dropdown-item dropdown-item" href="#">Patient History</a>
+                                <a class="navbar-dropdown-item dropdown-item" href="#">Block History</a> *@
+                                <li><a class="navbar-dropdown-item dropdown-item" id="records" asp-action="AdminRecord" asp-controller="Admin">Search Records</a></li>
+                                <li><a class="navbar-dropdown-item dropdown-item" href="#">Email Logs</a></li>
+                                <li><a class="navbar-dropdown-item dropdown-item" href="#">SMS Logs</a></li>
+                                <li><a class="navbar-dropdown-item dropdown-item" href="#">Patient History</a></li>
+                                <li><a class="navbar-dropdown-item dropdown-item" href="#">Block History</a></li>
+                            </ul>
+                        </div>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
-    <div class="offcanvas offcanvas-start w-50 showonmobile hide bg-light" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas offcanvas-start w-50 showonmobile hide " data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel" style="background-color: rgba(255, 255, 255,0.99);">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Welcome <strong>@Accessor.HttpContext.Request.Cookies["Usarname"]</strong></h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -168,8 +199,7 @@
                     console.log(e.classList);
                     window.location.href = "/Admin/AdminProviderLocation";
                     break;
-            }
-         
+            }       
         }
     </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -177,8 +207,6 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @*     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script> *@
-
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
