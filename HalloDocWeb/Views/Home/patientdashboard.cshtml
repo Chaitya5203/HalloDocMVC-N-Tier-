@@ -108,7 +108,50 @@
                         {
                             <tr>
                                 <td>@Html.DisplayFor(modelItem => item.Createddate)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                                <td>@* @Html.DisplayFor(modelItem => item.Status) *@
+                                    @switch (item.Status)
+                                    {
+                                        case 1:
+                                            <span> Unassigned</span>
+
+                                            break;
+                                        case 2:
+                                            <span>
+                                                Accepted
+                                            </span>
+                                            break;
+                                        case 5 or 4:
+                                            <span>
+                                                Processing
+                                            </span>
+                                            break;
+                                        case 3:
+                                            <span>
+                                                Cancelled by Admin
+                                            </span>
+                                            break;
+                                        case 6:
+                                            <span>
+                                                Concluded
+                                            </span>
+                                            break;
+                                        case 7:
+                                            <span>
+                                                Cancelled by Patient
+                                            </span>
+                                            break;
+                                        case 8:
+                                            <span>
+                                                Closed
+                                            </span>
+                                            break;
+                                        case 9:
+                                            <span>
+                                                Unpaid
+                                            </span>
+                                            break;
+                                    }
+                                </td>
                                 <td><a asp-action="document" asp-controller="Home" asp-route-id="@item.Requestid"><button class="btn btn-white" style="border-color: #54d4d3; color: #54d4d3;">(@ViewBag.RequestIdCounts[item.Requestid])Document</button></a></td>
                              </tr>
                         }

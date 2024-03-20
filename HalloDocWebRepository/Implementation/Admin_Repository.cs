@@ -353,5 +353,22 @@ namespace HalloDocWebRepository.Implementation
         {
            return  _context.Adminregions.Where(m=> m.Adminid==id).ToList();
         }
+
+        public User getUser(string email)
+        {
+            return _context.Users.FirstOrDefault(m => m.Email == email);
+        }
+
+        public void addRequestTable(Request request)
+        {
+            _context.Requests.Add(request);
+            _context.SaveChanges() ;
+        }
+
+        public void addRequestClienttable(Requestclient requestclient)
+        {
+            _context.Requestclients.Add(requestclient);
+            _context.SaveChanges() ;
+        }
     }
 }

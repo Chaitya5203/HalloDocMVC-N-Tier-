@@ -2,9 +2,9 @@
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor Accessor
 @{
-    ViewData["Title"] = "Admin Dashboard Page";   
+    ViewData["Title"] = "Admin Dashboard Page";
     Layout = "_AdminHeader";
-    
+
 }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
@@ -14,52 +14,40 @@
         check = 0;
         id = 1;
         MyAjax();
-   
-    $('.statustablinks').click(function () {
-        $('.statustablinks').removeClass('active');
-        $(this).addClass('active');
-        $('.triangle-down').hide();
-        $(this).parent().find('.triangle-down').show();
-    });
+    
+        $('.statustablinks').click(function () {
+            $('.statustablinks').removeClass('active');
+            $(this).addClass('active');
+            $('.triangle-down').hide();
+            $(this).parent().find('.triangle-down').show();
+        });
 
 
-    $('#new-box').click(function () {
-        id = 1;
-        MyAjax();
-        // $.ajax({
-        //     url: "/Admin/New",
-        //     type: "POST",
-        //     data: { 'id': id , 'check' : 0},
-        //     dataType: "html",
-        //     success: function (data) {
-        //         $("#tableContent").html(data);
-        //     },
-        //     error: function () {
-        //         alert("No Projects Found");
-        //         $("#tableContent").html('An error has occurred');
-        //     }
-        // });
-    });
-    $('#pending-box').click(function () {
-        id = 2;
-        MyAjax();
-    });
-    $('#active-box').click(function () {
-        id = 3;
-        MyAjax();
-    });
-    $('#conclude-box').click(function () {
-        id = 4;
-        MyAjax();
-    });
-    $('#close-box').click(function () {
-        id = 5;
-        MyAjax();
-    });
-    $('#unpaid-box').click(function () {
-        id = 6;
-        MyAjax();
-    });
+        $('#new-box').click(function () {
+            id = 1;
+            MyAjax();
+            
+        });
+        $('#pending-box').click(function () {
+            id = 2;
+            MyAjax();
+        });
+        $('#active-box').click(function () {
+            id = 3;
+            MyAjax();
+        });
+        $('#conclude-box').click(function () {
+            id = 4;
+            MyAjax();
+        });
+        $('#close-box').click(function () {
+            id = 5;
+            MyAjax();
+        });
+        $('#unpaid-box').click(function () {
+            id = 6;
+            MyAjax();
+        });
 
     });
 
@@ -89,160 +77,166 @@
                 break;
         }
 
+    }
+
+    function exportfile(){
+        var search = document.getElementById("Searchinput").value;
+        var region = document.getElementById("SearchByRegion").value;
+        window.location.href = '/Admin/Export?id=' + id + '&check=' + check + '&searchValue=' + search + '&searchRegion=' + region;
+        // debugger;
+        // $.ajax({
+        //     url: "/Admin/Export",
+        //     type: "POST",
+        //     data: { 'id': id, 'check': check, 'searchValue': search, 'searchRegion': region, 'pagenumber': 1, 'pagesize': 3 },
+        //     dataType: "html",
+        //     success: function (data) {
+        //         $("#tableContent").html(data);
+        //     },
+        //     error: function () {
+        //         alert("No Projects Found");
+        //         $("#tableContent").html('An error has occurred');
+        //     }
+        // });
+    }
+
+    function MyAjax(pagenumber) {
+        if (pagenumber == 0) {
+            pagenumber = @Model.CurrentPage;
         }
-        function MyAjax(pagenumber) {
-            if (pagenumber == 0) {
-                pagenumber = @Model.CurrentPage;
+        var search = document.getElementById("Searchinput").value;
+        var region = document.getElementById("SearchByRegion").value;
+        $.ajax({
+            url: "/Admin/New",
+            type: "POST",
+            data: { 'id': id, 'check': check, 'searchValue': search, 'searchRegion': region, 'pagenumber': pagenumber, 'pagesize': 3 },
+            dataType: "html",
+            success: function (data) {
+                $("#tableContent").html(data);
+            },
+            error: function () {
+                alert("No Projects Found");
+                $("#tableContent").html('An error has occurred');
             }
-            var search = document.getElementById("Searchinput").value;
-            var region = document.getElementById("SearchByRegion").value;
-            $.ajax({
-                url: "/Admin/New",
-                type: "POST",
-                data: { 'id': id, 'check': check, 'searchValue': search, 'searchRegion': region, 'pagenumber': pagenumber, 'pagesize': 3 },
-                dataType: "html",
-                success: function (data) {
-                    $("#tableContent").html(data);
-                },
-                error: function () {
-                    alert("No Projects Found");
-                    $("#tableContent").html('An error has occurred');
-                }
-            });
-        }
-        document.getElementById("Dashboard").classList.add("active");
-
-
-        const input = document.querySelector("#phone");
-        const input2 = document.querySelector("#phone1");
-        const button = document.querySelector("#btn");
-        const errorMsg = document.querySelector("#error-msg");
-        const validMsg = document.querySelector("#valid-msg");
-
-        // here, the index maps to the error code returned from getValidationError - see readme
-        const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
-
-        // initialise plugin
-        const iti = window.intlTelInput(input, {
-            initialCountry: "us",
-            utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
         });
-        const iti1 = window.intlTelInput(input2, {
-            initialCountry: "us",
-            utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
-        });
+    }
+
+    document.getElementById("Dashboard").classList.add("active");
+
+
+
 </script>
 <style>
     .iti {
         width: 100%;
     }
+
     #phone, #phone1 {
         height: 58px;
     }
 </style>
 <div class="tab-pane fade show active" id="home" role="tabpanel">
-        <div class="container-fluid bg-light mt-3">
-            <div class="row status-tab d-flex justify-content-xl-center">
-               <div class="col-sm-4 col-md-4 col-lg-2 col-4 mb-3" style="padding-left:1px !important;">
-                    <button id="new-box" class="statustablinks darkblue w-100 border-0 p-0 text-start">
-                        <div class="p-1 rounded" style="border: solid thin #063982; ">
-                            <div class="d-flex flex-column">
-                                <span>
-                                    <small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/new.png" class="hideonmobile" style="height:30px;" />NEW</small>
-                                </span>
-                                <span class="h3 fw-bold">@ViewBag.NewCount</span>
-                            </div>
+    <div class="container-fluid bg-light mt-3">
+        <div class="row status-tab d-flex justify-content-xl-center">
+            <div class="col-sm-4 col-md-4 col-lg-2 col-4 mb-3" style="padding-left:1px !important;">
+                <button id="new-box" class="statustablinks darkblue w-100 border-0 p-0 text-start">
+                    <div class="p-1 rounded" style="border: solid thin #063982; ">
+                        <div class="d-flex flex-column">
+                            <span>
+                                <small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/new.png" class="hideonmobile" style="height:30px;" />NEW</small>
+                            </span>
+                            <span class="h3 fw-bold">@ViewBag.NewCount</span>
                         </div>
-                    </button>
-                    <div class="d-flex justify-content-center">
-                        <div class="darkbluetri triangle-down"></div>
                     </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
-                    <button id="pending-box" class="statustablinks lightblue w-100 p-0 border-0 text-start">
-                        <div class="p-1 rounded" style="border: solid thin #0AA2C0; ">
-                            <div class="d-flex flex-column">
-                                <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/pending.png" class="hideonmobile" style="height:30px;" />PENDING</small></span>
-                                <span class="h3 fw-bold"> @ViewBag.PendingCount</span>
-                            </div>
-                        </div>
-                    </button>
-                    <div class=" d-flex justify-content-center">
-                        <div class="lightbluetri triangle-down"></div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
-                    <button id="active-box" class="statustablinks green w-100 p-0 border-0 text-start">
-                        <div class="p-1 rounded" style="border: solid thin #198754; ">
-                            <div class="d-flex flex-column">
-                                <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/active.png" class="hideonmobile" style="height:30px;" />ACTIVE</small></span>
-                                <span class="h3 fw-bold">@ViewBag.ActiveCount</span>
-                            </div>
-                        </div>
-                    </button>
-                    <div class=" d-flex justify-content-center">
-                        <div class="greentri triangle-down"></div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
-                    <button id="conclude-box" class="statustablinks pink w-100 p-0 border-0 text-start">
-                        <div class="p-1 rounded" style="border: solid thin #AB296A; ">
-                            <div class="d-flex flex-column">
-                                <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/33.png" class="hideonmobile" style="height:30px;" />CONCLUDE</small></span>
-                                <span class="h3 fw-bold"> @ViewBag.ConcludeCount </span>
-                            </div>
-                        </div>
-                    </button>
-                    <div class=" d-flex justify-content-center">
-                        <div class="pinktri triangle-down"></div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
-                    <button id="close-box" class="statustablinks blue statustablinks blue w-100 p-0 border-0 text-start">
-                        <div class="p-1 rounded" style="border: solid thin #0A58CA; ">
-                            <div class="d-flex flex-column">
-                                <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/toclose.png" class="hideonmobile" style="height:30px;" />TO CLOSE</small></span>
-                                <span class="h3 fw-bold">@ViewBag.TocloseCount</span>
-                            </div>
-                        </div>
-                    </button>
-                    <div class=" d-flex justify-content-center">
-                        <div class="bluetri triangle-down"></div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:0px !important;">
-                    <button id="unpaid-box" class="statustablinks purple w-100 p-0 border-0 text-start">
-                        <div class="p-1 rounded" style="border: solid thin #8C68CD; ">
-                            <div class="d-flex flex-column">
-                                <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/unpaid.png" class="hideonmobile" style="height:30px;" />UNPAID</small></span>
-                                <span class="h3 fw-bold">@ViewBag.UnpaidCount</span>
-                            </div>
-                        </div>
-                    </button>
-                    <div class=" d-flex justify-content-center">
-                        <div class="purpletri triangle-down"></div>
-                    </div>
+                </button>
+                <div class="d-flex justify-content-center">
+                    <div class="darkbluetri triangle-down"></div>
                 </div>
             </div>
+            <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
+                <button id="pending-box" class="statustablinks lightblue w-100 p-0 border-0 text-start">
+                    <div class="p-1 rounded" style="border: solid thin #0AA2C0; ">
+                        <div class="d-flex flex-column">
+                            <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/pending.png" class="hideonmobile" style="height:30px;" />PENDING</small></span>
+                            <span class="h3 fw-bold"> @ViewBag.PendingCount</span>
+                        </div>
+                    </div>
+                </button>
+                <div class=" d-flex justify-content-center">
+                    <div class="lightbluetri triangle-down"></div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
+                <button id="active-box" class="statustablinks green w-100 p-0 border-0 text-start">
+                    <div class="p-1 rounded" style="border: solid thin #198754; ">
+                        <div class="d-flex flex-column">
+                            <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/active.png" class="hideonmobile" style="height:30px;" />ACTIVE</small></span>
+                            <span class="h3 fw-bold">@ViewBag.ActiveCount</span>
+                        </div>
+                    </div>
+                </button>
+                <div class=" d-flex justify-content-center">
+                    <div class="greentri triangle-down"></div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
+                <button id="conclude-box" class="statustablinks pink w-100 p-0 border-0 text-start">
+                    <div class="p-1 rounded" style="border: solid thin #AB296A; ">
+                        <div class="d-flex flex-column">
+                            <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/33.png" class="hideonmobile" style="height:30px;" />CONCLUDE</small></span>
+                            <span class="h3 fw-bold"> @ViewBag.ConcludeCount </span>
+                        </div>
+                    </div>
+                </button>
+                <div class=" d-flex justify-content-center">
+                    <div class="pinktri triangle-down"></div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:1px !important;">
+                <button id="close-box" class="statustablinks blue statustablinks blue w-100 p-0 border-0 text-start">
+                    <div class="p-1 rounded" style="border: solid thin #0A58CA; ">
+                        <div class="d-flex flex-column">
+                            <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/toclose.png" class="hideonmobile" style="height:30px;" />TO CLOSE</small></span>
+                            <span class="h3 fw-bold">@ViewBag.TocloseCount</span>
+                        </div>
+                    </div>
+                </button>
+                <div class=" d-flex justify-content-center">
+                    <div class="bluetri triangle-down"></div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-2 col-4" style="padding-left:0px !important;">
+                <button id="unpaid-box" class="statustablinks purple w-100 p-0 border-0 text-start">
+                    <div class="p-1 rounded" style="border: solid thin #8C68CD; ">
+                        <div class="d-flex flex-column">
+                            <span><small><img src="~/OneDrive_2024-01-17/SRS Screen Shorts/unpaid.png" class="hideonmobile" style="height:30px;" />UNPAID</small></span>
+                            <span class="h3 fw-bold">@ViewBag.UnpaidCount</span>
+                        </div>
+                    </div>
+                </button>
+                <div class=" d-flex justify-content-center">
+                    <div class="purpletri triangle-down"></div>
+                </div>
+            </div>
+        </div>
 
         <div class="row mt-3 d-flex flex-row">
             <div class="text-end d-md-flex hideonmobile justify-content-md-end ">
                 <h5 class="ms-2" style="position:absolute !important; left:10px !important;">Patients <span style="color:#063982">(New)</span></h5>
-                <button class="btn btn-info ms-1 text-white" type="button"><i class="fa-regular fa-paper-plane me-1"></i><small>Send Link</small></button>
+                <button class="btn btn-info ms-1 text-white" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-regular fa-paper-plane me-1"></i><small>Send Link</small></button>
                 <a class="text-decoration-none" asp-action="Patientrequestadmin" asp-controller="Admin">
                     <button class="btn btn-info text-white ms-1 border-info" type="button"><i class="fa-regular fa-note-sticky me-1"></i><small> Requests</small></button>
                 </a>
-                <button class="btn btn-info ms-1 text-white" type="button"><i class="fa fa-share-square me-1" aria-hidden="true"></i><small>Export</small></button>
+                <a onclick="exportfile()"><button class="btn btn-info ms-1 text-white" type="button"><i class="fa fa-share-square me-1" aria-hidden="true"></i><small>Export</small></button></a>
                 <a asp-action="ExportAll" class="btn btn-info text-white ms-1 border-info" type="button"><i class="fa fa-share-square me-1" aria-hidden="true"></i><small>Export All</small></a>
-                <button class="btn btn-info text-white ms-1" type="button"><i class="fa-regular fa-user me-1"></i><small>Request DTY Support</small></button>
+                <button class="btn btn-info text-white ms-1" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1" exampleModal1><i class="fa-regular fa-user me-1"></i><small>Request DTY Support</small></button>
             </div>
             <div class="text-end d-md-flex showonmobile hide justify-content-md-end ">
                 <h6 class="ms-2" style="position:absolute !important; left:10px !important;">Patients <span style="color:#063982">(New)</span></h6>
-                <button class="btn btn-info ms-1 p-1 text-white" type="button"><i class="fa-regular fa-paper-plane"></i></button>
-                <a class="text-decoration-none" asp-action="Patientrequestadmin" asp-controller="Admin"><button class="btn btn-info p-1 text-white ms-1 border-info" type="button"><i class="fa-regular fa-note-sticky"></i> </button> </a>
-                <button class="btn btn-info p-1 ms-1 text-white" type="button"><i class="fa fa-share-square" aria-hidden="true"></i></button>
-                <button class="btn btn-info p-1 text-white ms-1 border-info" type="button"><i class="fa fa-share-square" aria-hidden="true"></i></button>
-                <button class="btn btn-info p-1 text-white ms-1" type="button"><i class="fa-regular fa-user"></i></button>
+                <button class="btn btn-info ms-1 p-1 text-white" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-regular fa-paper-plane ms-1 me-1"></i></button>
+                <a class="text-decoration-none" asp-action="Patientrequestadmin" asp-controller="Admin"><button class="btn btn-info p-1 text-white ms-1 border-info" type="button"><i class="fa-regular fa-note-sticky ms-1 me-1"></i> </button> </a>
+                <a onclick="exportfile()"><button class="btn btn-info p-1 ms-1 text-white" type="button"><i class="fa fa-share-square ms-1 me-1" aria-hidden="true"></i></button></a>
+                <a asp-action="ExportAll"><button class="btn btn-info p-1 text-white ms-1 border-info" type="button"><i class="fa fa-share-square ms-1 me-1" aria-hidden="true"></i></button></a>
+                <button class="btn btn-info p-1 text-white ms-1" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1"><i class="fa-regular fa-user ms-1 me-1"></i></button>
             </div>
         </div>
         <div class="row g-2 mt-2 pt-2 pb-3 bg-white shadow rounded-1">
@@ -261,7 +255,7 @@
             </div>
             <div class="col-lg-8 col-md-12 col-sm-12">
                 <div class="text-end d-md-flex justify-content-md-end ">
-                    <button class="hideonmobile btn btn-white" style="border-color:gainsboro;" type="button" onclick="filter(this)" id="all">All</button>
+                    <button class="btn btn-white" style="border-color:gainsboro;" type="button" onclick="filter(this)" id="all">All</button>
                     <span class="p-2 border-info" onclick="filter(this)" type="button" id="patientdata"><i class="fa-solid fa-circle fa-xs me-2" style="color: #3ecc4e;"></i>Patient</span>
                     <span class="p-2" type="button" onclick="filter(this)" id="familydata"><i class="fa-solid fa-circle fa-xs me-2" style="color: #e6a00a;"></i>Family/Freind</span>
                     <span class="p-2 border-info" onclick="filter(this)" id="businessdata" type="button"><i class="fa-solid fa-circle fa-xs me-2" style="color: #DA6679;"></i>Business</span>
@@ -271,13 +265,94 @@
             </div>
         </div>
 
-            <div class="">
-                <div id="tableContent" class="table-responsive">
-                </div>
+        <div class="">
+            <div id="tableContent" class="table-responsive">
             </div>
         </div>
     </div>
+</div>
 @* </div> *@
 <footer class="text-center justify-content-center bg-secondary position-fixed w-100 bottom-0">
     <div class="">Terms Of Conditions <div class="vr "></div> Privacy Policy</div>
 </footer>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Send Mail to patient for submitting request</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="SendLink" asp-controller="Admin">
+                    <div class=" form-floating mb-3 text-muted">
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                        <label for="exampleFormControlInput1" class="form-label">Firstname</label>
+                        <span class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3 text-muted">
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
+                        <label for="exampleFormControlInput1" class="form-label">Lastname</label>
+                        <span class="text-danger"></span>
+                    </div>
+                    <div class=" form-floating mb-3 text-muted">
+                        <input id="phone" class="form-control inp2" type="tel" placeholder="Phone Number">
+                    </div>
+                    <div class=" form-floating mb-3 text-muted">
+                        <input asp-for=Email name="Email" type="email" class="form-control" id="email" placeholder="Email">
+                        <label for="email" class="form-label">Email</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info text-white">Send</button>
+                        <button type="button" class="btn btn-white text-info border-info" data-bs-dismiss="modal">cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Request Support</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-3">
+                    To all unscheduled Physicians: We are short on coverage and needs additional support On Call to respond to Requests.
+                </p>
+                <div class="form-floating mt-3">
+                    <textarea class="form-control text-secondary" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">Message</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info text-white">Send</button>
+                <button type="button" class="btn btn-white text-info border-info" data-bs-dismiss="modal">cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    const input = document.querySelector("#phone");
+    const input2 = document.querySelector("#phone1");
+    const button = document.querySelector("#btn");
+    const errorMsg = document.querySelector("#error-msg");
+    const validMsg = document.querySelector("#valid-msg");
+
+    // here, the index maps to the error code returned from getValidationError - see readme
+    const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+    // initialise plugin
+    const iti = window.intlTelInput(input, {
+        initialCountry: "us",
+        utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
+    });
+    const iti1 = window.intlTelInput(input2, {
+        initialCountry: "us",
+        utilsScript: "/intl-tel-input/js/utils.js?1706723638591"
+    });
+</script>

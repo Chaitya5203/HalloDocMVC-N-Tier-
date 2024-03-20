@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HalloDocWebRepository.ViewModel.Userdata1
+@{
     Layout = "_AdminHeader";
 }
 <div class="container text-end mt-3">
@@ -20,37 +21,36 @@
 
 </div>
 
-<form method="post" asp-action="RequestForsSomeone">
-    <div class="container bg-white rounded mt-3">
+<form method="post" asp-action="Patientrequestadmin" asp-controller="Admin">
+    <div class="container bg-white shadow  rounded mt-3">
         <div class="row">
             <div class="col-12 h5 mb-3 mt-3">
                 Patient
             </div>
-
             <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                <input asp-for=first_name type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
                 <label for="exampleFormControlInput1" class="form-label ms-2 ps-4">First name</label>
-                @*<span asp-validation-for="first_name" class="text-danger"></span>*@
+                <span asp-validation-for="first_name" class="text-danger"></span>
             </div>
             <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                <input name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
+                <input asp-for=last_name type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname">
                 <label for="exampleFormControlInput1" class="form-label ms-2 ps-4">last name </label>
-                @*<span asp-validation-for="last_name" class="text-danger"></span>*@
+                <span asp-validation-for="last_name" class="text-danger"></span>
             </div>
             <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                <input name="phonenumber" type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Phone Number">
+                <input asp-for=phonenumber type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Phone Number">
                 <label for="exampleFormControlInput1" class="form-label ms-2 ps-4">Phone Number</label>
-                @*<span asp-validation-for="phonenumber" class="text-danger"></span>*@
+                <span asp-validation-for="phonenumber" class="text-danger"></span>
             </div>
             <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                <input name="email" type="email" class="form-control" id="email" onblur="emailExists()" placeholder="Email">
+                <input asp-for=email type="email" class="form-control" id="email" onblur="emailExists()" placeholder="Email">
                 <label for="email" class="form-label ms-2 ps-4">Email</label>
-                @*<span asp-validation-for="email" class="text-danger"></span>*@
+                <span asp-validation-for="email" class="text-danger"></span>
             </div>
             <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                <input type="date" name="dob" class="form-control" id="exampleFormControlInput1" placeholder="Date Of Birth">
+                <input type="date" asp-for=dob class="form-control" id="exampleFormControlInput1" placeholder="Date Of Birth">
                 <label for="exampleFormControlInput1" class="form-label ms-2 ps-4">Date Of Birth</label>
-                @*<span asp-validation-for="dob" class="text-danger"></span>*@
+                <span asp-validation-for="dob" class="text-danger"></span>
             </div>
         </div>
 
@@ -59,29 +59,29 @@
                 Location
             </div>
             <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
-                <input type="text" name="street" class="form-control" id="exampleFormControlInput1" placeholder="Street">
+                <input type="text" asp-for=street class="form-control" id="exampleFormControlInput1" placeholder="Street">
                 <label for="exampleFormControlInput1" class="form-label ms-2 ps-4">Street</label>
-                @*<span asp-validation-for="street" class="text-danger"></span>*@
+                <span asp-validation-for="street" class="text-danger"></span>
             </div>
             <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
-                <input type="text" name="city" class="form-control" id="exampleFormControlInput1" placeholder="City">
+                <input type="text" asp-for=city class="form-control" id="exampleFormControlInput1" placeholder="City">
                 <label for="exampleFormControlInput1" class="form-label ms-2 ps-4">City</label>
-                @*<span asp-validation-for="city" class="text-danger"></span>*@
+                <span asp-validation-for="city" class="text-danger"></span>
             </div>
             <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
-                <input type="text" name="state" class="form-control" id="exampleFormControlInput1" placeholder="State">
+                <input type="text" asp-for=state class="form-control" id="exampleFormControlInput1" placeholder="State">
                 <label for="exampleFormControlInput1" class="form-label ms-2 ps-4">State</label>
-                @*<span asp-validation-for="state" class="text-danger"></span>*@
+                <span asp-validation-for="state" class="text-danger"></span>
             </div>
             <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
-                <input type="text" name="zipcode" class="form-control" id="exampleFormControlInput1" placeholder="Zip Code">
+                <input type="text" asp-for=zipcode class="form-control" id="exampleFormControlInput1" placeholder="Zip Code">
                 <label for="exampleFormControlInput1" class="form-label ms-2 ps-4">Zip Code</label>
-                @*<span asp-validation-for="zipcode" class="text-danger"></span>*@
+                <span asp-validation-for="zipcode" class="text-danger"></span>
             </div>
             <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
-                <input type="text" name="room" class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
+                <input type="text" asp-for=room class="form-control" id="exampleFormControlInput1" placeholder="Firstname">
                 <label for="exampleFormControlInput1" class="form-label ms-2 ps-4">Room # / (Suite Optional)</label>
-                @*<span asp-validation-for="room" class="text-danger"></span>*@
+                <span asp-validation-for="room" class="text-danger"></span>
             </div>
             <div class="col-sm-12 col-md-6 col-xl-6 mb-3">
                 <button class="btn btn-white border-info text-info me-2" style="height: calc(3.5rem + 2px); width:100px;" id="inp2">Verify</button>
@@ -98,7 +98,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-floating mb-3 text-muted">
-                    <textarea name="admin_notes" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
                     <label for="floatingTextarea2" class="ps-4">Admin Notes (Optional)</label>
                 </div>
 

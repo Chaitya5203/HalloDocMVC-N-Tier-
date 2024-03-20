@@ -55,5 +55,8 @@ namespace HalloDocWebRepository.Interfaces
         TokenRegister updatetokenregister(int id);
         void updateandsavetokenregister(TokenRegister tokenRegister);
         List<Adminregion> getadminregionname(int id);
+        User getUser(string email);
+        void addRequestTable(Request request);
+        void addRequestClienttable(Requestclient requestclient);
     }
 }

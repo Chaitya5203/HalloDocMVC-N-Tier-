@@ -53,68 +53,68 @@
                     </a>
                 </li>
                 <li>
-                    <button class="moonbtn backtra me-2"><i class="fa-solid fa-moon"></i></button>
+                    <button class="moonbtn backtra me-2" onclick="abc()"><i class="fa-solid fa-moon"></i></button>
                 </li>
             </ul>
-           
+
 
             @* <ul class="nav nav-tabs hideonmobile" id="myTab" role="tablist">
-                <li class="nav-item " role="presentation">
-                    <a asp-action="admindashboard" asp-controller="Admin" class="text-decoration-none">
-                        <button class="nav-link active border-0 text-muted" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
-                            <b>Dashboard</b>
-                        </button>
-                    </a>
-                </li>
-                <li class="nav-item " role="presentation">
-                    <a asp-action="adminproviderlocation" asp-controller="admin" class="text-decoration-none">
-                        <button class="nav-link  text-muted border-0 " id="provider-location-tab" data-bs-toggle="tab" data-bs-target="#providerlocation" type="button" role="tab" aria-controls="providerlocation" aria-selected="true">
-                            <b>Provider Location</b>
-                        </button>
+            <li class="nav-item " role="presentation">
+            <a asp-action="admindashboard" asp-controller="Admin" class="text-decoration-none">
+            <button class="nav-link active border-0 text-muted" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
+            <b>Dashboard</b>
+            </button>
+            </a>
+            </li>
+            <li class="nav-item " role="presentation">
+            <a asp-action="adminproviderlocation" asp-controller="admin" class="text-decoration-none">
+            <button class="nav-link  text-muted border-0 " id="provider-location-tab" data-bs-toggle="tab" data-bs-target="#providerlocation" type="button" role="tab" aria-controls="providerlocation" aria-selected="true">
+            <b>Provider Location</b>
+            </button>
 
-                    </a>
-                </li>
-                <li class="nav-item " role="presentation">
-                    <a asp-action="AdminMyProfile" asp-controller="Admin" class="text-decoration-none">
-                        <button class="nav-link  text-muted border-0 " onclick="navigationtab(this)" id="profile" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">
-                            <b>My Profile</b>
-                        </button>
-                    </a>
-                </li>
-                <li class="nav-item " role="presentation">
-                    <a asp-action="AdminProvider" asp-controller="Admin" class="text-decoration-none">
-                        <button class="nav-link text-muted border-0 " id="providers-tab" data-bs-toggle="tab" data-bs-target="#providers" type="button" role="tab" aria-controls="providers" aria-selected="true">
-                            <b>Providers</b>
-                        </button>
-                    </a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a asp-action="AdminPartner" asp-controller="Admin" class="text-decoration-none">
-                        <button class="nav-link text-muted border-0 " id="partners-tab" data-bs-toggle="tab" data-bs-target="#partners" type="button" role="tab" aria-controls="partners" aria-selected="true">
-                            <b>Partners</b>
-                        </button>
-                    </a>
-                </li>
-                <li class="nav-item " role="presentation">
-                    <a asp-action="AdminAccess" asp-controller="Admin" class="text-decoration-none">
-                        <button class="nav-link text-muted border-0 " id="Accedss-tab" data-bs-toggle="tab" data-bs-target="#access" type="button" role="tab" aria-controls="access" aria-selected="true">
-                            <b>Access</b>
-                        </button>
-                    </a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a asp-action="AdminRecord" asp-controller="Admin" class="text-decoration-none">
-                        <button class="nav-link text-muted border-0 " id="Records-tab" data-bs-toggle="tab" data-bs-target="#records" type="button" role="tab" aria-controls="records" aria-selected="true">
-                            <b>Records</b>
-                        </button>
-                    </a>
-                </li>
+            </a>
+            </li>
+            <li class="nav-item " role="presentation">
+            <a asp-action="AdminMyProfile" asp-controller="Admin" class="text-decoration-none">
+            <button class="nav-link  text-muted border-0 " onclick="navigationtab(this)" id="profile" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">
+            <b>My Profile</b>
+            </button>
+            </a>
+            </li>
+            <li class="nav-item " role="presentation">
+            <a asp-action="AdminProvider" asp-controller="Admin" class="text-decoration-none">
+            <button class="nav-link text-muted border-0 " id="providers-tab" data-bs-toggle="tab" data-bs-target="#providers" type="button" role="tab" aria-controls="providers" aria-selected="true">
+            <b>Providers</b>
+            </button>
+            </a>
+            </li>
+            <li class="nav-item" role="presentation">
+            <a asp-action="AdminPartner" asp-controller="Admin" class="text-decoration-none">
+            <button class="nav-link text-muted border-0 " id="partners-tab" data-bs-toggle="tab" data-bs-target="#partners" type="button" role="tab" aria-controls="partners" aria-selected="true">
+            <b>Partners</b>
+            </button>
+            </a>
+            </li>
+            <li class="nav-item " role="presentation">
+            <a asp-action="AdminAccess" asp-controller="Admin" class="text-decoration-none">
+            <button class="nav-link text-muted border-0 " id="Accedss-tab" data-bs-toggle="tab" data-bs-target="#access" type="button" role="tab" aria-controls="access" aria-selected="true">
+            <b>Access</b>
+            </button>
+            </a>
+            </li>
+            <li class="nav-item" role="presentation">
+            <a asp-action="AdminRecord" asp-controller="Admin" class="text-decoration-none">
+            <button class="nav-link text-muted border-0 " id="Records-tab" data-bs-toggle="tab" data-bs-target="#records" type="button" role="tab" aria-controls="records" aria-selected="true">
+            <b>Records</b>
+            </button>
+            </a>
+            </li>
             </ul> *@
             <hr class="m-0" />
             <div class="navbar navbar-expand-md  navbar-light ">
-                
+
                 <div class="collapse navbar-collapse " id="myNavbar">
-                    
+
                     <ul class="navbar-nav ">
                         <li class="nav-item ms-1">
                             <a class="nav-link " id="Dashboard" aria-current="page" asp-action="admindashboard" asp-controller="Admin">Dashboard</a>
@@ -190,23 +190,46 @@
             @RenderBody()
         </main>
     </div>
-    <script >
-        function navigationtab(e){
+    <script>
+        
+        function navigationtab(e) {
             var id = e.id;
-            switch(id){
+            switch (id) {
                 case "profile":
                     e.classList.add("active");
                     console.log(e.classList);
                     window.location.href = "/Admin/AdminProviderLocation";
                     break;
-            }       
+            }
+        }
+
+
+
+
+        if (localStorage.getItem("theme") == null) {
+            localStorage.setItem("theme", "light");
+        }
+        if (localStorage.getItem("theme") == "dark") {
+            document.documentElement.setAttribute('data-bs-theme', 'dark')
+        }
+        function abc() {
+            alert(localStorage.getItem("theme"));
+            if (localStorage.getItem("theme") == "light") {
+
+                document.documentElement.setAttribute('data-bs-theme', 'dark');
+                localStorage.setItem("theme", "dark");
+            }
+            else {
+                document.documentElement.setAttribute('data-bs-theme', 'light');
+                alert();
+
+                localStorage.setItem("theme", "light");
+            }
         }
     </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @*     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script> *@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

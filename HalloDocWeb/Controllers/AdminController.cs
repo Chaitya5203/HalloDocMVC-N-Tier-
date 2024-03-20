@@ -217,7 +217,11 @@ namespace HalloDocWeb.Controllers
             _service.closecasetounpaid(id, n);
             return RedirectToAction(nameof(Admindashboard));
         }
-
+        public IActionResult SendLink(AdminDashboardDataWithRegionModel info)
+        {
+            _service.SendLink(info.Email);
+            return RedirectToAction(nameof(Admindashboard));
+        }
         public IActionResult Patientrequestadmin()
         {
             return View();
@@ -349,7 +353,6 @@ namespace HalloDocWeb.Controllers
                 return Problem("Invalid Request");
             return RedirectToAction(nameof(HomeController.Index),"Home");
         }
-        
         public ActionResult View_Note(int id)
         {
             var note = _service.getrequestnotes(id);
@@ -449,7 +452,6 @@ namespace HalloDocWeb.Controllers
                 throw;
             }
         }
-
         public List<Request> GetTableData()
         {
             List<Request> data = new List<Request>();
@@ -459,5 +461,112 @@ namespace HalloDocWeb.Controllers
             return data;
         }
 
+        public ActionResult Export(int id, int check, string searchValue, int searchRegion, int pagesize = 3, int pagenumber = 1)
+        {
+            try
+            {
+
+                IQueryable<AdminDashboardTableModel> tabledata1;
+               
+                tabledata1 = _service.dashboardtabledata(id, check);
+              
+                if (searchValue != null)
+                {
+                    if (!string.IsNullOrWhiteSpace(searchValue))
+                    {
+                        tabledata1 = tabledata1.Where(x => x.Name.ToLower().Contains(searchValue.ToLower()));
+                    }
+                }
+                if (searchRegion != 0)
+                {
+                    tabledata1 = tabledata1.Where(x => x.RegionID == searchRegion);
+                }
+               
+
+
+
+              
+                var workbook = new XLWorkbook();
+                var worksheet = workbook.Worksheets.Add("Data");
+
+
+                worksheet.Cell(1, 1).Value = "Name";
+                worksheet.Cell(1, 2).Value = "Date Of Birth";
+                worksheet.Cell(1, 3).Value = "Requestor";
+                worksheet.Cell(1, 4).Value = "Physician Name";
+                worksheet.Cell(1, 5).Value = "Date of Service";
+                worksheet.Cell(1, 6).Value = "Requested Date";
+                worksheet.Cell(1, 7).Value = "Phone Number";
+                worksheet.Cell(1, 8).Value = "Address";
+                worksheet.Cell(1, 9).Value = "Notes";
+
+                int row = 2;
+                foreach (var item in tabledata1)
+                {
+                    var statusClass = "";
+                    var dos = "";
+                    var notes = "";
+                    if (item.Requesttypeid == 1)
+                    {
+                        statusClass = "patient";
+                    }
+                    else if (item.Requesttypeid == 4)
+                    {
+                        statusClass = "business";
+                    }
+                    else if (item.Requesttypeid == 2)
+                    {
+                        statusClass = "family";
+                    }
+                    else
+                    {
+                        statusClass = "concierge";
+                    }
+                    //foreach (var stat in item.Requeststatuslogs)
+                    //{
+                    //    if (stat.Status == 2)
+                    //    {
+                    //        dos = stat.Createddate.ToString("MMMM dd,yyyy");
+                    //        notes = stat.Notes ?? "";
+                    //    }
+                    //}
+                    worksheet.Cell(row, 1).Value = item.Name;
+                    worksheet.Cell(row, 2).Value = item.DOB;
+                    worksheet.Cell(row, 3).Value = item.Requestor;
+                    worksheet.Cell(row, 4).Value = item.physician;
+                    worksheet.Cell(row, 5).Value = item.Dateofservice;
+                    worksheet.Cell(row, 6).Value = item.Requesteddate;
+                    worksheet.Cell(row, 7).Value = item.Phonenumber;
+                    worksheet.Cell(row, 8).Value = item.Address;
+                    worksheet.Cell(row, 9).Value = item.Notes;
+                    row++;
+                }
+                worksheet.Columns().AdjustToContents();
+
+                var memoryStream = new MemoryStream();
+                workbook.SaveAs(memoryStream);
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "data.xlsx");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+                throw;
+            }
+        }
+       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Patientrequestadmin(Userdata1 info)
+        {
+            if (ModelState.IsValid)
+            {
+                _service.saveadminrequest(info, HttpContext.Request.Cookies["UsarEnail"]);
+                return RedirectToAction(nameof(Admindashboard));
+            }
+
+            return View();
+            }
+        }
     }
-}  

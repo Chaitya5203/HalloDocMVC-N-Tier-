@@ -9,6 +9,8 @@ using System.Collections;
 using System.Net.Mail;
 using System.Net;
 using DocumentFormat.OpenXml.Spreadsheet;
+using NuGet.Protocol.Core.Types;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace HalloDocWebServices.Interfaces
 {
@@ -33,7 +35,6 @@ namespace HalloDocWebServices.Interfaces
             };
             _repository.addrequestwisefiletablebyadmin(reqclient);
         }
-
         public void AgreementAccepted(int id)
         {
             Request req = _repository.getdataofrequest(id);
@@ -55,7 +56,6 @@ namespace HalloDocWebServices.Interfaces
                 _repository.setrequestdata(req);
             }
         }
-
         public bool AgreementCancel(int id, string notes)
         {
             Request req = _repository.getdataofrequest(id);
@@ -83,7 +83,6 @@ namespace HalloDocWebServices.Interfaces
             }
             return false;
         }
-
         public void closecasetounpaid(int id , viewuploadmin n)
         {
             var request = _repository.getdataofrequest(id);
@@ -205,6 +204,35 @@ namespace HalloDocWebServices.Interfaces
             model.Other = info.Other;
             return model;
         }
+        //public List<Request> Export(string s, int reqtype, int regid, int state)
+        //{
+        //    Dictionary<int, int> mapping = new()
+        //    {
+        //         { 1, 1 }, { 2, 2 }, { 3, 5 }, { 4, 3 }, { 5, 3 }, { 6, 4 }, { 7, 5 }, { 8, 5 }, { 9, 6 },{10,0},{11,0}
+        //    };
+
+        //    var query = _repository.getINlist();
+
+        //    query = query.Where(x => mapping[x.Status] == state).ToList();
+
+        //    if (s != null)
+        //    {
+        //        query = query.Where(r => (bool)r.Requestclients.FirstOrDefault().Firstname.Contains(s) || (bool)r.Requestclients.FirstOrDefault().Lastname.Contains(s)).ToList();
+        //    }
+
+        //    if (reqtype != 0)
+        //    {
+        //        query = query.Where(r => r.Requesttypeid == reqtype).ToList();
+        //    }
+
+        //    if (regid != 0)
+        //    {
+        //        query = query.Where(r => r.Requestclients.FirstOrDefault().Regionid == regid).ToList();
+
+        //    }
+
+        //    return query;
+        //}
         public Casetag getcasetag(int reasonid)
         {
             var reason = _repository.getcasetagdata(reasonid);
@@ -261,17 +289,14 @@ namespace HalloDocWebServices.Interfaces
             model.regions = _repository.getregion();
             return model;
         }
-
         public List<Physician> getPhycision()
         {
             return _repository.getphysician();
         }
-
         public List<Region> getRegionList()
         {
             return _repository.getregion();
         }
-
         public void getreqnoteofsavenote(int id,Notes n , string email)
         {
             var reqnotes = _repository.getrequestnotebyid(id);
@@ -296,8 +321,6 @@ namespace HalloDocWebServices.Interfaces
                 _repository.addreqnotetablewithnewnotw(addreq);   
             }   
         }
-
-
         public Request getrequestdata(int id, string name)
         {
             var request= _repository.getdataofrequest(id);
@@ -387,7 +410,6 @@ namespace HalloDocWebServices.Interfaces
             notes.req_id = id;
             return notes;
         }
-
         public Requestclient getReviewAgreementData(TokenRegister token)
         {
             
@@ -396,13 +418,11 @@ namespace HalloDocWebServices.Interfaces
             return client;
 
         }
-
         public TokenRegister getTokenRegidterDataByToken(string token)
         {
             TokenRegister tokenreg = _repository.getTokenRegisterByToken(token);
             return tokenreg;
         }
-
         public requestclientvisedata getviewcasedataofpatient(int id)
         {
             var data = _repository.getdataofviewcase(id);
@@ -433,7 +453,6 @@ namespace HalloDocWebServices.Interfaces
             };
             _repository.setblockrequestdata(blockrequest);
         }
-
         public void insertordertable(sendorder sendorder)
         {
             Orderdetail orderdetail1 = new Orderdetail
@@ -449,7 +468,6 @@ namespace HalloDocWebServices.Interfaces
             };
             _repository.storeordertable(orderdetail1);
         }
-
         public void insertrequeststatuslogtable(int id, string notes, int reasonid)
         {
             Requeststatuslog statuslog = new Requeststatuslog
@@ -545,6 +563,85 @@ namespace HalloDocWebServices.Interfaces
         public Requestwisefile RequestwisefilesSerbyadmin(int id)
         {
             return _repository.RequestwisefilesRepobyadmin(id);
+        }
+        public void saveadminrequest(Userdata1 info, string? v)
+        {
+            User user = _repository.getUser(info.email);
+            if (user == null)
+            {
+                var receiver = info.email;
+                var subject = "Create Account";
+                var message = "Tap on link for Create Account: https://localhost:7234/Home/CreateAccount/?Email=" + receiver;
+                var mail = "chaityamehta522003@gmail.com";
+                var password = "iwbc edlf rgpt oucs";
+
+                var client = new SmtpClient("smtp.gmail.com", 587)
+                {
+                    EnableSsl = true,
+                    Credentials = new NetworkCredential(mail, password)
+                };
+                client.SendMailAsync(new MailMessage(from: mail, to: receiver, subject, message));
+            }
+
+            if (user == null)
+            {
+
+                Request request = new Request
+                {
+                    Requesttypeid = 2,
+                    Isurgentemailsent = new BitArray(1, false),
+                    Status = 1,
+                    Firstname = info.first_name,
+                    Lastname = info.last_name,
+                    Email = info.email,
+                    Phonenumber = info.phonenumber,
+                    Createddate = info.Createddate,
+                };
+                _repository.addRequestTable(request);
+                Requestclient requestclient = new Requestclient
+                {
+                    Requestid = request.Requestid,
+                    Firstname = info.first_name,
+                    Lastname = info.last_name,
+                    Email = info.email,
+                    Phonenumber = info.phonenumber,
+                    Regionid = 1,
+                    Street = info.street,
+                    City = info.city,
+                    Zipcode = info.zipcode
+                };
+
+                _repository.addRequestClienttable(requestclient);
+            }
+            else
+            {
+                Request request = new Request
+                {
+                    Requesttypeid = 2,
+                    Userid = user.Userid,
+                    Isurgentemailsent = new BitArray(1, false),
+                    Status = 1,
+                    Firstname = info.first_name,
+                    Lastname = info.last_name,
+                    Email = info.email,
+                    Phonenumber = info.phonenumber,
+                    Createddate = info.Createddate,
+                };
+                _repository.addRequestTable(request);
+                Requestclient requestclient = new Requestclient
+                {
+                    Requestid = request.Requestid,
+                    Firstname = info.first_name,
+                    Lastname = info.last_name,
+                    Email = info.email,
+                    Phonenumber = info.phonenumber,
+                    Regionid = 1,
+                    Street = info.street,
+                    City = info.city,
+                    Zipcode = info.zipcode
+                };
+                _repository.addRequestClienttable(requestclient);
+            }
         }
         public void saveEncounterForm(Encounterformmodel info)
         {
@@ -653,6 +750,25 @@ namespace HalloDocWebServices.Interfaces
             };
             client.SendMailAsync(mailMessage);
         }
+        public void SendLink(string email)
+        {
+            Random random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            //var token = new string(Enumerable.Repeat(chars, 8).Select(s => s[random.Next(s.Length)]).ToArray());
+            var receiver = email;
+            var subject = "Documents of Request " ;
+            var message = "https://localhost:44327/Home/submit_request_screen" ;
+            var mailMessage = new MailMessage(from: "chaityamehta522003@gmail.com", to: receiver, subject, message);
+            var mail = "chaityamehta522003@gmail.com";
+            var password = "iwbc edlf rgpt oucs";
+            var client = new SmtpClient("smtp.gmail.com", 587)
+            {
+                EnableSsl = true,
+                Credentials = new NetworkCredential(mail, password)
+            };
+            client.SendMailAsync(mailMessage);
+          
+        }
         public Request setclearcase(int id)
         {
             var request = _repository.getdataofrequest(id);
@@ -695,10 +811,5 @@ namespace HalloDocWebServices.Interfaces
             model.DOB = date;
             return model;
         }
-
-        //HalloDocWebRepository.ViewModel.Notes IAdmin_Service.getrequestnotes(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}   
     }
 }
