@@ -21,6 +21,32 @@ namespace HalloDocWebServices.Interfaces
         {
             _repository = repository;
         }
+
+        public void addphysiciandata(PhysicianProfile phy)
+        {
+            Physician model = new ();
+            //model.Username = user.UserName;
+            //model.Password = user.PasswordHash;
+            model.Firstname ="Dr"+ phy.Firstname;
+            model.Lastname = phy.Lastname;
+            model.Email = phy.Email;
+            model.Mobile = phy.Mobile;
+            model.Medicallicense = phy.Medicallicense;
+            model.Npinumber = phy.Npinumber;
+            model.Syncemailaddress = phy.Syncemailaddress;
+            model.Address1 = phy.Address1;
+            model.Address2 = phy.Address2;
+            model.City = phy.City;
+            model.Zip = phy.Zip;
+            model.Adminnotes = phy.Adminnotes;
+            model.Altphone = phy.Altphone;
+            model.Businessname = phy.Businessname;
+            model.Businesswebsite = phy.Businesswebsite;
+            model.Createdby = "Admin";
+            model.Createddate=DateTime.Now;
+            _repository.addphysiciantable(model);
+        }
+
         public void addrequestwisefilebyadmin(int id, IFormFile fileToUpload)
         {
             var uploads = Path.Combine("wwwroot", "uploads");
@@ -293,6 +319,14 @@ namespace HalloDocWebServices.Interfaces
         {
             return _repository.getphysician();
         }
+
+        //public PhysicianProfile getphysicianprofiledata(int id)
+        //{
+        //    var physician = _repository.getphysiciandata(id);
+        //    PhysicianProfile model = new();
+        //    \mo
+        //}
+
         public List<Region> getRegionList()
         {
             return _repository.getregion();
@@ -554,6 +588,7 @@ namespace HalloDocWebServices.Interfaces
             var region = _repository.getregion();
             //var region = _context.Regions.ToList();
             model.regions = region;
+            model.SelectedRegion = regionid;
             return model;
         }
         public Requestclient opencancelmodel(int id)
@@ -793,12 +828,36 @@ namespace HalloDocWebServices.Interfaces
         public void updateadminform(AdminProfileModel info)
         {
             var model = _repository.getadmindata(info.admin);
+            var regions1 = _repository.getadminregionname(info.admin.Adminid);
+            List<int> adminreg = new();
+            foreach (Adminregion region in regions1)
+            {
+                adminreg.Add(region.Regionid);
+            }
+
+            List<int> addd = info.SelectedReg.Except(adminreg).ToList();
+            List<int> del = adminreg.Except(info.SelectedReg).ToList();
+
+            foreach (int reg in addd)
+            {
+                Adminregion ar = new() { Adminid = info.admin.Adminid, Regionid = reg };
+                _repository.AddAdminReg(ar);
+            }
+
+            foreach (int reg in del)
+            {
+                Adminregion ar = new() { Adminid = info.admin.Adminid, Regionid = reg };
+                _repository.RemoveAdminReg(ar);
+            }
+
             model.Firstname = info.admin.Firstname;
             model.Lastname = info.admin.Lastname;
             model.Email = info.admin.Email;
             model.Mobile = info.admin.Mobile;
             model.Modifieddate = DateTime.Now;
+
             _repository.saveadmindata(model);
+
         }
         public viewuploadmin viewUploadAdmin(int id)
         {

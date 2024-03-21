@@ -53,7 +53,7 @@ namespace HalloDocWebServices.Implementation
             };
             _repository.addAspuserTable(aspuser);
            
-            User user = new User
+            User user = new()
             {
                 Firstname = req.Firstname,
                 Lastname = req.Lastname,

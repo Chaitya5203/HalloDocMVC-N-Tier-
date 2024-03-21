@@ -10,6 +10,7 @@ namespace HalloDocWebServices.Interfaces
 {
     public interface IAdmin_Service
     {
+        void addphysiciandata(PhysicianProfile phy);
         void addrequestwisefilebyadmin(int id, IFormFile fileToUpload);
         void AgreementAccepted(int id);
         bool AgreementCancel(int id, string notes);
@@ -26,6 +27,9 @@ namespace HalloDocWebServices.Interfaces
         public sendorder getdataofsendorder(int id,int hprof,int hproftype);
         AdminProfileModel getMyProfileData(string? v);
         List<Physician> getPhycision();
+        //PhysicianProfile getphysicianprofiledata(int id);
+
+        //List<Physician> getphysiciandata(PhysicianProfile info);
         List<Region> getRegionList();
         public void getreqnoteofsavenote(int id,Notes n ,string email);
         public Request getrequestdata(int id,string name);

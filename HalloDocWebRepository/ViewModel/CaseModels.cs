@@ -9,5 +9,7 @@ namespace HalloDocWebRepository.ViewModel
         public Requestclient Requestclient { get; set; }
         public List<Region> regions { get; set; }
         public List<Physician> physics { get; set; }
+
+        public int? SelectedRegion { get; set; }
     }
 }

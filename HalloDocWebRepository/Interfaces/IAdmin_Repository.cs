@@ -58,5 +58,9 @@ namespace HalloDocWebRepository.Interfaces
         User getUser(string email);
         void addRequestTable(Request request);
         void addRequestClienttable(Requestclient requestclient);
+        object getadminregions(int adminid);
+        void AddAdminReg(Adminregion ar);
+        void RemoveAdminReg(Adminregion ar);
+        void addphysiciantable(Physician model);
     }
 }

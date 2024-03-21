@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using HalloDocWebService.Authentication;
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Wordprocessing;
+using DocumentFormat.OpenXml.Office2010.Excel;
 namespace HalloDocWeb.Controllers
 {
     public class AdminController : Controller
@@ -115,9 +116,20 @@ namespace HalloDocWeb.Controllers
         {
             return View();
         }
-        public IActionResult EditPhysicianAccount()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreatePhysicianAccount(PhysicianProfile phy)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                _service.addphysiciandata(phy);
+                return RedirectToAction(nameof(Admindashboard));
+            }
+            return RedirectToAction(nameof(Admindashboard));
+        }
+        public IActionResult EditPhysicianAccount(int id)
+        {
+            return View(/*_service.getphysicianprofiledata(id)*/);
         }
         
         public IActionResult AdminProviderLocation()
@@ -133,9 +145,14 @@ namespace HalloDocWeb.Controllers
         {
             return View();
         }
+        //[HttpPost]
         public IActionResult AdminProvider()
         {
-            return View();
+            PhysicianProfile model = new();
+            model.physician = _service.getPhycision();
+            //model.re = _service.getRegionList();
+            //var model = _service.getPhycision(info);
+            return View(model);
         }
         public IActionResult AdminAccess()
         {

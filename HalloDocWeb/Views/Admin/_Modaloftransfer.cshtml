@@ -1,8 +1,11 @@
 ﻿<!-- Modal Transfer Case To Patient In Pending State-->
+@model HalloDocWebRepository.ViewModel.CaseModels;
+
 <script>
     $(document).ready(function () {
         var myModalAssign = new bootstrap.Modal(document.getElementById('Transfercase'));
         myModalAssign.show();
+        
     });
     $('#cancelbtn').click(function (e) {
         $("#modalpopup").remove();
@@ -13,6 +16,7 @@
         console.log("cghch");
         var regions = $('#Allregion').val();
         var reqid = '@TempData["reqid"]';
+        var SelectedRegion = document.getElementById("Allregion").value
         $.ajax({
             url: "/Admin/Modaloftransfer",
             data: { 'id': reqid, 'regionid': regions },
@@ -66,8 +70,9 @@
                    
                     
                     <div class="form-floating mb-3">
-                        <select class="form-select" id="Allregion" >
-                            <option value="0">select</option>
+                        <select class="form-select" id="Allregion" asp-for="SelectedRegion">
+                            @* <option value="0">select</option> *@
+                            <option value=0 selected>All Regions</option>
                             @foreach (var item in Model.regions)
                             {
                                 <option value="@item.Regionid">@item.Name</option>

@@ -370,5 +370,29 @@ namespace HalloDocWebRepository.Implementation
             _context.Requestclients.Add(requestclient);
             _context.SaveChanges() ;
         }
+
+        public object getadminregions(int adminid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddAdminReg(Adminregion ar)
+        {
+            _context.Adminregions.Add(ar);
+                _context.SaveChanges() ;    
+        }
+
+        public void RemoveAdminReg(Adminregion ar)
+        {
+            var data = _context.Adminregions.FirstOrDefault(x => x.Adminid == ar.Adminid && x.Regionid==ar.Regionid);
+            _context.Adminregions.Remove(data);
+            _context.SaveChanges() ;
+        }
+
+        public void addphysiciantable(Physician model)
+        {
+            _context.Physicians.Add(model);
+            _context.SaveChanges() ;
+        }
     }
 }

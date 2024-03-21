@@ -13,5 +13,6 @@ namespace HalloDocWebRepository.ViewModel
         public Aspnetuser adminuser { get; set; }   
         public Region region { get; set; }
         public List<Region> regions { get; set; }
+        public List<int>? SelectedReg { get; set; }
     }
 }

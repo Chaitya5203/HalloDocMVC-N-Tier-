@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HalloDocWebRepository.ViewModel.PhysicianProfile
+@{
     Layout = "_AdminHeader";
 }
 <div class="container p-0">
@@ -11,8 +12,12 @@
     </div>
 </div>
 <div class="container hideonmobile bg-white rounded shadow mt-3 p-0">
-    <div class="row pt-3 pb-3">
-
+    <div class="row pt-3 ps-2 pb-3">
+        <div class="col-6">
+        <select name="" class="form-select" aria-label="Default select example">
+            <option value="0">All</option>
+        </select>
+        </div>
         <div class="col text-end">
            <a asp-action="CreatePhysicianAccount" asp-controller="Admin"> <button class="btn btn-info text-white me-3" style="border-color: #54d4d3; color: #54d4d3;">
                 Create Provider Accout
@@ -32,20 +37,40 @@
             </tr>
         </thead>
         <tbody class="text-muted">
-            @* @foreach (var item in Model.Request.ToList())
-            { *@
+            @foreach (var item in Model.physician)
+            { 
                 <tr>
                     <td><input type="checkbox" class="Subcheckbox" style="width:20px;height:20px"></td>
-                    <td>fhjbfvjb</td>
-                    <td>bhjbvchj</td>
-                    <td>bhjbvchj</td>
-                    <td>bhjbvchj</td>
+                    <td>@item.Firstname, @item.Lastname</td>
+                    <td>Physician</td>
+                    <td>Unavailable</td>
+                    <td>
+                        @* @Html.DisplayFor(modelItem => item.Status) *@
+                        @switch (item.Status)
+                        {
+                            case 1:
+                                <span> Active</span>
+
+                                break;
+                            case 2:
+                                <span>
+                                    In Active
+                                </span>
+                                break;
+                            case 3:
+                                <span>
+                                    Pending
+                                </span>
+                                break;
+                        }
+                    </td>
+                    @* <td>@item.Status</td> *@
                 <td>
                     <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">Contact</button>
-                    <a asp-action="EditPhysicianAccount" asp-controller="Admin"><button type="button" class="btn btn-outline-info">Edit</button></a>
+                    <a asp-action="EditPhysicianAccount" asp-controller="Admin" asp-route-id="@item.Physicianid"><button type="button" class="btn btn-outline-info">Edit</button></a>
                 </td>
                 </tr>
-            @* } *@
+            } 
         </tbody>
     </table>
     <!-- Modal -->
@@ -90,5 +115,5 @@
     </div>
 </div>
 <script>
-    document.getElementById("providers").classList.add("active");
+    document.getElementById("provider").classList.add("active");
 </script>
