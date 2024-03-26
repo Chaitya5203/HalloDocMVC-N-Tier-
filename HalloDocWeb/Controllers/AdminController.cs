@@ -103,7 +103,6 @@ namespace HalloDocWeb.Controllers
         //    else
         //        return PartialView("_New", data);
         //}
-
         public async Task<ActionResult> View_Case(int id)
         {
             return View(_service.getviewcasedataofpatient(id));
@@ -129,9 +128,20 @@ namespace HalloDocWeb.Controllers
         }
         public IActionResult EditPhysicianAccount(int id)
         {
-            return View(/*_service.getphysicianprofiledata(id)*/);
+            return View(_service.getphysicianprofiledata(id));
         }
-        
+        public IActionResult SavePhysicianInfo(PhysicianProfile phy)
+        {
+            _service.updatephysicianprofile(phy);
+            //int id = phy.PhysicianId;
+            return RedirectToAction("EditPhysicianAccount", new { id = phy.PhysicianId }) ;
+        }
+        public IActionResult SavePhysicianBillingInfo(PhysicianProfile phy)
+        {
+            _service.updatephysicianbilling(phy);
+            //int id = phy.PhysicianId;
+            return RedirectToAction("EditPhysicianAccount", new { id = phy.PhysicianId });
+        }
         public IActionResult AdminProviderLocation()
         {
             return View();
@@ -154,15 +164,27 @@ namespace HalloDocWeb.Controllers
             //var model = _service.getPhycision(info);
             return View(model);
         }
+        public IActionResult CreateRole(int check)
+        {
+            return View(_service.GetMenuData(check));
+        }
+        public IActionResult EditRole(int id)
+        {
+            return View(_service.getrolewisedataofrole(id));
+        }
+        public IActionResult GenerateRole(string RoleName, string[] selectedRoles, int check)
+        {
+            _service.generateRole(RoleName, selectedRoles, check, HttpContext.Request.Cookies["UsarEmail"]);
+            return RedirectToAction(nameof(AdminAccess));
+        }
         public IActionResult AdminAccess()
         {
-            return View();
+            return View(_service.getrolewisedata());
         }
         public IActionResult AdminRecord()
         {
             return View();
         }
-        
         public IActionResult ReviewAgreement(string token )
         {
             TokenRegister tokenReg = _service.getTokenRegidterDataByToken(token);
@@ -498,10 +520,6 @@ namespace HalloDocWeb.Controllers
                 {
                     tabledata1 = tabledata1.Where(x => x.RegionID == searchRegion);
                 }
-               
-
-
-
               
                 var workbook = new XLWorkbook();
                 var worksheet = workbook.Worksheets.Add("Data");
@@ -572,7 +590,6 @@ namespace HalloDocWeb.Controllers
                 throw;
             }
         }
-       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Patientrequestadmin(Userdata1 info)

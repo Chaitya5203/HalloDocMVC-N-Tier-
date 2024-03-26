@@ -10,6 +10,9 @@ namespace HalloDocWebRepository.ViewModel
 {
     public class PhysicianProfile
     {
+        public List<Physicianregion> physicianregion { get; set; }
+        public List<Region> regions { get; set; }
+        public List<int>? SelectedReg { get; set; }
         public List<Physician>? physician { get; set; }
         public string? Firstname { get; set; } = null!;
         public string? Lastname { get; set; }
@@ -26,6 +29,7 @@ namespace HalloDocWebRepository.ViewModel
         public string? Address2 { get; set; }
         public string? City { get; set; }
         public int? Regionid { get; set; }
+        public int PhysicianId { get; set; }
         public string? Zip { get; set; }
         public string? Altphone { get; set; }
         public string? Createdby { get; set; } = null!;

@@ -22,6 +22,7 @@ namespace HalloDocWebRepository.Interfaces
         public Request getdataofrequest(int id);
         public Casetag getcasetagdata(int reasonid);
         void setrequestdata(Request request);
+
         void setblockrequestdata(Blockrequest blockrequest);
         public Requestnote getrequestnotebyid(int id);
         void Addreqnotetable(Requestnote reqnotes);
@@ -62,5 +63,17 @@ namespace HalloDocWebRepository.Interfaces
         void AddAdminReg(Adminregion ar);
         void RemoveAdminReg(Adminregion ar);
         void addphysiciantable(Physician model);
+        Physician getphysiciandata(int id);
+        List<Physicianregion> getphysicianregionname(int id);
+        void updatePhysician(Physician physician);
+        void AddPhysicianReg(Physicianregion pr);
+        void RemovePhysicianReg(Physicianregion pr);
+        List<Menu> getmenudataof();
+        List<Menu> getMenuListWithCheck(int check);
+        void saveRole(Role role);
+        void saveRoleMenu(Rolemenu rolemenu);
+        List<Role> getallrole();
+        Role getdataofrole(int id);
+        List<Rolemenu> getdataofrolemenu(int id);
     }
 }

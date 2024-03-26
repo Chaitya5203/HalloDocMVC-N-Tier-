@@ -24,8 +24,13 @@
     align-items: center;
     border-radius: 10px;
 }
+
+.form-floating > .form-control-plaintext ~ label::after, .form-floating > .form-control:focus ~ label::after, .form-floating > .form-control:not(:placeholder-shown) ~ label::after, .form-floating > .form-select ~ label::after{
+    background-color : transparent !important;
+}
+
 .accordion-button::after {
-    display:none;
+    display: none;
 }
     .usericon {
     position: absolute;
@@ -34,7 +39,7 @@
 .faicon {
     position: absolute;
     top: 0px;
-    right: 0px;
+    right: 17px;
     padding: 20px;
     width: 25px;
     /* right: 0px; */

@@ -3,14 +3,9 @@ using HalloDocWebRepository.Interfaces;
 using HalloDocWebRepository.ViewModel;
 using Microsoft.AspNetCore.Http;
 using System.IO.Compression;
-
 using System.Collections;
-
 using System.Net.Mail;
 using System.Net;
-using DocumentFormat.OpenXml.Spreadsheet;
-using NuGet.Protocol.Core.Types;
-using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace HalloDocWebServices.Interfaces
 {
@@ -230,6 +225,32 @@ namespace HalloDocWebServices.Interfaces
             model.Other = info.Other;
             return model;
         }
+
+        public void generateRole(string roleName, string[] selectedRoles, int check ,string email)
+        {
+            var roles = selectedRoles[0].Split(',');
+            Role role = new Role();
+            role.Name = roleName;
+            role.Createddate = DateTime.Now;
+            role.Accounttype = (short)check;
+            role.Createdby = email;
+            role.Isdeleted = new BitArray(1, false);
+            _repository.saveRole(role);
+            
+            foreach(string item in roles)
+            {
+                Rolemenu rolemenu = new Rolemenu();
+                rolemenu.Roleid = role.Roleid;
+                rolemenu.Menuid = Int32.Parse(item) ;
+                _repository.saveRoleMenu(rolemenu);
+            }
+        }
+
+        public List<Role> getrolewisedata()
+        {
+            return _repository.getallrole();
+        }
+
         //public List<Request> Export(string s, int reqtype, int regid, int state)
         //{
         //    Dictionary<int, int> mapping = new()
@@ -302,6 +323,22 @@ namespace HalloDocWebServices.Interfaces
             sendorder.id = id;
             return sendorder;
         }
+
+        public RoleModel GetMenuData(int check)
+        {
+            RoleModel model = new();
+            model.SelectedRole = check;
+            if (check == 0){
+                
+                model.menu = _repository.getmenudataof();
+            }
+            else
+            {
+                model.menu = _repository.getMenuListWithCheck(check);
+            }
+            return model;
+        }
+
         public AdminProfileModel getMyProfileData(string? v)
         {
             var adminUser = _repository.getAspnetuserByEmail(v);
@@ -320,12 +357,32 @@ namespace HalloDocWebServices.Interfaces
             return _repository.getphysician();
         }
 
-        //public PhysicianProfile getphysicianprofiledata(int id)
-        //{
-        //    var physician = _repository.getphysiciandata(id);
-        //    PhysicianProfile model = new();
-        //    \mo
-        //}
+        public PhysicianProfile getphysicianprofiledata(int id)
+        {   
+            var phy = _repository.getphysiciandata(id);
+            PhysicianProfile model = new();
+            model.physicianregion = _repository.getphysicianregionname(id);
+            model.regions = _repository.getregion();
+            model.Address1 = phy.Address1;
+            model.Firstname = phy.Firstname;
+            model.Lastname = phy.Lastname;
+            model.Email = phy.Email;
+            model.Mobile = phy.Mobile;
+            model.Medicallicense = phy.Medicallicense;
+            model.Npinumber = phy.Npinumber;
+            model.Syncemailaddress = phy.Syncemailaddress;
+            model.Address2 = phy.Address2;
+            model.City = phy.City;
+            model.Zip = phy.Zip;
+            model.PhysicianId = id;
+            model.Adminnotes = phy.Adminnotes;
+            model.Altphone = phy.Altphone;
+            model.Businessname = phy.Businessname;
+            model.Businesswebsite = phy.Businesswebsite;
+            model.Createdby = "Admin";
+            model.Createddate = DateTime.Now;
+            return model;
+        }
 
         public List<Region> getRegionList()
         {
@@ -859,6 +916,56 @@ namespace HalloDocWebServices.Interfaces
             _repository.saveadmindata(model);
 
         }
+
+        public void updatephysicianbilling(PhysicianProfile model)
+        {
+            var physician = _repository.getPhysicianById(model.PhysicianId);
+            physician.Address1 = model.Address1;
+            physician.Address2 = model.Address2;
+            physician.City = model.City;
+            physician.Zip = model.Zip;
+            physician.Altphone = model.Altphone;
+            physician.Modifieddate = DateTime.Now;
+            _repository.updatePhysician(physician);
+        }
+
+        public void updatephysicianprofile(PhysicianProfile model)
+        {
+            var physician = _repository.getPhysicianById(model.PhysicianId);
+            var regions1 = _repository.getphysicianregionname(model.PhysicianId);
+            List<int> physicianregion = new();
+            foreach (Physicianregion region in regions1)
+            {
+                physicianregion.Add(region.Regionid);
+            }
+
+            List<int> addd = model.SelectedReg.Except(physicianregion).ToList();
+            List<int> del = physicianregion.Except(model.SelectedReg).ToList();
+
+            foreach (int reg in addd)
+            {
+                Physicianregion pr = new() { Physicianid = model.PhysicianId, Regionid = reg };
+                _repository.AddPhysicianReg(pr);
+            }
+
+            foreach (int reg in del)
+            {
+                Physicianregion pr = new() { Physicianid = model.PhysicianId, Regionid = reg };
+                _repository.RemovePhysicianReg(pr);
+            }
+
+            physician.Firstname = model.Firstname;
+            physician.Lastname = model.Lastname;
+            physician.Email = model.Email;
+            physician.Mobile = model.Mobile;
+            physician.Medicallicense = model.Medicallicense;
+            physician.Npinumber = model.Npinumber;
+            physician.Syncemailaddress = model.Syncemailaddress;
+            physician.Modifiedby = model.Email;
+            physician.Modifieddate = DateTime.Now;
+            _repository.updatePhysician(physician); 
+        }
+
         public viewuploadmin viewUploadAdmin(int id)
         {
             var patientData = _repository.getdataofviewcase(id);
@@ -868,6 +975,19 @@ namespace HalloDocWebServices.Interfaces
             model.confirmationDetail = _repository.getdataofrequest(id);
             model.FileList = _repository.getRequestWiseFileList(id);
             model.DOB = date;
+            return model;
+        }
+
+        public RoleModel getrolewisedataofrole(int id)
+        {
+            var role =_repository.getdataofrole(id);
+            
+            //var menu = _repository.getmenubyroleid(id);
+            RoleModel model = new RoleModel();
+            model.rolemenus = _repository.getdataofrolemenu(id);
+            model.menu = _repository.getmenudataof();
+            model.RoleName = role.Name;
+            model.SelectedRole = role.Accounttype;
             return model;
         }
     }

@@ -71,29 +71,29 @@ namespace HalloDocWebRepository.Implementation
 
             }
             IQueryable<AdminDashboardTableModel> data = from r in _context.Requests
-                   join rc in _context.Requestclients on r.Requestid equals rc.Requestid
-                   join rt in _context.Requesttypes on r.Requesttypeid equals rt.Requesttypeid
-                   join reg in _context.Regions on rc.Regionid equals reg.Regionid
-                   where status.Any(s => s == r.Status)  
-                   select new AdminDashboardTableModel
-                   {
-                       Name = rc.Firstname + ' ' + rc.Lastname,
-                       Requestor = rt.Name + " , " + r.Firstname + ' ' + r.Lastname,
-                       physician = r.Physicianid,
-                       Dateofservice = r.Lastreservationdate,
-                       DOB = rc.Intdate.ToString() + "/" + rc.Strmonth + "/" + rc.Intyear.ToString(),
-                       Requesteddate = r.Createddate,
-                       Phonenumber = rc.Phonenumber,
-                       Email = r.Email,
-                       Address = rc.Street + " , " + rc.City + " , " + rc.Street + " , " + rc.Zipcode,
-                       Requestid = r.Requestid,
-                       Notes = rc.Notes,
-                       Requesttypeid = r.Requesttypeid,
-                       RegionName = reg.Name,
-                       RegionID = rc.Regionid,
-                       RequestTypeName = rt.Name
+                                                        join rc in _context.Requestclients on r.Requestid equals rc.Requestid
+                                                        join rt in _context.Requesttypes on r.Requesttypeid equals rt.Requesttypeid
+                                                        join reg in _context.Regions on rc.Regionid equals reg.Regionid
+                                                        where status.Any(s => s == r.Status)
+                                                        select new AdminDashboardTableModel
+                                                        {
+                                                            Name = rc.Firstname + ' ' + rc.Lastname,
+                                                            Requestor = rt.Name + " , " + r.Firstname + ' ' + r.Lastname,
+                                                            physician = r.Physicianid,
+                                                            Dateofservice = r.Lastreservationdate,
+                                                            DOB = rc.Intdate.ToString() + "/" + rc.Strmonth + "/" + rc.Intyear.ToString(),
+                                                            Requesteddate = r.Createddate,
+                                                            Phonenumber = rc.Phonenumber,
+                                                            Email = r.Email,
+                                                            Address = rc.Street + " , " + rc.City + " , " + rc.Street + " , " + rc.Zipcode,
+                                                            Requestid = r.Requestid,
+                                                            Notes = rc.Notes,
+                                                            Requesttypeid = r.Requesttypeid,
+                                                            RegionName = reg.Name,
+                                                            RegionID = rc.Regionid,
+                                                            RequestTypeName = rt.Name
 
-                   };
+                                                        };
             return data;
         }
         public IQueryable<AdminDashboardTableModel> getdataofdashboardcheckvise(int id, int check)
@@ -122,31 +122,31 @@ namespace HalloDocWebRepository.Implementation
 
             }
             IQueryable<AdminDashboardTableModel> data = from r in _context.Requests
-                   join rc in _context.Requestclients on r.Requestid equals rc.Requestid
-                   join rt in _context.Requesttypes on r.Requesttypeid equals rt.Requesttypeid
-                   join reg in _context.Regions on rc.Regionid equals reg.Regionid
-                   where status.Any(s => s == r.Status) && r.Requesttypeid == check
-                   select new AdminDashboardTableModel
-                   {
-                       Name = rc.Firstname + ' ' + rc.Lastname,
-                       Requestor = rt.Name + " , " + r.Firstname + ' ' + r.Lastname,
-                       physician = r.Physicianid,
-                       Dateofservice = r.Lastreservationdate,
-                       DOB = rc.Intdate.ToString() + "/" + rc.Strmonth + "/" + rc.Intyear.ToString(),
-                       Requesteddate = r.Createddate,
-                       Phonenumber = rc.Phonenumber,
-                       Email = r.Email,
-                       Address = rc.Street + " , " + rc.City + " , " + rc.Street + " , " + rc.Zipcode,
-                       Requestid = r.Requestid,
-                       Notes = rc.Notes,
-                       Requesttypeid = r.Requesttypeid,
-                       RegionName = reg.Name,
-                       RegionID = rc.Regionid,
-                       RequestTypeName = rt.Name
-                   };
+                                                        join rc in _context.Requestclients on r.Requestid equals rc.Requestid
+                                                        join rt in _context.Requesttypes on r.Requesttypeid equals rt.Requesttypeid
+                                                        join reg in _context.Regions on rc.Regionid equals reg.Regionid
+                                                        where status.Any(s => s == r.Status) && r.Requesttypeid == check
+                                                        select new AdminDashboardTableModel
+                                                        {
+                                                            Name = rc.Firstname + ' ' + rc.Lastname,
+                                                            Requestor = rt.Name + " , " + r.Firstname + ' ' + r.Lastname,
+                                                            physician = r.Physicianid,
+                                                            Dateofservice = r.Lastreservationdate,
+                                                            DOB = rc.Intdate.ToString() + "/" + rc.Strmonth + "/" + rc.Intyear.ToString(),
+                                                            Requesteddate = r.Createddate,
+                                                            Phonenumber = rc.Phonenumber,
+                                                            Email = r.Email,
+                                                            Address = rc.Street + " , " + rc.City + " , " + rc.Street + " , " + rc.Zipcode,
+                                                            Requestid = r.Requestid,
+                                                            Notes = rc.Notes,
+                                                            Requesttypeid = r.Requesttypeid,
+                                                            RegionName = reg.Name,
+                                                            RegionID = rc.Regionid,
+                                                            RequestTypeName = rt.Name
+                                                        };
             return data;
         }
-        public Requestclient getdataofviewcase (int id)
+        public Requestclient getdataofviewcase(int id)
         {
             return _context.Requestclients.FirstOrDefault(m => m.Requestid == id);
         }
@@ -182,12 +182,12 @@ namespace HalloDocWebRepository.Implementation
         public void setrequestdata(Request request)
         {
             _context.Requests.Update(request);
-            _context.SaveChanges ();
+            _context.SaveChanges();
         }
         public void setblockrequestdata(Blockrequest blockrequest)
         {
             _context.Blockrequests.Add(blockrequest);
-            _context.SaveChanges ();
+            _context.SaveChanges();
         }
         public Requestnote getrequestnotebyid(int id)
         {
@@ -196,20 +196,20 @@ namespace HalloDocWebRepository.Implementation
         public void Addreqnotetable(Requestnote reqnotes)
         {
             _context.Requestnotes.Update(reqnotes);
-            _context.SaveChanges ();
+            _context.SaveChanges();
         }
         public void addreqnotetablewithnewnotw(Requestnote addreq)
         {
             _context.Requestnotes.Add(addreq);
-            _context.SaveChanges ();
+            _context.SaveChanges();
         }
-        public Requestwisefile getRequestWiseFileList(int id,string filename)
+        public Requestwisefile getRequestWiseFileList(int id, string filename)
         {
             return _context.Requestwisefiles.FirstOrDefault(m => m.Requestid == id && m.Isdeleted == null && m.Filename == filename);
         }
         public List<Requestwisefile> getRequestWiseFileList(int id)
         {
-            return _context.Requestwisefiles.Where(m => m.Requestid == id && m.Isdeleted == null ).ToList();
+            return _context.Requestwisefiles.Where(m => m.Requestid == id && m.Isdeleted == null).ToList();
         }
         public Requestwisefile getRequestWiseFile(int id)
         {
@@ -218,7 +218,7 @@ namespace HalloDocWebRepository.Implementation
         public void updateRequestWiseFileTable(Requestwisefile file)
         {
             _context.Requestwisefiles.Update(file);
-            _context.SaveChanges ();    
+            _context.SaveChanges();
         }
 
         public void addrequestwisefiletablebyadmin(Requestwisefile reqclient)
@@ -232,7 +232,7 @@ namespace HalloDocWebRepository.Implementation
             return _context.Requestwisefiles.Find(id);
         }
 
-        public Requestwisefile getRequestWiseFileListByFileName(string fl,int id)
+        public Requestwisefile getRequestWiseFileListByFileName(string fl, int id)
         {
             return _context.Requestwisefiles.FirstOrDefault(m => m.Filename == fl && m.Requestid == id && m.Isdeleted == null);
         }
@@ -244,12 +244,12 @@ namespace HalloDocWebRepository.Implementation
 
         public List<Healthprofessionaltype> gethealthprofessionaltypedata()
         {
-            return _context.Healthprofessionaltypes.ToList();   
+            return _context.Healthprofessionaltypes.ToList();
         }
 
         public List<Healthprofessional> gethealthprofessionaldatabyid(int hprof)
         {
-            return _context.Healthprofessionals.Where(m=> m.Profession== hprof).ToList();
+            return _context.Healthprofessionals.Where(m => m.Profession == hprof).ToList();
         }
 
         public Healthprofessional getBusinessDetailById(int hprof)
@@ -330,7 +330,7 @@ namespace HalloDocWebRepository.Implementation
 
         public TokenRegister getTokenRegisterByToken(string token)
         {
-            return  _context.TokenRegisters.FirstOrDefault(m => m.TokenValue == token && m.IsDeleted != new BitArray(1 , true));
+            return _context.TokenRegisters.FirstOrDefault(m => m.TokenValue == token && m.IsDeleted != new BitArray(1, true));
         }
 
         public Requestclient getRequestClientByEmail(string? email)
@@ -340,10 +340,10 @@ namespace HalloDocWebRepository.Implementation
 
         public TokenRegister updatetokenregister(int id)
         {
-            return _context.TokenRegisters.FirstOrDefault(m=> m.Requestid == id && m.IsDeleted != new BitArray(1,true));
+            return _context.TokenRegisters.FirstOrDefault(m => m.Requestid == id && m.IsDeleted != new BitArray(1, true));
         }
 
-        public void updateandsavetokenregister(TokenRegister tokenRegister )
+        public void updateandsavetokenregister(TokenRegister tokenRegister)
         {
             _context.TokenRegisters.Update(tokenRegister);
             _context.SaveChanges();
@@ -351,7 +351,7 @@ namespace HalloDocWebRepository.Implementation
 
         public List<Adminregion> getadminregionname(int id)
         {
-           return  _context.Adminregions.Where(m=> m.Adminid==id).ToList();
+            return _context.Adminregions.Where(m => m.Adminid == id).ToList();
         }
 
         public User getUser(string email)
@@ -362,13 +362,13 @@ namespace HalloDocWebRepository.Implementation
         public void addRequestTable(Request request)
         {
             _context.Requests.Add(request);
-            _context.SaveChanges() ;
+            _context.SaveChanges();
         }
 
         public void addRequestClienttable(Requestclient requestclient)
         {
             _context.Requestclients.Add(requestclient);
-            _context.SaveChanges() ;
+            _context.SaveChanges();
         }
 
         public object getadminregions(int adminid)
@@ -379,20 +379,85 @@ namespace HalloDocWebRepository.Implementation
         public void AddAdminReg(Adminregion ar)
         {
             _context.Adminregions.Add(ar);
-                _context.SaveChanges() ;    
+            _context.SaveChanges();
         }
 
         public void RemoveAdminReg(Adminregion ar)
         {
-            var data = _context.Adminregions.FirstOrDefault(x => x.Adminid == ar.Adminid && x.Regionid==ar.Regionid);
+            var data = _context.Adminregions.FirstOrDefault(x => x.Adminid == ar.Adminid && x.Regionid == ar.Regionid);
             _context.Adminregions.Remove(data);
-            _context.SaveChanges() ;
+            _context.SaveChanges();
         }
 
         public void addphysiciantable(Physician model)
         {
             _context.Physicians.Add(model);
-            _context.SaveChanges() ;
+            _context.SaveChanges();
+        }
+
+        public Physician getphysiciandata(int id)
+        {
+            return _context.Physicians.FirstOrDefault(m => m.Physicianid == id);
+        }
+
+        public List<Physicianregion> getphysicianregionname(int id)
+        {
+            return _context.Physicianregions.Where(m => m.Physicianid == id).ToList();
+        }
+
+        public void updatePhysician(Physician physician)
+        {
+            _context.Physicians.Update(physician);
+            _context.SaveChanges();
+        }
+
+        public void AddPhysicianReg(Physicianregion pr)
+        {
+            _context.Physicianregions.Add(pr);
+            _context.SaveChanges();
+        }
+
+        public void RemovePhysicianReg(Physicianregion pr)
+        {
+            var data = _context.Physicianregions.FirstOrDefault(x => x.Physicianid == pr.Physicianid && x.Regionid == pr.Regionid);
+            _context.Physicianregions.Remove(data);
+            _context.SaveChanges();
+        }
+
+        public List<Menu> getmenudataof()
+        {
+            return _context.Menus.ToList();
+        }
+
+        public List<Menu> getMenuListWithCheck(int check)
+        {
+            return _context.Menus.Where(m => m.Accounttype == check).ToList();
+        }
+
+        public void saveRole(Role role)
+        {
+            _context.Roles.Add(role);
+            _context.SaveChanges();
+        }
+        public void saveRoleMenu(Rolemenu role)
+        {
+            _context.Rolemenus.Add(role);
+            _context.SaveChanges();
+        }
+
+        public List<Role> getallrole()
+        {
+            return _context.Roles.ToList();
+        }
+
+        public Role getdataofrole(int id)
+        {
+            return _context.Roles.FirstOrDefault(m => m.Roleid == id);
+        }
+
+        public List<Rolemenu> getdataofrolemenu(int id)
+        {
+            return _context.Rolemenus.Where(x=>x.Roleid == id).ToList();
         }
     }
 }

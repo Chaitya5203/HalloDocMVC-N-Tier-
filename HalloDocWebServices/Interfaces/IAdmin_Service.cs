@@ -21,13 +21,14 @@ namespace HalloDocWebServices.Interfaces
         public MemoryStream DownloadAllServicebyadmin( string[] filenames);
         public byte[] DownloadSingleFilebyadmin(int id);
         public Encounterformmodel EncounterAdmin(int id);
-       
+        void generateRole(string roleName, string[] selectedRoles, int check,string email);
         public Casetag getcasetag(int reasonid);
         public int getcount(int id);
         public sendorder getdataofsendorder(int id,int hprof,int hproftype);
+        RoleModel GetMenuData(int check);
         AdminProfileModel getMyProfileData(string? v);
         List<Physician> getPhycision();
-        //PhysicianProfile getphysicianprofiledata(int id);
+        PhysicianProfile getphysicianprofiledata(int id);
 
         //List<Physician> getphysiciandata(PhysicianProfile info);
         List<Region> getRegionList();
@@ -40,7 +41,9 @@ namespace HalloDocWebServices.Interfaces
         public Request getrequestdatatotransfercase(int id,int physician);
         public Notes getrequestnotes(int id);
         public Requestclient getReviewAgreementData(TokenRegister token);
+        RoleModel getrolewisedataofrole(int id);
         TokenRegister getTokenRegidterDataByToken(string token);
+        public List<Role> getrolewisedata();
 
         //public Requeststatuslog getrequeststatuslog(int id);
         public requestclientvisedata getviewcasedataofpatient(int id);
@@ -63,6 +66,8 @@ namespace HalloDocWebServices.Interfaces
         public Request setclearcase(int id);
         void updateadminaddress(AdminProfileModel info);
         void updateadminform(AdminProfileModel info);
+        void updatephysicianbilling(PhysicianProfile phy);
+        void updatephysicianprofile(PhysicianProfile phy);
         public viewuploadmin viewUploadAdmin(int id);
     }
 }

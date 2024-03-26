@@ -1,6 +1,69 @@
-﻿@{
+﻿@model IEnumerable<HalloDocWebRepository.Data.Role>
+@{
     Layout = "_AdminHeader";
 }
+<div class="container p-0">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between mt-3">
+                <h4 class="mt-3">Account Access</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container hideonmobile bg-white rounded shadow mt-3 p-0">
+    <div class="row pt-3 ps-2 pb-3">
+        <div class="col text-end">
+            <a asp-action="CreateRole" asp-controller="Admin">
+                <button class="btn btn-white border-info text-info me-3">
+                    Create Access
+                </button>
+            </a>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr class="bg-light text-muted h-100">
+                <th scope="col">Name</th>
+                <th scope="col">Account Type</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="text-muted">
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @switch (item.Accounttype)
+                        {
+                            case 1:
+                            <span>Admin</span>
+
+                                break;
+                            case 2:
+                            <span>
+                                Physician
+                            </span>
+                                break;
+                            case 3:
+                            <span>
+                                Patient
+                            </span>
+                                break;
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="EditRole" asp-controller="Admin" asp-route-id="@item.Roleid"><button type="button" class="btn btn-outline-info">Edit</button></a>
+                        <button type="button" class="btn btn-outline-info">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 <script>
-    document.getElementById("access").classList.add("active");
+    document.getElementById("access1").classList.add("active");
 </script>

@@ -18,9 +18,9 @@ namespace HalloDocWeb.Controllers
         private readonly IPatient_Service _service;
         private readonly IJwt_Service _jwt_Service;
 
-        public HomeController(IPatient_Service service,IJwt_Service jwtservice)
+        public HomeController(IPatient_Service service, IJwt_Service jwtservice)
         {
-              _service = service;
+            _service = service;
             _jwt_Service = jwtservice;
         }
         //[CustomAuthorize("Index")]
@@ -30,7 +30,7 @@ namespace HalloDocWeb.Controllers
         }
         public IActionResult CreateAccount(string Email)
         {
-            ViewBag.Email = Email;  
+            ViewBag.Email = Email;
             return View();
         }
         public IActionResult submit_request_screen()
@@ -45,44 +45,9 @@ namespace HalloDocWeb.Controllers
         public async Task<IActionResult> document(int id)
         {
 
-            //HttpContext.Session.SetInt32("req_id", id);
-
             ViewBag.Id = id;
 
-            //HttpContext.Session.SetString("req_id", id.ToString());
-            return View( _service.getdownloadfilerequestwise(id));
 
-            //return _context.Requestwisefiles != null ? View(_context.Requestwisefiles.Where(m => m.Requestid == id).ToList()) : Problem("vchgvytfvtv");
-        }
-        public IActionResult patientforgot()
-        {
-            return View();
-        }
-        public IActionResult SubmitRequestOnMe()
-        {
-            return View();
-        }
-        public IActionResult SubmitRequestSomeone()
-        {
-            return View();
-        }
-        public IActionResult ResetPassword(string Email)
-        {
-            ViewBag.Email = Email;
-            return View();
-        }
-        // Request on me page When Dashboard Is Open and request is Created 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SubmitRequestOnMe(Userdata info)
-        {
-            
-            if (!ModelState.IsValid)
-            {
-                return View("../Home/SubmitRequestOnMe", info);
-            }
-            _service.RequestMe(info, HttpContext.Session.GetString("UsarEmail"));
             return RedirectToAction(nameof(patientdashboard), "Home");
         }
         // Request on someoneelse page When Dashboard Is Open and request is Created 
@@ -94,9 +59,9 @@ namespace HalloDocWeb.Controllers
             {
                 return View("../Home/SubmitRequestSomeone", info);
             }
-            _service.Requestsomeoneelse(info, HttpContext.Session.GetString("UsarEmail"));
+            _service.Requestsomeoneelse(info, HttpContext.Request.Cookies["UsarEmail"]);
             return RedirectToAction(nameof(patientdashboard), "Home");
-        }   
+        }
 
 
         [Route("/Home/patient/{email}")]
@@ -119,7 +84,7 @@ namespace HalloDocWeb.Controllers
             {
                 return View("../Home/patientlogin", loginobj);
             }
-            
+
             bool isReg = _service.ValidateUser(loginobj);
             if (isReg)
             {
@@ -130,11 +95,11 @@ namespace HalloDocWeb.Controllers
                 Response.Cookies.Append("Usarname", user.Usarname, new CookieOptions { MaxAge = TimeSpan.FromDays(1) });
                 //HttpContext.Session.SetString("Usarname", user.Usarname);
                 //HttpContext.Session.SetString("UsarEmail", loginobj.Email);
-                if (user.Role=="3")
+                if (user.Role == "3")
                 {
                     return RedirectToAction(nameof(AdminController.Admindashboard), "Admin");
                 }
-                else if(user.Role=="1")
+                else if (user.Role == "1")
                 {
                     TempData["toastMsg"] = "Login Successfully!!!!";
                     return RedirectToAction(nameof(patientdashboard), "Home");
@@ -147,18 +112,18 @@ namespace HalloDocWeb.Controllers
             else
             {
                 return RedirectToAction(nameof(patientlogin), "Home");
-            } 
+            }
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Updateprofile(Userdata info)
         {
-            _service.updateProfile(info, HttpContext.Session.GetString("UsarEmail"));
+            _service.updateProfile(info, HttpContext.Request.Cookies["UsarEmail"]);
             return RedirectToAction(nameof(patientdashboard), "Home");
         }
 
         [CustomAuthorize("Patient")]
-        public async  Task<IActionResult> patientdashboard()
+        public async Task<IActionResult> patientdashboard()
         {
             var req = HttpContext.Request;
             var username = req.Cookies["Usarname"];
@@ -177,7 +142,7 @@ namespace HalloDocWeb.Controllers
         {
             if (fileToUpload != null && fileToUpload.Length > 0)
             {
-                _service.addfilerequestwise(id,fileToUpload);
+                _service.addfilerequestwise(id, fileToUpload);
                 //_context.Requestwisefiles.Add(reqclient);
                 //_context.SaveChanges();
 
@@ -200,7 +165,7 @@ namespace HalloDocWeb.Controllers
         }
         public IActionResult DownloadAll(int id)
         {
-            MemoryStream ms =  _service.DownloadAllService(id);
+            MemoryStream ms = _service.DownloadAllService(id);
             return File(ms.ToArray(), "application/zip", "download.zip");
         }
         public IActionResult Logout()
