@@ -54,11 +54,19 @@
 </div>
 <script>
     var check;
+    var rolename;
+   
     document.getElementById("access1").classList.add("active");   
     $("#RoleSelect").change(function (e) {
         check = document.getElementById("RoleSelect").value;
-        console.log(check);
-        window.location.href = "/Admin/CreateRole?check=" + check;
+        rolename =document.getElementById("RoleName").value;
+
+        console.log(rolename);
+        window.location.href = "/Admin/CreateRole?check=" + check + "&rolename=" + rolename;
+    }); 
+    $("#RoleName").change(function (e) {
+        rolename = document.getElementById("RoleName").value;
+        console.log(rolename);
     });
     function submitForm() {
         debugger;

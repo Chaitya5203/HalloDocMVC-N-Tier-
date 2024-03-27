@@ -239,7 +239,6 @@ namespace HalloDocWebServices.Interfaces
         {
             return _repository.getallrole();
         }
-  
         public Casetag getcasetag(int reasonid)
         {
             var reason = _repository.getcasetagdata(reasonid);
@@ -283,10 +282,11 @@ namespace HalloDocWebServices.Interfaces
             sendorder.id = id;
             return sendorder;
         }
-        public RoleModel GetMenuData(int check)
+        public RoleModel GetMenuData(int check,string rolename)
         {
             RoleModel model = new();
             model.SelectedRole = check;
+            model.RoleName = rolename;
             if (check == 0)
             {
                 model.menu = _repository.getmenudataof();
@@ -898,7 +898,7 @@ namespace HalloDocWebServices.Interfaces
             var role = _repository.getdataofrole(id);
             RoleModel model = new RoleModel();
             model.rolemenus = _repository.getdataofrolemenu(id);
-            model.menu = _repository.getmenudataof();
+            model.menu = _repository.getMenuListWithCheck(role.Accounttype);
             model.RoleName = role.Name;
             model.RoleId = role.Roleid;
             model.SelectedRole = role.Accounttype;
@@ -920,6 +920,52 @@ namespace HalloDocWebServices.Interfaces
             Role role = _repository.getdataofrole(id);
             role.Isdeleted = new BitArray(1, true);
             _repository.setdeleterole(role);
+        }
+
+        public AdminProfileModel getAdminRoleData( )
+        {
+            AdminProfileModel model = new AdminProfileModel();
+            model.roles = _repository.getRolesOfAdmin();
+            model.regions = _repository.getregion();
+            return model;
+        }
+
+        public void CreateAdminAccount(AdminProfileModel model,string email)
+        {
+            Aspnetuser aspnetuser = new Aspnetuser();
+            aspnetuser.Passwordhash = model.Aspnetuser.Passwordhash;
+            aspnetuser.Usarname = model.admin.Firstname + model.admin.Lastname;
+            aspnetuser.Createddate = DateTime.Now;
+            aspnetuser.Modifieddate = DateTime.Now;
+            aspnetuser.Email = model.admin.Email;
+            aspnetuser.Role = "3";
+            aspnetuser.Phonenumber = model.admin.Mobile;
+            _repository.addaspnetusertable(aspnetuser);
+            Admin admin = new Admin();
+            admin.Aspnetuserid = aspnetuser.Id;
+            admin.Address1 = model.admin.Address1;
+            admin.Address2 = model.admin.Address2;
+            admin.Createddate = DateTime.Now;
+            admin.Altphone = model.admin.Altphone;
+            admin.Email = model.admin.Email;
+            admin.City = model.admin.City;
+            admin.Zip = model.admin.Zip;
+            admin.Isdeleted = new BitArray(1, false);
+            admin.Firstname = model.admin.Firstname;
+            admin.Lastname  = model.admin.Lastname;
+            admin.Mobile = model.admin.Mobile;
+            admin.Regionid = model.regionid;
+            admin.Roleid = model.roleid;
+            admin.Createdby = email;
+            _repository.addadmindata(admin);
+            foreach(var item in model.SelectedReg)
+            {
+                Adminregion adminregion = new Adminregion();
+                adminregion.Adminid = admin.Adminid;
+                adminregion.Regionid= item;
+                _repository.addadminregiondata(adminregion);
+            }
+            
         }
     }
 }

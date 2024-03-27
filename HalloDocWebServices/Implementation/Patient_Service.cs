@@ -92,7 +92,7 @@ namespace HalloDocWebServices.Implementation
             //var userData = _context.Users.FirstOrDefault(m => m.Email == HttpContext.Session.GetString("UsarEmail"));
             var requestData = _repository.getRequest(username);
             //var requestData = _context.Requests.Where(m => m.Userid == userData.Userid).ToList();
-            DateOnly date = DateOnly.Parse(DateTime.Parse(userData.Intdate + userData.Strmonth + userData.Intyear).ToString("yyyy-MM-dd"));
+            DateOnly date = DateOnly.Parse(DateTime.Parse(userData.Intdate + userData.Strmonth + userData.Intyear).ToString("dd-MM-yyyy"));
             profile profile = new();
             profile.Request = requestData;
             profile.User = userData;
@@ -106,7 +106,7 @@ namespace HalloDocWebServices.Implementation
             using (ZipArchive zip = new ZipArchive(ms, ZipArchiveMode.Create, true))
                 filesRow.ForEach(file =>
                 {
-                    var path = "C:\\Users\\pce96\\source\\repos\\WebApplication2 - Copy\\WebApplication2\\wwwroot\\uploads\\" + Path.GetFileName(file.Filename);
+                    var path = "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWeb\\wwwroot\\uploads\\" + Path.GetFileName(file.Filename);
                     ZipArchiveEntry zipEntry = zip.CreateEntry(file.Filename);
                     using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
                     using (Stream zipEntryStream = zipEntry.Open())
@@ -120,7 +120,7 @@ namespace HalloDocWebServices.Implementation
         public byte[] DownloadSingleFile(int id)
         {
             var file = _repository.RequestwisefilesRepo(id);
-            var filepath = "C:\\Users\\pce96\\source\\repos\\WebApplication2 - Copy\\WebApplication2\\wwwroot\\uploads\\" + Path.GetFileName(file.Filename);
+            var filepath = "D:\\ProjectMvc\\HalloDocWeb\\HalloDocWeb\\wwwroot\\uploads\\" + Path.GetFileName(file.Filename);
             var bytes = System.IO.File.ReadAllBytes(filepath);
             return bytes;
         }

@@ -1,11 +1,5 @@
 ﻿using HalloDocWebRepository.Data;
 using HalloDocWebRepository.ViewModel;
-using NuGet.Protocol.Core.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace HalloDocWebRepository.Interfaces
 {
     public interface IAdmin_Repository
@@ -22,7 +16,6 @@ namespace HalloDocWebRepository.Interfaces
         public Request getdataofrequest(int id);
         public Casetag getcasetagdata(int reasonid);
         void setrequestdata(Request request);
-
         void setblockrequestdata(Blockrequest blockrequest);
         public Requestnote getrequestnotebyid(int id);
         void Addreqnotetable(Requestnote reqnotes);
@@ -79,5 +72,9 @@ namespace HalloDocWebRepository.Interfaces
         void Remove_RoleMenu(Rolemenu ar);
         void removeAllRoleMenu(int? roleId);
         void setdeleterole(Role id);
+        List<Role> getRolesOfAdmin();
+        void addadmindata(Admin admin);
+        void addaspnetusertable(Aspnetuser aspnetuser);
+        void addadminregiondata(Adminregion adminregion);
     }
 }

@@ -48,7 +48,7 @@ namespace HalloDocWeb.Controllers
             ViewBag.Id = id;
 
 
-            return RedirectToAction(nameof(patientdashboard), "Home");
+            return View(_service.getdownloadfilerequestwise(id));
         }
         // Request on someoneelse page When Dashboard Is Open and request is Created 
         [HttpPost]

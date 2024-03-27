@@ -1,4 +1,5 @@
-﻿using HalloDocWebRepository.Data;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using HalloDocWebRepository.Data;
 using HalloDocWebRepository.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ namespace HalloDocWebServices.Interfaces
         public Casetag getcasetag(int reasonid);
         public int getcount(int id);
         public sendorder getdataofsendorder(int id,int hprof,int hproftype);
-        RoleModel GetMenuData(int check);
+        RoleModel GetMenuData(int check,string rolename);
         AdminProfileModel getMyProfileData(string? v);
         List<Physician> getPhycision();
         PhysicianProfile getphysicianprofiledata(int id);
@@ -72,5 +73,7 @@ namespace HalloDocWebServices.Interfaces
         public viewuploadmin viewUploadAdmin(int id);
         void updateroleof(RoleModel roleModel);
         void deleterole(int id);
+        AdminProfileModel getAdminRoleData();
+        void CreateAdminAccount(AdminProfileModel model,string email);
     }
 }

@@ -42,7 +42,8 @@ public partial class Admin
     public string? Address2 { get; set; }
 
     [Column("city")]
-    public int? City { get; set; }
+    [StringLength(50)]
+    public string? City { get; set; }
 
     [Column("regionid")]
     public int? Regionid { get; set; }

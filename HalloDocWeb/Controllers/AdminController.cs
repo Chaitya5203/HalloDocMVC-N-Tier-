@@ -132,13 +132,23 @@ namespace HalloDocWeb.Controllers
             model.physician = _service.getPhycision();
             return View(model);
         }
-        public IActionResult CreateRole(int check)
+        public IActionResult CreateRole(int check,string rolename)
         {
-            return View(_service.GetMenuData(check));
+            return View(_service.GetMenuData(check,rolename));
         }
         public IActionResult EditRole(int id)
         {
             return View(_service.getrolewisedataofrole(id));
+        }
+        [HttpPost]
+        public IActionResult CreateAdminAccount(AdminProfileModel model)   
+        {
+            _service.CreateAdminAccount(model, HttpContext.Request.Cookies["UsarEmail"]);
+            return RedirectToAction(nameof(Admindashboard));
+        }
+        public IActionResult CreateAdminAccount()
+        {
+            return View(_service.getAdminRoleData());
         }
         public IActionResult DeleteRole(int id)
         {
