@@ -1,6 +1,7 @@
 ﻿using HalloDocWebRepository.Data;
 using HalloDocWebRepository.ViewModel;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,5 +70,7 @@ namespace HalloDocWebServices.Interfaces
         void updatephysicianbilling(PhysicianProfile phy);
         void updatephysicianprofile(PhysicianProfile phy);
         public viewuploadmin viewUploadAdmin(int id);
+        void updateroleof(RoleModel roleModel);
+        void deleterole(int id);
     }
 }

@@ -57,7 +57,7 @@
                     </td>
                     <td>
                         <a asp-action="EditRole" asp-controller="Admin" asp-route-id="@item.Roleid"><button type="button" class="btn btn-outline-info">Edit</button></a>
-                        <button type="button" class="btn btn-outline-info">Delete</button>
+                        <a asp-action="DeleteRole" asp-controller="Admin" asp-route-id="@item.Roleid"><button type="button" class="btn btn-outline-info">Delete</button></a>
                     </td>
                 </tr>
             }

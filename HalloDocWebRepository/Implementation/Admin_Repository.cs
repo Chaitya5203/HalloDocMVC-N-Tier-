@@ -447,7 +447,7 @@ namespace HalloDocWebRepository.Implementation
 
         public List<Role> getallrole()
         {
-            return _context.Roles.ToList();
+            return _context.Roles.Where(m=>m.Isdeleted != new BitArray(1,true)).ToList();
         }
 
         public Role getdataofrole(int id)
@@ -455,9 +455,38 @@ namespace HalloDocWebRepository.Implementation
             return _context.Roles.FirstOrDefault(m => m.Roleid == id);
         }
 
-        public List<Rolemenu> getdataofrolemenu(int id)
+        public List<Rolemenu> getdataofrolemenu(int? id)
         {
             return _context.Rolemenus.Where(x=>x.Roleid == id).ToList();
+        }
+
+        public void AddRoleMenu(Rolemenu ar)
+        {
+            _context.Rolemenus.Add(ar);
+            _context.SaveChanges();
+        }
+
+        public void Remove_RoleMenu(Rolemenu ar)
+        {
+            var data = _context.Rolemenus.FirstOrDefault(m=>m.Menuid == ar.Menuid && m.Roleid == ar.Roleid);
+            _context.Rolemenus.Remove(data);
+            _context.SaveChanges();
+
+        }
+
+        public void removeAllRoleMenu(int? roleId)
+        {
+            var menu = _context.Rolemenus.Where(m => m.Roleid == roleId).ToList();
+            foreach (var item in menu)
+            {
+                _context.Rolemenus.Remove(item);
+            }
+        }
+
+        public void setdeleterole(Role id)
+        {
+            _context.Roles.Update(id);
+            _context.SaveChanges();
         }
     }
 }

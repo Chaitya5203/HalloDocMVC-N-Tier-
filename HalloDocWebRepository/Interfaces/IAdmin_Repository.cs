@@ -74,6 +74,10 @@ namespace HalloDocWebRepository.Interfaces
         void saveRoleMenu(Rolemenu rolemenu);
         List<Role> getallrole();
         Role getdataofrole(int id);
-        List<Rolemenu> getdataofrolemenu(int id);
+        List<Rolemenu> getdataofrolemenu(int? id);
+        void AddRoleMenu(Rolemenu ar);
+        void Remove_RoleMenu(Rolemenu ar);
+        void removeAllRoleMenu(int? roleId);
+        void setdeleterole(Role id);
     }
 }

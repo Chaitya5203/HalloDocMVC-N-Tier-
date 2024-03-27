@@ -14,82 +14,61 @@
                 </a>
             </div>
             <div class="container rounded bg-white shadow py-3">
-                @* <input type="hidden" asp-for=admin.Adminid value="@Model.admin.Adminid" /> *@
-                <div class="row">
-                    <div class="col-12 h5 mb-3">
-                        Details
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                        <input asp-for="RoleName" value="@Model.RoleName" type="text" class="form-control" id="RoleName" placeholder="Role Name" readonly>
-                        <label for="exampleFormControlInput1" class="form-label ps-4">Role Name</label>
-                        <span class="text-danger"></span>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-xl-6">
-                        <div class="mb-3 border border-light rounded-5">
-                            <select class="form-select p-3 pla1" id="RoleSelect" asp-for="@Model.SelectedRole" aria-label="form-select-lg example" disabled>
-                                <option selected value="0">All</option>
-                                <option value="1">Admin</option>
-                                <option value="2">Physician</option>
-                                <option value="3">Patient</option>
-                            </select>
+               
+                <form asp-action="UpdateRole" asp-controller="Admin">
+                     <input type="hidden" asp-for=@Model.RoleId value="@Model.RoleId" />
+                    <div class="row">
+                        <div class="col-12 h5 mb-3">
+                            Details
                         </div>
-                    </div>
-                    <div>
-                        @if (Model.menu != null)
-                        {
-                            @foreach (var item in Model.menu)
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <input asp-for="RoleName" value="@Model.RoleName" type="text" class="form-control" id="RoleName" placeholder="Role Name" readonly>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Role Name</label>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6">
+                            <div class="mb-3 border border-light rounded-5">
+                                <select class="form-select p-3 pla1" id="RoleSelect" asp-for="@Model.SelectedRole" aria-label="form-select-lg example" disabled>
+                                    <option selected value="0">All</option>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Physician</option>
+                                    <option value="3">Patient</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            @if (Model.menu != null)
                             {
-                                @if (Model.rolemenus.Any(x => x.Menuid == item.Menuid))
+                                @foreach (var item in Model.menu)
                                 {
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input checkboxes" type="checkbox" name="SelectedReg" value="@item.Menuid" checked >
-                                        <label class="form-check-label text6" for="inlineCheckbox1">@item.Name</label>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input checkboxes" type="checkbox" name="SelectedReg" value="@item.Menuid" >
-                                        <label class="form-check-label text6" for="inlineCheckbox1">@item.Name</label>
-                                    </div>
+                                    @if (Model.rolemenus.Any(x => x.Menuid == item.Menuid))
+                                    {
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input checkboxes" type="checkbox" name="SelectedReg" value="@item.Menuid" checked >
+                                            <label class="form-check-label text6" for="inlineCheckbox1">@item.Name</label>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input checkboxes" type="checkbox" name="SelectedReg" value="@item.Menuid" >
+                                            <label class="form-check-label text6" for="inlineCheckbox1">@item.Name</label>
+                                        </div>
+                                    }
                                 }
                             }
-                        }
-                        @* @foreach (var item in Model.menu)
-                        {
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input checkboxes" type="checkbox" name="SelectedReg" data-filename="@item.Menuid" value="@item.Menuid">
-                                <label class="form-check-label text6" for="inlineCheckbox1">@item.Name</label>
-                            </div>
-                        } *@
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                            <button class="btn btn-info text-white me-md-2" type="submit">Save</button>
+                            <button class="btn btn-white text-info border-info" type="button">Cancel</button>
+                        </div>
                     </div>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                        <button class="btn btn-info text-white me-md-2" onclick="submitForm()" type="button">Save</button>
-                        <button class="btn btn-white text-info border-info" type="button">Cancel</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 <script>
-    var check;
     document.getElementById("access1").classList.add("active");
-    $("#RoleSelect").change(function (e) {
-        check = document.getElementById("RoleSelect").value;
-        console.log(check);
-        window.location.href = "/Admin/CreateRole?check=" + check;
-    });
-    function submitForm() {
-        debugger;
-        var checkboxes = document.querySelectorAll('.checkboxes:checked');
-        var roles = [];
-        checkboxes.forEach(function (checkbox) {
-            roles.push(parseInt(checkbox.getAttribute('data-filename')));
-        });
-        var RoleName = document.getElementById("RoleName").value;
-        check = document.getElementById("RoleSelect").value;
-        console.log(check);
-        window.location.href = "/Admin/GenerateRole?RoleName=" + RoleName + "&selectedRoles=" + roles + "&check=" + check;
-    }
+   
 </script>
