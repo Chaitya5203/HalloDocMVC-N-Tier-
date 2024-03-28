@@ -39,24 +39,17 @@ namespace HalloDocWeb.Controllers
         {
             return View();
         }
-
-        //Create Patient By It Self 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //Routing Of The Data and Check if email exist if not then add column password and confirm password 
         public async Task<IActionResult> SubmitRequestByPatient(Userdata info)
         {
-            //var temp = 0;
-            //var userobj = await _context.Aspnetusers.FirstOrDefaultAsync(m => m.Usarname == info.first_name);
             if (!ModelState.IsValid)
             {
                 return View("../Request/patient", info);
             }
             _service.insertpatient(info);
             return RedirectToAction(nameof(patientlogin), "Home");
-            //return View();
         }
-        /// Family Friend Data store on Family Friend Page 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreatePatientByFamilyFriend(FamilyFriendPatientRequest info)
@@ -119,16 +112,13 @@ namespace HalloDocWeb.Controllers
             var receiver = info.email;
             var subject = "Reset Password";
             var message = "Reset Your Password: https://localhost:7234/Home/ResetPassword/?Email=" + receiver;
-
             var client = new SmtpClient("smtp.office365.com", 587)
             {
                 EnableSsl = true,
                 Credentials = new NetworkCredential(mail, password)
             };
-
             client.SendMailAsync(new MailMessage(from: mail, to: receiver, subject, message));
             return RedirectToAction(nameof(patientlogin), "Home");
         }
-
     }
 }

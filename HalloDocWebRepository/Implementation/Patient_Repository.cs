@@ -6,7 +6,7 @@ namespace HalloDocWebRepository.Implementation
     public class Patient_Repository : IPatient_Repository
     {
         private readonly ApplicationContext _context;
-        public Patient_Repository(ApplicationContext context )
+        public Patient_Repository(ApplicationContext context)
         {
             _context = context;
         }
@@ -27,13 +27,13 @@ namespace HalloDocWebRepository.Implementation
         }
         public void addrequestbusinesstable(Requestbusiness requestbusiness)
         {
-            _context.Requestbusinesses.Add(requestbusiness);    
-            _context.SaveChanges(); 
+            _context.Requestbusinesses.Add(requestbusiness);
+            _context.SaveChanges();
         }
         public void addrequestclientdata(Requestclient requestclient)
         {
             _context.Requestclients.Add(requestclient);
-            _context.SaveChanges(); 
+            _context.SaveChanges();
         }
         public void addrequestconciergetable(Requestconcierge requestconcierge)
         {
@@ -52,12 +52,12 @@ namespace HalloDocWebRepository.Implementation
         }
         public void addUsertable(User user)
         {
-            _context.Users.Add(user);   
+            _context.Users.Add(user);
             _context.SaveChanges();
         }
         public Aspnetuser checkemailofreset(string email)
         {
-            return _context.Aspnetusers.FirstOrDefault(x=> x.Email == email);   
+            return _context.Aspnetusers.FirstOrDefault(x => x.Email == email);
         }
         public Requestwisefile downloadRequesrWiseFile(int id)
         {
@@ -69,8 +69,8 @@ namespace HalloDocWebRepository.Implementation
         }
         public List<Request> getRequest(string username)
         {
-            var user = _context.Users.FirstOrDefault(u=> u.Firstname == username);  
-           return _context.Requests.Where(m => m.Userid == user.Userid).ToList();
+            var user = _context.Users.FirstOrDefault(u => u.Firstname == username);
+            return _context.Requests.Where(m => m.Userid == user.Userid).ToList();
         }
         public Request getRequestById(int requestid)
         {
@@ -78,16 +78,16 @@ namespace HalloDocWebRepository.Implementation
         }
         public Requestclient getrequestclientdatabyemail(string email)
         {
-            var user = _context.Requestclients.FirstOrDefault(u=> u.Email == email);
+            var user = _context.Requestclients.FirstOrDefault(u => u.Email == email);
             return user;
         }
         public List<Requestwisefile> getReqWiseFileById(int id)
         {
-            return _context.Requestwisefiles.Where(m => m.Requestid == id).ToList() ;
+            return _context.Requestwisefiles.Where(m => m.Requestid == id).ToList();
         }
         public bool getUser(login aspnetuser)
         {
-            return _context.Aspnetusers.Any( u=> u.Email == aspnetuser.Email && u.Passwordhash == aspnetuser.Passwordhash );
+            return _context.Aspnetusers.Any(u => u.Email == aspnetuser.Email && u.Passwordhash == aspnetuser.Passwordhash);
         }
         public Aspnetuser ProfileAspdata(string email)
         {
@@ -107,7 +107,7 @@ namespace HalloDocWebRepository.Implementation
         }
         public Aspnetuser setpatientdatabybusiness(BusinessPatientRequest info)
         {
-            return _context.Aspnetusers.FirstOrDefault(m => m.Email == info.email); 
+            return _context.Aspnetusers.FirstOrDefault(m => m.Email == info.email);
         }
         public Aspnetuser setpatientdatabyconcierge(ConciergePatientRequest info)
         {

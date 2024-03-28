@@ -13,7 +13,7 @@
         $.ajax({
             url: "/Admin/CancelConfirm",
             data: { reasonid: reasonid, notes: notes, id: reqid },
-            type: "POST",
+            type: "GET",
             success: function (data) {
                 $("#modalpopup").remove();
                 $(".modal-backdrop").remove();

@@ -1,44 +1,36 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-  @*   <div class="bg1"></div> *@
 <div class="min-vh-100 min-vw-100 bg1" id="light-theme"></div>
-    <div class="container w-100 d-flex align-items-center justify-content-center min-vh-100">
-        <div class="row mx-0 justify-content-center text-center">
-            <div class="col setlogo">
-                <div class="row ">
-                    <div class="col text-end ">
-                        <button class="moonbtn backtra"><i class="fa-solid fa-moon "></i></button>
-                    </div>
+<div class="container w-100 d-flex align-items-center justify-content-center min-vh-100">
+    <div class="row mx-0 justify-content-center text-center">
+        <div class="col setlogo">
+            <div class="row ">
+                <div class="col text-end ">
+                    <button class="moonbtn backtra"><i class="fa-solid fa-moon "></i></button>
                 </div>
             </div>
-            <div class="row setlogo">
-                <div class="col">
-                    <img src="~/OneDrive_2024-01-17/SRS Screen Shorts/backremovelogo.png" class="img-fluid mb-4"
-                         alt="logo">
-                </div>
+        </div>
+        <div class="row setlogo">
+            <div class="col">
+                <img src="~/OneDrive_2024-01-17/SRS Screen Shorts/backremovelogo.png" class="img-fluid mb-4"
+                     alt="logo">
             </div>
-            <div class="row d-flex text-center">
-                <div class="col-sm-12 col-md-12 col-xl-12 mb-3">
-                    <a class="text-decoration-none" asp-controller="Home" asp-action="submit_request_screen">
-                        <button type="submit" class="btn btn-info text-white w-100" style="min-width: max-content;">Submit A Request</button>
-                    </a>
-                </div>
-                <div class="col-sm-12 col-md-12 col-xl-12 mb-3">
+        </div>
+        <div class="row d-flex text-center">
+            <div class="col-sm-12 col-md-12 col-xl-12 mb-3">
+                <a class="text-decoration-none" asp-controller="Home" asp-action="submit_request_screen">
+                    <button type="submit" class="btn btn-info text-white w-100" style="min-width: max-content;">Submit A Request</button>
+                </a>
+            </div>
+            <div class="col-sm-12 col-md-12 col-xl-12 mb-3">
                 <a class="text-decoration-none " asp-controller="Home" asp-action="patientlogin">
-                        <button type="submit" class="btn text-white w-100 " style="background-color: rgb(34, 34, 66); min-width: max-content;">Registered Patients</button>
-                    </a>
-                </div>
+                    <button type="submit" class="btn text-white w-100 " style="background-color: rgb(34, 34, 66); min-width: max-content;">Registered Patients</button>
+                </a>
             </div>
-            <!-- <div class="row mt-5">
-                <div class="col text-muted">
-                    Terms Of Conditions | Privacy Policy
-                </div>
-            </div> -->
         </div>
     </div>
-    <footer class="footerset text-lg-center text-center justify-content-center">
-        <div class="">Terms Of Conditions <div class="vr fw-bold"></div> Privacy Policy</div>
-    </footer>
-
-    <!-- Chaitya -->
+</div>
+<footer class="footerset text-lg-center text-center justify-content-center">
+    <div class="">Terms Of Conditions <div class="vr fw-bold"></div> Privacy Policy</div>
+</footer>

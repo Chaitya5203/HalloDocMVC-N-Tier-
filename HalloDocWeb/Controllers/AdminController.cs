@@ -33,7 +33,7 @@ namespace HalloDocWeb.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult New(int id, int check , string searchValue, int searchRegion,int pagesize=3, int  pagenumber =1 )
+        public ActionResult New(int id, int check, string searchValue, int searchRegion, int pagesize = 3, int pagenumber = 1)
         {
             IQueryable<AdminDashboardTableModel> tabledata1;
             AdminDashboardDataWithRegionModel model = new();
@@ -107,7 +107,7 @@ namespace HalloDocWeb.Controllers
         public IActionResult SavePhysicianInfo(PhysicianProfile phy)
         {
             _service.updatephysicianprofile(phy);
-            return RedirectToAction("EditPhysicianAccount", new { id = phy.PhysicianId }) ;
+            return RedirectToAction("EditPhysicianAccount", new { id = phy.PhysicianId });
         }
         public IActionResult SavePhysicianBillingInfo(PhysicianProfile phy)
         {
@@ -132,16 +132,16 @@ namespace HalloDocWeb.Controllers
             model.physician = _service.getPhycision();
             return View(model);
         }
-        public IActionResult CreateRole(int check,string rolename)
+        public IActionResult CreateRole(int check, string rolename)
         {
-            return View(_service.GetMenuData(check,rolename));
+            return View(_service.GetMenuData(check, rolename));
         }
         public IActionResult EditRole(int id)
         {
             return View(_service.getrolewisedataofrole(id));
         }
         [HttpPost]
-        public IActionResult CreateAdminAccount(AdminProfileModel model)   
+        public IActionResult CreateAdminAccount(AdminProfileModel model)
         {
             _service.CreateAdminAccount(model, HttpContext.Request.Cookies["UsarEmail"]);
             return RedirectToAction(nameof(Admindashboard));
@@ -164,6 +164,10 @@ namespace HalloDocWeb.Controllers
         {
             return View(_service.getrolewisedata());
         }
+        public IActionResult UserAccess()
+        {
+            return View(_service.getaspnetuserdata());
+        }
         public IActionResult UpdateRole(RoleModel roleModel)
         {
             _service.updateroleof(roleModel);
@@ -173,10 +177,10 @@ namespace HalloDocWeb.Controllers
         {
             return View();
         }
-        public IActionResult ReviewAgreement(string token )
+        public IActionResult ReviewAgreement(string token)
         {
             TokenRegister tokenReg = _service.getTokenRegidterDataByToken(token);
-            if(tokenReg == null)
+            if (tokenReg == null)
                 return Problem("Invalid Request");
             var model = _service.getReviewAgreementData(tokenReg);
             return View(model);
@@ -249,9 +253,9 @@ namespace HalloDocWeb.Controllers
             _service.insertordertable(sendorder);
             return RedirectToAction(nameof(Admindashboard));
         }
-        public ActionResult Sendorder(int id ,int hprof=0,int hproftype= 0)
+        public ActionResult Sendorder(int id, int hprof = 0, int hproftype = 0)
         {
-            return View(_service.getdataofsendorder(id,hprof,hproftype));
+            return View(_service.getdataofsendorder(id, hprof, hproftype));
         }
         public IActionResult Encounterform(int id)
         {
@@ -267,6 +271,11 @@ namespace HalloDocWeb.Controllers
         public ActionResult UpdateAdminProfile(AdminProfileModel info)
         {
             _service.updateadminform(info);
+            return RedirectToAction(nameof(Admindashboard));
+        }
+        public ActionResult SaveAdminPassword(AdminProfileModel info)
+        {
+            _service.saveadminpassword(info);
             return RedirectToAction(nameof(Admindashboard));
         }
         public ActionResult UpdateAddressInformationOfAdmin(AdminProfileModel info)
@@ -286,7 +295,7 @@ namespace HalloDocWeb.Controllers
             return PartialView("_Modalofsendagreement", data);
         }
         public async Task<IActionResult> Modalofclear(int id)
-        {                                                                               
+        {
             var data = _service.opencancelmodel(id);
             TempData["reqid"] = id;
             return PartialView("_Modalofclear", data);
@@ -307,7 +316,7 @@ namespace HalloDocWeb.Controllers
             TempData["reqid"] = id;
             return PartialView("_Modalofassign", _service.openassignmodel(id, regionid));
         }
-        [HttpPost]
+        [HttpGet]
         public ActionResult CancelConfirm(int id, int reasonid, string notes)
         {
             _service.insertrequeststatuslogtable(id, notes, reasonid);
@@ -318,7 +327,7 @@ namespace HalloDocWeb.Controllers
         [HttpPost]
         public ActionResult Transferconfirm(int id, string notes, int physician, int regions)
         {
-            _service.insertrequeststatuslogtablebytransfer(id,notes,physician);
+            _service.insertrequeststatuslogtablebytransfer(id, notes, physician);
             Request request = _service.getrequestdatatotransfercase(id, physician);
             return RedirectToAction(nameof(Admindashboard));
         }
@@ -334,8 +343,8 @@ namespace HalloDocWeb.Controllers
         [HttpPost]
         public ActionResult AssignConfirm(int id, string notes, int physician, string regions)
         {
-            _service.insertrequeststatuslogtablebyassign(id, notes,physician);
-            Request request = _service.getrequestdatatoassigncase(id,physician);
+            _service.insertrequeststatuslogtablebyassign(id, notes, physician);
+            Request request = _service.getrequestdatatoassigncase(id, physician);
             return RedirectToAction(nameof(Admindashboard));
         }
         [HttpPost]
@@ -354,11 +363,12 @@ namespace HalloDocWeb.Controllers
         [HttpPost]
         public ActionResult ReviewAgreement(int Requestid, string notes)
         {
-            bool isValidToken =  _service.AgreementCancel(Requestid, notes);
+            bool isValidToken = _service.AgreementCancel(Requestid, notes);
             if (isValidToken == false)
                 return Problem("Invalid Request");
-            return RedirectToAction(nameof(HomeController.Index),"Home");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
+        [HttpGet]
         public ActionResult View_Note(int id)
         {
             var note = _service.getrequestnotes(id);
@@ -368,7 +378,7 @@ namespace HalloDocWeb.Controllers
         public ActionResult AgreementAccept(int id)
         {
             _service.AgreementAccepted(id);
-            return RedirectToAction(nameof(HomeController.Index),"Home");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
         [HttpPost]
         public ActionResult SendMail(int id, string[] filenames)
@@ -388,6 +398,7 @@ namespace HalloDocWeb.Controllers
             try
             {
                 List<Request> data = GetTableData();
+                List<Physician> phy = _service.getPhycision();
                 var workbook = new XLWorkbook();
                 var worksheet = workbook.Worksheets.Add("Data");
                 worksheet.Cell(1, 1).Value = "Name";
@@ -399,27 +410,51 @@ namespace HalloDocWeb.Controllers
                 worksheet.Cell(1, 7).Value = "Phone Number";
                 worksheet.Cell(1, 8).Value = "Address";
                 worksheet.Cell(1, 9).Value = "Notes";
+                worksheet.Cell(1, 10).Value = "Status";
                 int row = 2;
                 foreach (var item in data)
                 {
-                    var statusClass = "";
                     var dos = "";
                     var notes = "";
-                    if (item.Requesttypeid == 1)
+                    var phyname = "";
+                    switch (item.Requesttypeid)
                     {
-                        statusClass = "patient";
+                        case 2:
+                            worksheet.Cell(row, 3).Value = "Patient" + item.Firstname + item.Lastname;
+                            worksheet.Cell(row, 7).Value = item.Requestclients?.FirstOrDefault()?.Phonenumber;
+                            break;
+
+                        case 1:
+                            worksheet.Cell(row, 3).Value = "business" + item.Firstname + item.Lastname;
+                            worksheet.Cell(row, 7).Value = "(Patient)" + item.Requestclients?.FirstOrDefault()?.Phonenumber + "(Business)" + item.Phonenumber;
+                            break;
+                        case 3:
+                            worksheet.Cell(row, 3).Value = "family" + item.Firstname + item.Lastname;
+                            worksheet.Cell(row, 7).Value = "(Patient)" + item.Requestclients?.FirstOrDefault()?.Phonenumber + "(family)" + item.Phonenumber;
+                            break;
+                        case 4:
+                            worksheet.Cell(row, 3).Value = "concierge" + item.Firstname + item.Lastname;
+                            worksheet.Cell(row, 7).Value = "(Patient)" + item.Requestclients?.FirstOrDefault()?.Phonenumber + "(concierge)" + item.Phonenumber;
+                            break;
                     }
-                    else if (item.Requesttypeid == 4)
+                    switch (item.Status)
                     {
-                        statusClass = "business";
+                        case 1: worksheet.Cell(row, 10).Value = "New"; break;
+                        case 2: worksheet.Cell(row, 10).Value = "Pending"; break;
+                        case 3 or 7 or 8: worksheet.Cell(row, 10).Value = "To-close"; break;
+                        case 4 or 5: worksheet.Cell(row, 10).Value = "Active"; break;
+                        case 6: worksheet.Cell(row, 10).Value = "Conclude"; break;
+                        case 9: worksheet.Cell(row, 10).Value = "Unpaid"; break;
+                        case 10: worksheet.Cell(row, 10).Value = "Clear"; break;
+                        case 11: worksheet.Cell(row, 10).Value = "Block"; break;
                     }
-                    else if (item.Requesttypeid == 2)
+                    foreach (var p in phy)
                     {
-                        statusClass = "family";
-                    }
-                    else
-                    {
-                        statusClass = "concierge";
+                        if (item.Physicianid == p.Physicianid)
+                        {
+                            phyname = p.Firstname + " " + p.Lastname;
+                            break;
+                        }
                     }
                     foreach (var stat in item.Requeststatuslogs)
                     {
@@ -430,13 +465,15 @@ namespace HalloDocWeb.Controllers
                         }
                     }
                     worksheet.Cell(row, 1).Value = item.Requestclients?.FirstOrDefault()?.Firstname + item.Requestclients?.FirstOrDefault()?.Lastname;
-                    worksheet.Cell(row, 3).Value = statusClass.Substring(0, 1).ToUpper() + statusClass.Substring(1).ToLower() + item.Firstname + item.Lastname;
-                    worksheet.Cell(row, 4).Value = ("Dr." );
+                    worksheet.Cell(row, 2).Value = item.Requestclients?.FirstOrDefault()?.Intdate.ToString() + "/" + item.Requestclients?.FirstOrDefault()?.Strmonth + "/" + item.Requestclients?.FirstOrDefault()?.Intyear.ToString();
+
+                    worksheet.Cell(row, 4).Value = phyname;
                     worksheet.Cell(row, 5).Value = dos;
                     worksheet.Cell(row, 6).Value = item.Createddate.ToString("MMMM dd,yyyy");
-                    worksheet.Cell(row, 7).Value = item.Requestclients?.FirstOrDefault()?.Phonenumber + "(Patient)" + (item.Requesttypeid != 4 ? item.Phonenumber + statusClass.Substring(0, 1).ToUpper() + statusClass.Substring(1).ToLower() : "");
+
                     worksheet.Cell(row, 8).Value = (item.Requestclients?.FirstOrDefault()?.Address == null ? item.Requestclients?.FirstOrDefault()?.Address + item.Requestclients?.FirstOrDefault()?.Street + item.Requestclients?.FirstOrDefault()?.City + item.Requestclients?.FirstOrDefault()?.State + item.Requestclients?.FirstOrDefault()?.Zipcode : item.Requestclients?.FirstOrDefault()?.Street + item.Requestclients?.FirstOrDefault()?.City + item.Requestclients?.FirstOrDefault()?.State + item.Requestclients?.FirstOrDefault()?.Zipcode);
                     worksheet.Cell(row, 9).Value = item.Requestclients?.FirstOrDefault()?.Notes;
+
                     row++;
                 }
                 worksheet.Columns().AdjustToContents();
@@ -542,6 +579,6 @@ namespace HalloDocWeb.Controllers
                 return RedirectToAction(nameof(Admindashboard));
             }
             return View();
-            }
         }
     }
+}

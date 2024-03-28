@@ -28,7 +28,7 @@ namespace HalloDocWebRepository.ViewModel
         [Required(ErrorMessage = "Zip Code is Required.")]
         [RegularExpression(@"[0-9]{6}", ErrorMessage = "Invalid Zip")]
         public string zipcode { get; set; }
-        [Required(ErrorMessage = "create date is required.")]
+        //[Required(ErrorMessage = "create date is required.")]
         public DateTime Createddate { get; set; } = DateTime.Now;
         //[Required(ErrorMessage = "Please Enter Password.")]
         //[RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "Password must be at least 8 characters long and contain at least one letter, one number, and one special character.")]

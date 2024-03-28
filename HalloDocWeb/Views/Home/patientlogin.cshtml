@@ -1,35 +1,25 @@
 @model login
 @{
     ViewData["Title"] = "patientlogin Page";
-
 }
 <div class="min-vh-100 min-vw-100 bg1" id="light-theme"></div>
 <div class="container  align-items-lg-center backimage justify-content-center min-vh-100">
     <div class="row d-flex justify-content-center text-center ">
         <div class="col setmoon">
-
             <button class="moonbtn backtra"><i class="fa-solid fa-moon  "></i></button>
-
         </div>
-
         <div class="col-12">
             <img src="~/OneDrive_2024-01-17/SRS Screen Shorts/backremovelogo.png" class="img-fluid mb-4" alt="logo">
         </div>
-
         <div class="col-sm-12 col-md-6  text-start mt-5">
-
             <a class=" text-start text-info text-decoration-none w-50" asp-controller="Home" asp-action="Index">
                 <i class="fa-solid fa-less-than"></i> Back
             </a>
         </div>
-
         <div class="col-sm-12 col-md-12  mb-5 mt-5 h2">
             Login To Your Account
         </div>
-
-
     </div>
-
     <form class=" " asp-action="patientlogin" method="post">
         <div class="row justify-content-center ">
             <div class=" col-sm-12 col-md-6 form-floating mb-3 form-group ">
@@ -39,7 +29,6 @@
                     Email
                 </label>
                 <span asp-validation-for="Email" class="text-danger w-100 justify-content-start" style="text-align:start !important">
-                   
                 </span>
                 <i class="far fa-user-circle text-secondary faicon"></i>
             </div>
@@ -83,7 +72,6 @@
             document.getElementById('showeye').style.display = 'none';
         }
     }
-
 </script>
 @section Scripts {
     @{

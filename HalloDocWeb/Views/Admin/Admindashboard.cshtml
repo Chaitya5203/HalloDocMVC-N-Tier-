@@ -8,11 +8,22 @@
 }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    var check;
-    var id;
+    function changeSearch(){
+        searchValue = document.getElementById("Searchinput").value;
+        MyAjax();
+    }
+    function changeRegion() {
+      
+        searchRegion = document.getElementById("SearchByRegion").value;
+        MyAjax();
+    }
     $(document).ready(function () {
         check = 0;
         id = 1;
+        if (searchValue != undefined)
+            document.getElementById("searchPatient").value = searchValue;
+        if (searchRegion != undefined)
+            document.getElementById("regionSelect").value = searchRegion;
         MyAjax();
     
         $('.statustablinks').click(function () {
@@ -25,27 +36,40 @@
 
         $('#new-box').click(function () {
             id = 1;
+            document.getElementById("Status").innerHTML = "(New)";
+            document.getElementById("Status").style.color = "#063982";
+
             MyAjax();
             
         });
         $('#pending-box').click(function () {
             id = 2;
+            document.getElementById("Status").innerHTML = "(Pending)";
+            document.getElementById("Status").style.color = "#0AA2C0";
             MyAjax();
         });
         $('#active-box').click(function () {
             id = 3;
+            document.getElementById("Status").innerHTML = "(Active)";
+            document.getElementById("Status").style.color = "#198754";
             MyAjax();
         });
         $('#conclude-box').click(function () {
             id = 4;
+            document.getElementById("Status").innerHTML = "(Conclude)";
+            document.getElementById("Status").style.color = "#AB296A";
             MyAjax();
         });
         $('#close-box').click(function () {
             id = 5;
+            document.getElementById("Status").innerHTML = "(Close)";
+            document.getElementById("Status").style.color = "#0A58CA";
             MyAjax();
         });
         $('#unpaid-box').click(function () {
             id = 6;
+            document.getElementById("Status").innerHTML = "(Unpaid)";
+            document.getElementById("Status").style.color = "#8C68CD";
             MyAjax();
         });
 
@@ -80,35 +104,18 @@
     }
 
     function exportfile(){
-        var search = document.getElementById("Searchinput").value;
-        var region = document.getElementById("SearchByRegion").value;
-        window.location.href = '/Admin/Export?id=' + id + '&check=' + check + '&searchValue=' + search + '&searchRegion=' + region;
-        // debugger;
-        // $.ajax({
-        //     url: "/Admin/Export",
-        //     type: "POST",
-        //     data: { 'id': id, 'check': check, 'searchValue': search, 'searchRegion': region, 'pagenumber': 1, 'pagesize': 3 },
-        //     dataType: "html",
-        //     success: function (data) {
-        //         $("#tableContent").html(data);
-        //     },
-        //     error: function () {
-        //         alert("No Projects Found");
-        //         $("#tableContent").html('An error has occurred');
-        //     }
-        // });
+        window.location.href = '/Admin/Export?id=' + id + '&check=' + check + '&searchValue=' + searchValue + '&searchRegion=' + searchRegion;
+ 
     }
 
     function MyAjax(pagenumber) {
         if (pagenumber == 0) {
             pagenumber = @Model.CurrentPage;
         }
-        var search = document.getElementById("Searchinput").value;
-        var region = document.getElementById("SearchByRegion").value;
         $.ajax({
             url: "/Admin/New",
             type: "POST",
-            data: { 'id': id, 'check': check, 'searchValue': search, 'searchRegion': region, 'pagenumber': pagenumber, 'pagesize': 3 },
+            data: { 'id': id, 'check': check, 'searchValue': searchValue, 'searchRegion': searchRegion, 'pagenumber': pagenumber, 'pagesize': 3 },
             dataType: "html",
             success: function (data) {
                 $("#tableContent").html(data);
@@ -221,7 +228,7 @@
 
         <div class="row mt-3 d-flex flex-row">
             <div class="text-end d-md-flex hideonmobile justify-content-md-end ">
-                <h5 class="ms-2" style="position:absolute !important; left:10px !important;">Patients <span style="color:#063982">(New)</span></h5>
+                <h5 class="ms-2" style="position:absolute !important; left:10px !important;">Patients <span style="color:#063982" id="Status">(New)</span></h5>
                 <button class="btn btn-info ms-1 text-white" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-regular fa-paper-plane me-1"></i><small>Send Link</small></button>
                 <a class="text-decoration-none" asp-action="Patientrequestadmin" asp-controller="Admin">
                     <button class="btn btn-info text-white ms-1 border-info" type="button"><i class="fa-regular fa-note-sticky me-1"></i><small> Requests</small></button>
@@ -231,7 +238,7 @@
                 <button class="btn btn-info text-white ms-1" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1" exampleModal1><i class="fa-regular fa-user me-1"></i><small>Request DTY Support</small></button>
             </div>
             <div class="text-end d-md-flex showonmobile hide justify-content-md-end ">
-                <h6 class="ms-2" style="position:absolute !important; left:10px !important;">Patients <span style="color:#063982">(New)</span></h6>
+                <h6 class="ms-2" style="position:absolute !important; left:10px !important;">Patients <span style="color:#063982" id="Status">(New)</span></h6>
                 <button class="btn btn-info ms-1 p-1 text-white" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-regular fa-paper-plane ms-1 me-1"></i></button>
                 <a class="text-decoration-none" asp-action="Patientrequestadmin" asp-controller="Admin"><button class="btn btn-info p-1 text-white ms-1 border-info" type="button"><i class="fa-regular fa-note-sticky ms-1 me-1"></i> </button> </a>
                 <a onclick="exportfile()"><button class="btn btn-info p-1 ms-1 text-white" type="button"><i class="fa fa-share-square ms-1 me-1" aria-hidden="true"></i></button></a>
@@ -242,10 +249,10 @@
         <div class="row g-2 mt-2 pt-2 pb-3 bg-white shadow rounded-1">
             <div class="col-lg-2 col-md-6 col-sm-12">
                 <i class="fa fa-search text-muted position-absolute" style="padding-top:10px; padding-left:10px;"></i>
-                <input type="search" class="form-control floatingInputGrid" style="padding-left:35px;" id="Searchinput" onkeyup="MyAjax()" placeholder="Search Patients">
+                <input type="search" class="form-control floatingInputGrid" style="padding-left:35px;" id="Searchinput" onkeyup="changeSearch()" placeholder="Search Patients">
             </div>
             <div class="col-lg-2 col-md-6 col-sm-12">
-                <select class="form-select" id="SearchByRegion" onchange="MyAjax()">
+                <select class="form-select" id="SearchByRegion" onchange="changeRegion()">
                     <option value=0 selected>All Regions</option>
                     @foreach (var i in Model.regions)
                     {

@@ -376,3 +376,12 @@ display: none;
     border-right: 15px solid transparent;
     border-top: 15px solid;
 }
+
+.nav-link:hover {
+    color: #0dcaf0 !important;
+    border : none !important;
+}
+.nav-link.active {
+    color: #0dcaf0 !important;
+    border-bottom: 3px solid #0dcaf0 !important;
+}

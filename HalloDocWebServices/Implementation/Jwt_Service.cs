@@ -20,8 +20,8 @@ namespace HalloDocWebServices.Interfaces
             string rolename;
             if (aspnetuser.Role == "1")
                 rolename = "Patient";
-            else 
-                rolename  = "Admin";
+            else
+                rolename = "Admin";
             var claims = new[]
             {
                 new Claim(ClaimTypes.Email, aspnetuser.Email),
@@ -60,7 +60,7 @@ namespace HalloDocWebServices.Interfaces
                     return true;
                 return false;
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 return false;

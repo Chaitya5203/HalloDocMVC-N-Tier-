@@ -18,6 +18,7 @@ namespace HalloDocWebServices.Interfaces
         bool AgreementCancel(int id, string notes);
         public void closecasetounpaid(int id, viewuploadmin n);
         public IQueryable<AdminDashboardTableModel> dashboardtabledata(int id, int check);
+        //public IQueryable<UserAccess> getaspnetuserdata();
         public void deleteallfilesbyadmin(string[] reqids, int id);
         public void deleteFile(int id);
         public MemoryStream DownloadAllServicebyadmin( string[] filenames);
@@ -31,8 +32,6 @@ namespace HalloDocWebServices.Interfaces
         AdminProfileModel getMyProfileData(string? v);
         List<Physician> getPhycision();
         PhysicianProfile getphysicianprofiledata(int id);
-
-        //List<Physician> getphysiciandata(PhysicianProfile info);
         List<Region> getRegionList();
         public void getreqnoteofsavenote(int id,Notes n ,string email);
         public Request getrequestdata(int id,string name);
@@ -46,8 +45,6 @@ namespace HalloDocWebServices.Interfaces
         RoleModel getrolewisedataofrole(int id);
         TokenRegister getTokenRegidterDataByToken(string token);
         public List<Role> getrolewisedata();
-
-        //public Requeststatuslog getrequeststatuslog(int id);
         public requestclientvisedata getviewcasedataofpatient(int id);
         void insertblockrequesttable(int id, string? email, string? phonenumber, string notes);
         void insertordertable(sendorder sendorder );
@@ -75,5 +72,8 @@ namespace HalloDocWebServices.Interfaces
         void deleterole(int id);
         AdminProfileModel getAdminRoleData();
         void CreateAdminAccount(AdminProfileModel model,string email);
+        void saveadminpassword(AdminProfileModel info);
+        UserAccess getaspnetuserdata();
+
     }
 }

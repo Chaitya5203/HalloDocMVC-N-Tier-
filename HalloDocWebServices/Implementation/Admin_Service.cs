@@ -302,8 +302,12 @@ namespace HalloDocWebServices.Interfaces
             var adminUser = _repository.getAspnetuserByEmail(v);
             AdminProfileModel model = new();
             model.adminuser = adminUser;
+            
             var admin = _repository.getAdminByAspnetId(adminUser.Id);
+            model.roleid = admin.Roleid;
             model.admin = admin;
+            model.roles = _repository.getRolesOfAdmin();
+            model.regions = _repository.getregion();
             model.adminregion = _repository.getadminregionname(admin.Adminid);
             model.region = _repository.getregionById(model.admin.Regionid);
             model.regions = _repository.getregion();
@@ -921,7 +925,6 @@ namespace HalloDocWebServices.Interfaces
             role.Isdeleted = new BitArray(1, true);
             _repository.setdeleterole(role);
         }
-
         public AdminProfileModel getAdminRoleData( )
         {
             AdminProfileModel model = new AdminProfileModel();
@@ -929,12 +932,10 @@ namespace HalloDocWebServices.Interfaces
             model.regions = _repository.getregion();
             return model;
         }
-
         public void CreateAdminAccount(AdminProfileModel model,string email)
         {
             Aspnetuser aspnetuser = new Aspnetuser();
-            aspnetuser.Passwordhash = model.Aspnetuser.Passwordhash;
-            aspnetuser.Usarname = model.admin.Firstname + model.admin.Lastname;
+            aspnetuser.Passwordhash = model.Aspnetuser.Passwordhash;            aspnetuser.Usarname = model.admin.Lastname + model.admin.Firstname.ToCharArray().First();
             aspnetuser.Createddate = DateTime.Now;
             aspnetuser.Modifieddate = DateTime.Now;
             aspnetuser.Email = model.admin.Email;
@@ -965,7 +966,28 @@ namespace HalloDocWebServices.Interfaces
                 adminregion.Regionid= item;
                 _repository.addadminregiondata(adminregion);
             }
-            
+        }
+
+        public void saveadminpassword(AdminProfileModel info)
+        {
+            Aspnetuser aspnetuser = _repository.getAspnetuserByID(info.admin.Aspnetuserid);
+            aspnetuser.Passwordhash = info.Password;
+            aspnetuser.Modifieddate = DateTime.Now;
+            _repository.UpdateAspnetPassword(aspnetuser);
+        }
+        //public IQueryable<UserAccess> getaspnetuserdata()
+        //{
+        //    IQueryable<UserAccess> data;
+        //    data = _repository.getuseraccessdata();
+        //    return data;
+        //}
+        public UserAccess getaspnetuserdata()
+        {
+            UserAccess userAccess = new UserAccess();
+            userAccess.Aspnetuser = _repository.getaspnetuserdataofadminandprovider();
+            userAccess.admins = _repository.getAdminList();
+            userAccess.physicsian = _repository.getphysician();
+            return userAccess;
         }
     }
 }

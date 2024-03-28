@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <form asp-controller="Request" asp-action="SavePatientData" class="w-100 text-center" method="post" >
+        <form asp-controller="Request" asp-action="SavePatientData" class="w-100 text-center" method="post">
             <div class="text-danger"></div>
             <div class=" form-floating mb-3 form-group ">
                 <input type="text" asp-for=Email value="@ViewBag.Email" class="form-control text-muted backtra border-info " id="floatingInput"
@@ -32,7 +32,7 @@
                 <label class=" " for="floatingInput">
                     Email
                 </label>
-                <span  class="text-danger text-start"></span>
+                <span class="text-danger text-start"></span>
                 <i class="far fa-user-circle text-secondary faicon"></i>
             </div>
             <div class="form-floating mb-3">
@@ -57,7 +57,6 @@
                 </div>
             </div>
         </form>
-
     </div>
 </div>
 <footer class="footerset text-lg-center text-center justify-content-center">
@@ -70,7 +69,6 @@
         var y = document.getElementById('example2FormControlInput1').value;
         if (x != y) {
             alert("Your password and confirmation password do not match.");
-            // example2FormControlInput1.focus();
             return false;
         }
     }

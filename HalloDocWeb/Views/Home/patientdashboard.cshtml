@@ -2,64 +2,12 @@
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor Accessor
 @{
+    Layout = "_PatientHeader";
     ViewData["Title"] = "patientdashboard Page";
     var toastMsg = TempData["toastMsg"] == null ? "" : TempData["toastMsg"];
     var toastType = TempData["toastType"] == null ? "success" : TempData["toastType"];
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
-<nav class="bg-white">
-    <div class="container-fluid shadow p-0">
-        <ul class="sidebar p-0">
-            
-            <li >
-                <div class=" bg-transparent d-flex">
-                    <button class="Logout1 btn showonmobile hide " data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars" style="color: #54d4d3;"></i> </button>
-                    <img src="~/OneDrive_2024-01-17/SRS Screen Shorts/backremovelogo.png" alt="" height="100px" width="180">
-                </div>
-                @* <span class="showonmobile hide">
-                    <button class="Logout1 btn  " data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars" style="color: #54d4d3;"></i> </button>
-                </span>
-                <img src="~/OneDrive_2024-01-17/SRS Screen Shorts/backremovelogo.png" alt="" height="100px" width="180"> *@
-            </li>
-
-            <li class="hideonmobile me-2">Welcome <b> @Accessor.HttpContext.Request.Cookies["Usarname"]</b></li>
-            <li>
-                <a asp-controller="Home" asp-action="Logout">
-                    <button class="btn hideonmobile me-2"
-                        style="border:2px solid #54d4d3; color: #54d4d3;">Logout</button></a></li>
-            <li>
-                <a asp-controller="Home" asp-action="patientlogin">
-                    <button class="btn showonmobile hide me-2"
-                        style="border:2px solid #54d4d3;"><i class="fa-solid fa-arrow-right-from-bracket"
-                            style="color: #54d4d3;"></i></button></a></li>
-            <li><button class="moonbtn backtra me-2"><i class="fa-solid fa-moon  "></i></button></li>
-        </ul>
-        <hr>
-        <ul class="nav nav-tabs hideonmobile" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active border-0 text-muted" id="home-tab" data-bs-toggle="tab"
-                    data-bs-target="#home" type="button" role="tab" aria-controls="home"
-                    aria-selected="true"><b>Dashboard</b></button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link text-muted border-0 " id="profile-tab" data-bs-toggle="tab"
-                    data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
-                    aria-selected="false"><b>Profile</b></button>
-            </li>
-        </ul>
-    </div>
-</nav>
-<div class="offcanvas offcanvas-start w-50 showonmobile hide bg-light" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Welcome <strong>@Accessor.HttpContext.Request.Cookies["Usarname"]</strong></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <div class="offcanvasmenu p-2"><a id="dashboardnav" class="text-muted text-decoration-none">Dashboard</a></div>
-        <div class="offcanvasmenu p-2"><a id="myprofilenav" class="text-muted text-decoration-none">Profile</a></div>
-    </div>
-</div>
-<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -77,345 +25,200 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-info text-white">Continue</button>
                 <button type="button" class="btn btn-white" style="border-color: #54d4d3; color: #54d4d3;"
-                    data-bs-dismiss="modal">Cancel</button>
+                        data-bs-dismiss="modal">
+                    Cancel
+                </button>
             </div>
         </div>
     </div>
 </div>
-<div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active " id="home" role="tabpanel" aria-labelledby="home-tab">
-        <div class="container mt-3 ">
-            <h3>Medical History</h3>
-            <div class="container hideonmobile bg-white rounded shadow mt-3 p-0">
-                <div class="row pt-3 pb-3">
-                    <div class="col text-end">
-                        <button class="btn btn-white me-3" style="border-color: #54d4d3; color: #54d4d3;"
-                            data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Create New Request
-                        </button>
-                    </div>
-                </div>
-                <table class="table">
-                    <thead>
-                        <tr class="bg-light h-100">
-                            <th scope="col">Create Date</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Document</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-muted">
-                        @foreach (var item in Model.Request.ToList())
-                        {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.Createddate)</td>
-                                <td>@* @Html.DisplayFor(modelItem => item.Status) *@
-                                    @switch (item.Status)
-                                    {
-                                        case 1:
-                                            <span> Unassigned</span>
-
-                                            break;
-                                        case 2:
-                                            <span>
-                                                Accepted
-                                            </span>
-                                            break;
-                                        case 5 or 4:
-                                            <span>
-                                                Processing
-                                            </span>
-                                            break;
-                                        case 3:
-                                            <span>
-                                                Cancelled by Admin
-                                            </span>
-                                            break;
-                                        case 6:
-                                            <span>
-                                                Concluded
-                                            </span>
-                                            break;
-                                        case 7:
-                                            <span>
-                                                Cancelled by Patient
-                                            </span>
-                                            break;
-                                        case 8:
-                                            <span>
-                                                Closed
-                                            </span>
-                                            break;
-                                        case 9:
-                                            <span>
-                                                Unpaid
-                                            </span>
-                                            break;
-                                    }
-                                </td>
-                                <td><a asp-action="document" asp-controller="Home" asp-route-id="@item.Requestid"><button class="btn btn-white" style="border-color: #54d4d3; color: #54d4d3;">(@ViewBag.RequestIdCounts[item.Requestid])Document</button></a></td>
-                             </tr>
-                        }
-                    </tbody>
-                </table>
+<div class="container mt-3 ">
+    <h3>Medical History</h3>
+    <div class="container hideonmobile bg-white rounded shadow mt-3 p-0">
+        <div class="row pt-3 pb-3">
+            <div class="col text-end">
+                <button class="btn btn-white me-3" style="border-color: #54d4d3; color: #54d4d3;"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Create New Request
+                </button>
             </div>
-            <div class="container showonmobile hide rounded shadow mb-3  ">
-                <div class="row pt-3 pb-3 bg-white">
-                    <div class="col text-end ">
-                        <button class="btn btn-white me-3 " data-bs-toggle="modal" data-bs-target="#exampleModal"
-                            style="border-color: #54d4d3; color: #54d4d3;">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="accordion" style="background-color: #54d4d3;" id="accordionExample">
-
+        </div>
+        <table class="table">
+            <thead>
+                <tr class="bg-light h-100">
+                    <th scope="col">Create Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Document</th>
+                </tr>
+            </thead>
+            <tbody class="text-muted">
                 @foreach (var item in Model.Request.ToList())
-                        {
-                        string id = 'a' + item.Requestid.ToString();
-                        <div class="accordion-item">
-                        <h2 class="accordion-header" id="@id">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@id+1" aria-expanded="false" aria-controls="@id">
-                             <i class="fa-regular fa-clock me-1" style="color: #54d4d3;"></i><b>Created Date: </b> @Html.DisplayFor(modelItem => item.Createddate)
-                            </button>
-                        </h2>
-                            <div id="@id+1" class="accordion-collapse collapse" aria-labelledby="@id+1" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                    <p><i class="fa-solid fa-user-doctor me-1 circlefa" style="color: #54d4d3; "></i>Provider : @id</p>
-                                    <p>
-                                        <i class="fa-solid fa-check circlefa me-1" style="color: #54d4d3;"></i>Current Status
-                                    
-                                        @switch (item.Status)
-                                        {
-                                            case 1:
-                                                <span> Unassigned</span>
-                                                
-                                                break;
-                                            case 2:
-                                                <span>
-                                                    Accepted
-                                                </span>
-                                                break;
-                                            case 5 or 4 :
-                                                <span>
-                                                    Processing
-                                                </span>
-                                                break;
-                                            case 3:
-                                                <span>
-                                                    Cancelled by Admin
-                                                </span>
-                                                break;
-                                            case 6:
-                                                <span>
-                                                    Concluded
-                                                </span>
-                                                break;
-                                            case 7:
-                                                <span>
-                                                    Cancelled by Patient
-                                                </span>
-                                                break;
-                                            case 8:
-                                                <span>
-                                                    Closed
-                                                </span>
-                                                break;
-                                            case 9:
-                                                <span>
-                                                    Unpaid
-                                                </span>
-                                                break;
-                                        }
-                                        
-                                        
-                                <p class=""><a asp-action="document" asp-controller="Home" asp-route-id="@item.Requestid"><button class="btn btn-white w-100" style="border-color: #54d4d3; color: #54d4d3;">(@ViewBag.RequestIdCounts[item.Requestid])Document</button></a></p>
-                            </div>
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Createddate)</td>
+                        <td>
+                            @switch (item.Status)
+                            {
+                                case 1:
+                                    <span> Unassigned</span>
+
+                                    break;
+                                case 2:
+                                    <span>
+                                        Accepted
+                                    </span>
+                                    break;
+                                case 5 or 4:
+                                    <span>
+                                        Processing
+                                    </span>
+                                    break;
+                                case 3:
+                                    <span>
+                                        Cancelled by Admin
+                                    </span>
+                                    break;
+                                case 6:
+                                    <span>
+                                        Concluded
+                                    </span>
+                                    break;
+                                case 7:
+                                    <span>
+                                        Cancelled by Patient
+                                    </span>
+                                    break;
+                                case 8:
+                                    <span>
+                                        Closed
+                                    </span>
+                                    break;
+                                case 9:
+                                    <span>
+                                        Unpaid
+                                    </span>
+                                    break;
+                            }
+                        </td>
+                        <td><a asp-action="document" asp-controller="Home" asp-route-id="@item.Requestid"><button class="btn btn-white" style="border-color: #54d4d3; color: #54d4d3;">(@ViewBag.RequestIdCounts[item.Requestid])Document</button></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="container showonmobile hide rounded shadow mb-3  ">
+        <div class="row pt-3 pb-3 bg-white">
+            <div class="col text-end ">
+                <button class="btn btn-white me-3 " data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        style="border-color: #54d4d3; color: #54d4d3;">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="accordion" style="background-color: #54d4d3;" id="accordionExample">
+
+            @foreach (var item in Model.Request.ToList())
+            {
+                string id = 'a' + item.Requestid.ToString();
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="@id">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@id+1" aria-expanded="false" aria-controls="@id">
+                            <i class="fa-regular fa-clock me-1" style="color: #54d4d3;"></i><b>Created Date: </b> @Html.DisplayFor(modelItem => item.Createddate)
+                        </button>
+                    </h2>
+                    <div id="@id+1" class="accordion-collapse collapse" aria-labelledby="@id+1" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p><i class="fa-solid fa-user-doctor me-1 circlefa" style="color: #54d4d3; "></i>Provider : @id</p>
+                            <p>
+                                <i class="fa-solid fa-check circlefa me-1" style="color: #54d4d3;"></i>Current Status
+
+                                @switch (item.Status)
+                                {
+                                    case 1:
+                                        <span> Unassigned</span>
+
+                                        break;
+                                    case 2:
+                                        <span>
+                                            Accepted
+                                        </span>
+                                        break;
+                                    case 5 or 4:
+                                        <span>
+                                            Processing
+                                        </span>
+                                        break;
+                                    case 3:
+                                        <span>
+                                            Cancelled by Admin
+                                        </span>
+                                        break;
+                                    case 6:
+                                        <span>
+                                            Concluded
+                                        </span>
+                                        break;
+                                    case 7:
+                                        <span>
+                                            Cancelled by Patient
+                                        </span>
+                                        break;
+                                    case 8:
+                                        <span>
+                                            Closed
+                                        </span>
+                                        break;
+                                    case 9:
+                                        <span>
+                                            Unpaid
+                                        </span>
+                                        break;
+                                }
+
+
+                            <p class=""><a asp-action="document" asp-controller="Home" asp-route-id="@item.Requestid"><button class="btn btn-white w-100" style="border-color: #54d4d3; color: #54d4d3;">(@ViewBag.RequestIdCounts[item.Requestid])Document</button></a></p>
                         </div>
                     </div>
-                    }
                 </div>
-            </div>
+            }
         </div>
-
-    </div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <div class="modal" id="myModal1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <section>
-                        <div class="mapouter">
-                            <div class="gmap_canvas">
-                                <iframe width="600" height="500" id="gmap_canvas" src="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
-
-                                    <!-- </iframe><a href="https://123movies-to.org">123 movies</a><br> -->
-                                    <style>
-                                        .mapouter {
-                                            position: relative;
-                                            text-align: right;
-                                            height: 500px;
-                                            width: 600px;
-                                        }</style>
-                                    <!-- <a href="https://www.embedgooglemap.net">embedgooglemap.net</a> -->
-                                    <style>
-                                        .gmap_canvas {
-                                            overflow: hidden;
-                                            background: none !important;
-                                            height: 500px;
-                                            width: 600px;
-                                        }
-                                    </style>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </div>
-        <!-- Button trigger modal -->
-        <div class="tab-pane container active" id="dashboard">
-            <div class="container mx-0">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="d-flex justify-content-between mt-3">
-                            <h4 class="mt-3">User Profile</h4>
-                            @* <a asp-action="PatientDashboard" asp-controller="Home"><button class="theme-btn-header px-1 mt-3 mb-3 " style="height: 40px; width : 80px; color: #54B4D3;">< Back</button></a> *@
-                            <a class="text-start text-info text-decoration-none" asp-controller="Home" asp-action="patientdashboard">
-                                <button class="btn btn-white  text-info border-info rounded ">
-                                    <i class="fa-solid  fa-less-than"></i> Back
-                                </button>
-                            </a>
-                        </div>
-                        <form asp-action="Updateprofile" method="post" id="enable">
-                        <div class="container  rounded bg-white shadow py-3">
-
-                            @* <h6 class="text-muted">Patient Name</h6> *@
-                            <h4 class="mb-3">General Information</h4>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                    <input value="@Model.User.Firstname" name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname" disabled>
-                                    <label for="exampleFormControlInput1" class="form-label ps-4">First name</label>
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                    <input value="@Model.User.Lastname" name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname" disabled>
-                                    <label for="exampleFormControlInput1" class="form-label ps-4">last name </label>
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                                    <input type="date" asp-format="{0:yyyy-MM-dd}" asp-for="DOB" class="form-control" disabled id="exampleFormControlInput1" placeholder="Date Of Birth">
-                                    <label for="exampleFormControlInput1" class="form-label ps-4">Date Of Birth</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 h3 mb-3">
-                                    Patient Contact Information
-                                </div>
-                                <div class="col-lg-2 col-md-2 col-sm-12">
-                                    <div class="mb-3 border border-light rounded-5">
-                                        <select class="form-select p-3 pla1" aria-label=".form-select-lg example" disabled>
-                                            <option selected value="1">Mobile</option>
-                                            <option value="2">Email</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-4 col-xl-4 form-floating mb-3 text-muted">
-                                    <input value="@Model.User.Mobile" name="phonenumber" type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Lastname" disabled>
-                                    <label  for="exampleFormControlInput1" class="form-label ps-4">Phone Number</label>
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted" >
-                                    <input value="@Model.User.Email" name="email" type="email" class="form-control" id="email" placeholder="Firstname" disabled>
-                                    <label for="email" class="form-label ps-4">Email</label>
-                                </div>
-                             </div>
-                            <div class="row">
-                                <div class="col-12 h3 mb-3">
-                                    Location Information
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
-                                    <input value="@Model.User.Street" type="text" name="street" class="form-control" id="street" placeholder="Street" disabled>
-                                    <label for="exampleFormControlInput1" class="form-label ps-4">Street</label>
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
-                                    <input value="@Model.User.City" type="text" name="city" class="form-control" id="city" disabled placeholder="City">
-                                    <label for="exampleFormControlInput1" class="form-label ps-4">City</label>
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
-                                    <input value="@Model.User.State" type="text" name="state" class="form-control" disabled id="state" placeholder="State">
-                                    <label for="exampleFormControlInput1" class="form-label ps-4">State</label>
-                                </div>
-                                <div class="col-sm-12 col-md-4 col-xl-4  form-floating mb-3 text-muted">
-                                    <input value="@Model.User.Zip" type="text" name="zipcode" class="form-control" disabled id="zipcode" placeholder="Zip Code">
-                                    <label for="exampleFormControlInput1" class="form-label ps-4">Zip Code</label>
-                                </div>
-                                <div class="col-2 ">
-                                    <a class="btn btn-white border-info text-info" id="openBtn"><i class="fa-solid fa-location-dot me-1 mt-2"></i>Map</a>
-                                </div>
-                            </div>
-                            <div class="text-end pb-3">
-                                <button class="btn btn-info me-2 text-white" onclick="enbledata()" type="button">Edit</button>
-                                    <button class="btn btn-info me-2 text-white"  type="submit">Save</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="tab-pane container fade" id="profile">this is Profile tab</div>
-        </div>
-        <script>
-            window.onload = function () {
-                if ('@toastMsg' != "") {
-                    showToaster('@toastMsg', '@toastType');
-                }
-            }
-            $(document).ready(function () {
-                $("#openBtn").click(function () {
-                    $("#myModal1").modal("show");
-                    var Street = $("#street").val();
-                    var City = $("#city").val();
-                    var State = $("#state").val();
-                    var ZipCode = $("#zipcode").val();
-                    var address = "https://maps.google.com/maps?q=" + Street + City + State + ZipCode + "&t=&z=13&ie=UTF8&iwloc=&output=embed";
-                    $("#gmap_canvas").attr("src", address);
-                });
-            });
-            function changeTheme() {
-                if ($('#light-theme').css('display') == 'none') {
-                    document.querySelector(".login-bg").style.display = "block";
-                    document.querySelector(".login-bg-dark").style.display = "none";
-                }
-                else {
-                    document.querySelector(".login-bg").style.display = "none";
-                    document.querySelector(".login-bg-dark").style.display = "block";
-                }
-            }
-            function showSidebar() {
-                document.querySelector(".sideBar").style.display = "flex";
-            }
-            function hideSidebar() {
-                document.querySelector(".sideBar").style.display = "none";
-            }
-            function showHidePassword() {
-                let temp = document.getElementById("inputPassword");
-
-                if (temp.type === "password") {
-                    temp.type = "text";
-                }
-                else {
-                    temp.type = "password";
-                }
-            }
-            function enbledata() {
-                var formelements = document.getElementById("enable").elements;
-                for (var i = 0; i < formelements.length; i++) { 
-                    formelements[i].disabled = false;
-                }
-            }
-        </script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     </div>
 </div>
+<div class="modal" id="myModal1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <section>
+                <div class="mapouter">
+                    <div class="gmap_canvas">
+                        <iframe width="600" height="500" id="gmap_canvas" src="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
 
+                            <!-- </iframe><a href="https://123movies-to.org">123 movies</a><br> -->
+                            <style>
+                                .mapouter {
+                                    position: relative;
+                                    text-align: right;
+                                    height: 500px;
+                                    width: 600px;
+                                }</style>
+                            <!-- <a href="https://www.embedgooglemap.net">embedgooglemap.net</a> -->
+                            <style>
+                                .gmap_canvas {
+                                    overflow: hidden;
+                                    background: none !important;
+                                    height: 500px;
+                                    width: 600px;
+                                }
+                            </style>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
 <footer class="text-center justify-content-center bg-secondary  position-fixed w-100 bottom-0">
     <div class="">Terms Of Conditions <div class="vr "></div> Privacy Policy</div>
 </footer>
+<script>
+    document.getElementById("Dashboard").classList.add("active");
+</script>

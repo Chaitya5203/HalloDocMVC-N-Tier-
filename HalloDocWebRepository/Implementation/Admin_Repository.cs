@@ -4,7 +4,7 @@ using HalloDocWebRepository.Interfaces;
 using HalloDocWebRepository.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
-
+using System.Net.NetworkInformation;
 namespace HalloDocWebRepository.Implementation
 {
     public class Admin_Repository : IAdmin_Repository
@@ -431,29 +431,62 @@ namespace HalloDocWebRepository.Implementation
             _context.Roles.Update(id);
             _context.SaveChanges();
         }
-
         public List<Role> getRolesOfAdmin()
         {
             return _context.Roles.Where(m => m.Accounttype == 1).ToList();
-
         }
-
         public void addadmindata(Admin admin)
         {
             _context.Admins.Add(admin);
             _context.SaveChanges();
         }
-
         public void addaspnetusertable(Aspnetuser aspnetuser)
         {
             _context.Aspnetusers.Add(aspnetuser);
             _context.SaveChanges();
         }
-
         public void addadminregiondata(Adminregion adminregion)
         {
             _context.Adminregions.Add(adminregion);
             _context.SaveChanges();
+        }
+
+        public void UpdateAspnetPassword(Aspnetuser aspnetuser)
+        {
+            _context.Aspnetusers.Update(aspnetuser);
+            _context.SaveChanges();
+        }
+
+        public Aspnetuser getAspnetuserByID(int id)
+        {
+            return _context.Aspnetusers.FirstOrDefault(m => m.Id == id);
+        }
+
+        public List<Aspnetuser> getaspnetuserdataofadminandprovider()
+        {
+           return _context.Aspnetusers.Include(e => e.Admins).Include(e => e.Physicians).Where(m=>m.Role=="2" || m.Role=="3" ).ToList();
+        }
+
+        public List<Admin> getAdminList()
+        {
+            return _context.Admins.ToList();
+        }
+
+        public IQueryable<UserAccess> getuseraccessdata()
+        {
+            IQueryable<UserAccess> data = from asp in _context.Aspnetusers
+                                                        join adm in _context.Admins on asp.Id equals adm.Aspnetuserid
+                                                        join phy in _context.Physicians on asp.Id equals phy.Aspnetuserid
+                                                        
+                                                        select new UserAccess
+                                                        {
+                                                            adminstatus = adm.Status,
+                                                            physicianstatus = phy.Status,
+                                                            role = asp.Role,
+                                                            Phonenumber = asp.Phonenumber,
+                                                            Usarname =asp.Usarname,
+                                                        };
+            return data;
         }
     }
 }

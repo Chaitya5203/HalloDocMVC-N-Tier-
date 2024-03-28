@@ -1,0 +1,89 @@
+﻿@model profile
+@{
+    Layout = "_PatientHeader";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between mt-3">
+                <h4 class="mt-3">User Profile</h4>
+                <a class="text-start text-info text-decoration-none" asp-controller="Home" asp-action="patientdashboard">
+                    <button class="btn btn-white  text-info border-info rounded ">
+                        <i class="fa-solid  fa-less-than"></i> Back
+                    </button>
+                </a>
+            </div>
+            <form asp-action="Updateprofile" method="post" id="enable">
+                <div class="container  rounded bg-white shadow py-3">
+                    <h4 class="mb-3">General Information</h4>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <input value="@Model.User.Firstname" name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">First name</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <input value="@Model.User.Lastname" name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">last name </label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <input type="date" asp-format="{0:yyyy-MM-dd}" asp-for="DOB" class="form-control" disabled id="exampleFormControlInput1" placeholder="Date Of Birth">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Date Of Birth</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 h3 mb-3">
+                            Patient Contact Information
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <div class="mb-3 border border-light rounded-5">
+                                <select class="form-select p-3 pla1" aria-label=".form-select-lg example" disabled>
+                                    <option selected value="1">Mobile</option>
+                                    <option value="2">Email</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-4 col-xl-4 form-floating mb-3 text-muted">
+                            <input value="@Model.User.Mobile" name="phonenumber" type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Lastname" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Phone Number</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                            <input value="@Model.User.Email" name="email" type="email" class="form-control" id="email" placeholder="Firstname" disabled>
+                            <label for="email" class="form-label ps-4">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 h3 mb-3">
+                            Location Information
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
+                            <input value="@Model.User.Street" type="text" name="street" class="form-control" id="street" placeholder="Street" disabled>
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Street</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+                            <input value="@Model.User.City" type="text" name="city" class="form-control" id="city" disabled placeholder="City">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">City</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+                            <input value="@Model.User.State" type="text" name="state" class="form-control" disabled id="state" placeholder="State">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">State</label>
+                        </div>
+                        <div class="col-sm-12 col-md-4 col-xl-4  form-floating mb-3 text-muted">
+                            <input value="@Model.User.Zip" type="text" name="zipcode" class="form-control" disabled id="zipcode" placeholder="Zip Code">
+                            <label for="exampleFormControlInput1" class="form-label ps-4">Zip Code</label>
+                        </div>
+                        <div class="col-2 ">
+                            <a class="btn btn-white border-info text-info" id="openBtn"><i class="fa-solid fa-location-dot me-1 mt-2"></i>Map</a>
+                        </div>
+                    </div>
+                    <div class="text-end pb-3">
+                        <button class="btn btn-info me-2 text-white" onclick="enbledata()" type="button">Edit</button>
+                        <button class="btn btn-info me-2 text-white" type="submit">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("Patientprofile").classList.add("active");
+</script>

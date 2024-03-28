@@ -5,7 +5,7 @@ namespace HalloDocWebRepository.Interfaces
     public interface IPatient_Repository
     {
         void addAspuserTable(Aspnetuser aspuser);
-        void addbusinesstable(Business business);   
+        void addbusinesstable(Business business);
         void addconciergetable(Concierge c);
         void addrequestbusinesstable(Requestbusiness requestbusiness);
         void addrequestclientdata(Requestclient requestclient);
@@ -24,7 +24,7 @@ namespace HalloDocWebRepository.Interfaces
         public bool getUser(login aspnetuser);
         public User getUser(string? email);
         public Aspnetuser ProfileAspdata(string email);
-        public User  ProfileUserdata(string email);
+        public User ProfileUserdata(string email);
         public int requestWiseFile(int requestid);
         public Requestwisefile RequestwisefilesRepo(int id);
         public void SaveDbChanges();

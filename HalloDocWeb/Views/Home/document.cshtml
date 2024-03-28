@@ -1,69 +1,10 @@
-﻿@* @model WebApplication2.Data.Requestwisefile *@
-@model IEnumerable<HalloDocWebRepository.Data.Requestwisefile>
+﻿@model IEnumerable<HalloDocWebRepository.Data.Requestwisefile>
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor Accessor
 @{
+    Layout = "_PatientHeader";
     ViewData["Title"] = "Document Page";
 }
-<nav class="bg-white">
-    <div class="container-fluid shadow p-0">
-        <ul class="sidebar p-0">
-            <li>
-                <div class=" bg-transparent d-flex">
-                    <button class="Logout1 btn showonmobile hide " data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars" style="color: #54d4d3;"></i> </button>
-                    <img src="~/OneDrive_2024-01-17/SRS Screen Shorts/backremovelogo.png" alt="" height="100px" width="180">
-                </div>
-                @* <img src="~/OneDrive_2024-01-17/SRS Screen Shorts/backremovelogo.png" alt="" height="100px" width="180"> *@
-            </li>
-            <li class="hideonmobile me-2">Welcome <b> @Accessor.HttpContext.Request.Cookies["Usarname"]</b></li>
-            <li>
-                <a asp-controller="Home" asp-action="patientlogin">
-                    <button class="btn hideonmobile me-2"
-                            style="border:2px solid #54d4d3; color: #54d4d3;">
-                        Logout
-                    </button>
-                </a>
-            </li>
-            <li>
-                <a asp-controller="Home" asp-action="patientlogin">
-                    <button class="btn showonmobile hide me-2"
-                            style="border:2px solid #54d4d3;">
-                        <i class="fa-solid fa-arrow-right-from-bracket"
-                           style="color: #54d4d3;"></i>
-                    </button>
-                </a>
-            </li>
-            <li><button class="moonbtn backtra me-2"><i class="fa-solid fa-moon  "></i></button></li>
-        </ul>
-        <hr>
-        <ul class="nav nav-tabs hideonmobile" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active border-0 text-muted" id="home-tab" data-bs-toggle="tab"
-                        data-bs-target="#home" type="button" role="tab" aria-controls="home"
-                        aria-selected="true">
-                    <b>Dashboard</b>
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link text-muted border-0 " id="profile-tab" data-bs-toggle="tab"
-                        data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
-                        aria-selected="false">
-                    <b>Profile</b>
-                </button>
-            </li>
-        </ul>
-    </div>
-</nav>
-<div class="offcanvas offcanvas-start w-50 showonmobile hide bg-light" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Welcome <strong>@Accessor.HttpContext.Request.Cookies["Usarname"]</strong></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <div class="offcanvasmenu p-2"><a id="dashboardnav" class="text-muted text-decoration-none">Dashboard</a></div>
-        <div class="offcanvasmenu p-2"><a id="myprofilenav" class="text-muted text-decoration-none">Profile</a></div>
-    </div>
-</div>
 <div class="tab-content">
     <div class="tab-pane container active" id="dashboard">
         <div class="container mx-0">
@@ -166,7 +107,9 @@
             </div>
         </div>
     </div>
+</div>
     <script>
+
         function changeTheme() {
             if ($('#light-theme').css('display') == 'none') {
                 document.querySelector(".login-bg").style.display = "block";
@@ -193,6 +136,9 @@
                 temp.type = "password";
             }
         }
+    </script>
+    <script>
+        document.getElementById("Dashboard").classList.add("active");
     </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

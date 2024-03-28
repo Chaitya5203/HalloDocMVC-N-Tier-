@@ -20,13 +20,13 @@ namespace HalloDocWebRepository.Interfaces
         public Requestnote getrequestnotebyid(int id);
         void Addreqnotetable(Requestnote reqnotes);
         void addreqnotetablewithnewnotw(Requestnote reqnotes);
-        public Requestwisefile getRequestWiseFileList(int id,string filename);
+        public Requestwisefile getRequestWiseFileList(int id, string filename);
         public List<Requestwisefile> getRequestWiseFileList(int id);
         public Requestwisefile getRequestWiseFile(int id);
         void updateRequestWiseFileTable(Requestwisefile file);
         void addrequestwisefiletablebyadmin(Requestwisefile reqclient);
         public Requestwisefile RequestwisefilesRepobyadmin(int id);
-        public Requestwisefile getRequestWiseFileListByFileName(string fl,int id);
+        public Requestwisefile getRequestWiseFileListByFileName(string fl, int id);
         public List<Healthprofessional> gethealthprofessionaldata();
         public List<Healthprofessionaltype> gethealthprofessionaltypedata();
         public List<Healthprofessional> gethealthprofessionaldatabyid(int hprof);
@@ -76,5 +76,10 @@ namespace HalloDocWebRepository.Interfaces
         void addadmindata(Admin admin);
         void addaspnetusertable(Aspnetuser aspnetuser);
         void addadminregiondata(Adminregion adminregion);
+        void UpdateAspnetPassword(Aspnetuser aspnetuser);
+        Aspnetuser getAspnetuserByID(int id);
+        List<Aspnetuser> getaspnetuserdataofadminandprovider();
+        List<Admin> getAdminList();
+        IQueryable<UserAccess> getuseraccessdata();
     }
 }

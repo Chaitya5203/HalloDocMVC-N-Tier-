@@ -28,36 +28,44 @@
             </div>
 
             <div class="container rounded bg-white shadow py-3">
-                <form asp-action="" asp-controller="Admin" method="post">
+                <form asp-action="SaveAdminPassword" asp-controller="Admin" method="post">
+                    <input type="hidden" asp-for=admin.Adminid value="@Model.admin.Adminid" />
+                    <input type="hidden" asp-for=admin.Aspnetuserid value="@Model.admin.Aspnetuserid" />
                     <h5 class="mb-3">Account Information</h5>
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <input value="@Model.adminuser.Usarname" name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Firstname" disabled>
+                            <input  asp-for="@Model.adminuser.Usarname"  type="text" class="form-control" id="exampleFormControlInput1" disabled>
                             <label for="exampleFormControlInput1" class="form-label ps-4">User Name</label>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                            <input value="@Model.adminuser.Passwordhash" name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lastname" disabled>
+                            <input name="Password" type="text" class="form-control" id="password" disabled>
                             <label for="exampleFormControlInput1" class="form-label ps-4">Password </label>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6">
                             <div class="mb-3 border border-light rounded-5">
                                 <select class="form-select p-3 pla1" aria-label="form-select-lg example" disabled>
-                                    <option selected value="1">Mobile</option>
+                                    <option selected value="0">Status</option>
                                     <option value="2">Email</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6">
                             <div class="mb-3 border border-light rounded-5">
-                                <select class="form-select p-3 pla1" aria-label="form-select-lg example" disabled>
-                                    <option selected value="1">Mobile</option>
-                                    <option value="2">Email</option>
+                                <select class="form-select text-muted p-3 pla1" asp-for=roleid aria-label=" form-select-lg example" disabled>
+                                    @foreach (var item in Model.roles)
+                                    {
+                                        <option value="@item.Roleid">
+                                            @item.Name
+                                        </option>
+                                    }
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="text-end pb-3">
-                        <button class="btn btn-white text-info border-info" type="button">Reset password</button>
+                        <button class="btn btn-white text-info border-info" onclick="EditData2()" id="reset" type="button">Reset password</button>
+                        <button class="btn btn-info text-white" id="save2" type="submit" style="display:none;">Save</button>
+                        <button class="btn btn-white text-info border-info" onclick="disableData2()" id="cancel2" type="button" style="display:none;">Cancel</button>
                     </div>
                 </form>
                 <form asp-action="UpdateAdminProfile" id="enable" asp-controller="Admin">
@@ -114,6 +122,7 @@
                             <button class="btn btn-info text-white" id="save" type="submit" style="display:none;">Save</button>
                             <button class="btn btn-white text-info border-info" onclick="disableData1()" id="cancel" type="button" style="display:none;">Cancel</button>
                         </div>
+                    </div>
                 </form>
                 <form asp-action="UpdateAddressInformationOfAdmin" asp-controller="Admin" id="enable1">
                     <input type="hidden" asp-for=admin.Adminid value="@Model.admin.Adminid" />
@@ -166,6 +175,18 @@
 </div>
 
 <script>
+    function EditData2() {
+        document.getElementById("reset").style.display = "none";
+        document.getElementById("cancel2").style.display = "inline";
+        document.getElementById("save2").style.display = "inline";
+        document.getElementById("password").disabled = false;
+    }
+    function disableData2() {
+        document.getElementById("password").disabled = true;
+        document.getElementById("reset").style.display = "inline";
+        document.getElementById("cancel2").style.display = "none";
+        document.getElementById("save2").style.display = "none";
+    }
     function disableData() {
         document.getElementById("save1").style.display = "none";
         document.getElementById("cancel1").style.display = "none";

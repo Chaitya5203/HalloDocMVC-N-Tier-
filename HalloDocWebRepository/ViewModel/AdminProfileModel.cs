@@ -17,6 +17,7 @@ namespace HalloDocWebRepository.ViewModel
         public List<int>? SelectedReg { get; set; }
         public List<Role> roles { get; set; }
         public int regionid { get; set; }
-        public int roleid { get; set; }
+        public int? roleid { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -21,21 +21,17 @@ namespace HalloDocWebService.Authentication
         {
             _role = role;
         }
-      
     }
     public class CustomAuthorize : Attribute, IAuthorizationFilter
     {
         private readonly string _role;
-
         public CustomAuthorize(string role = "")
         {
             this._role = role;
         }
-
         public void OnAuthorization(AuthorizationFilterContext context)
       {
             var jwtService = context.HttpContext.RequestServices.GetService<IJwt_Service>();
-
             if (jwtService == null)
             {
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
@@ -43,15 +39,12 @@ namespace HalloDocWebService.Authentication
             }
              var request = context.HttpContext.Request;
             var token = request.Cookies["jwt"];
-            
             if (_role == "Login")
             {
                 if ( token == null)
                 {
-                    //context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "patientlogin" }));
                     return;
                 }
-
                 if ( !jwtService.ValidateToken(token, out JwtSecurityToken jwtToken) || token == null)
                     {
                         context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
@@ -68,7 +61,6 @@ namespace HalloDocWebService.Authentication
                         context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Admin", action = "admindashboard" }));
                         return;
                     }
-                
             }
             else
             {
@@ -77,23 +69,13 @@ namespace HalloDocWebService.Authentication
                     context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
                     return;
                 }
-
                 Claim roleClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
-
                 if (roleClaim.Value != _role)
                 {
                     context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
                     return;
                 }
             }
-            
-
-            //if (string.IsNullOrEmpty(_role) || roleClaim.Value != _role)
-            //{
-            //    context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "AccessDenied" }));
-            //    return;
-            //}
         }
     }
-
 }
